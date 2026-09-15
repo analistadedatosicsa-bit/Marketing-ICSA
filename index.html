@@ -514,6 +514,70 @@
   .stat-row.compact .label{ max-width:15ch; font-size:12px; }
   .zero{ color:var(--pending); }
   .ent{ color:var(--ink-soft); font-size:12px; }
+  /* --- tablero de asesores --- */
+  .asesor-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap:16px;
+  }
+  .asesor-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-left:3px solid var(--pending);
+    border-radius:12px;
+    padding:20px 22px 18px;
+  }
+  .asesor-card.estado-good{ border-left-color:var(--good); }
+  .asesor-card.estado-warn{ border-left-color:var(--warn); }
+  .asesor-card.estado-bad{  border-left-color:var(--bad); }
+  .asesor-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; margin-bottom:12px;
+  }
+  .asesor-nombre{ font-size:20px; font-weight:600; letter-spacing:-0.01em; }
+  .asesor-pct{
+    font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600;
+    font-variant-numeric: tabular-nums;
+  }
+  .estado-good .asesor-pct{ color:var(--good); }
+  .estado-warn .asesor-pct{ color:var(--warn); }
+  .estado-bad  .asesor-pct{ color:var(--bad); }
+  .asesor-barra{
+    height:8px; background:var(--line); border-radius:100px;
+    overflow:hidden; margin-bottom:16px;
+  }
+  .asesor-fill{ height:100%; border-radius:100px; background:var(--pending); }
+  .estado-good .asesor-fill{ background:var(--good); }
+  .estado-warn .asesor-fill{ background:var(--warn); }
+  .estado-bad  .asesor-fill{ background:var(--bad); }
+  .asesor-cifras{
+    display:flex; gap:26px; margin-bottom:14px; flex-wrap:wrap;
+  }
+  .asesor-cifras > div{ display:flex; flex-direction:column; gap:3px; }
+  .cifra{
+    font-size:28px; font-weight:700; line-height:1;
+    font-variant-numeric: tabular-nums; letter-spacing:-0.01em;
+  }
+  .cifra.falta{ color:var(--warn); }
+  .cifra.listo{ color:var(--good); }
+  .cifra-lbl{ font-size:11.5px; color:var(--ink-soft); }
+  .asesor-ritmo{
+    font-size:13px; color:var(--ink-soft);
+    background:rgba(255,255,255,0.03);
+    border-radius:8px; padding:9px 12px; margin-bottom:14px;
+  }
+  .asesor-ritmo strong{ color:var(--ink); }
+  .asesor-ritmo.listo{ color:var(--good); }
+  .asesor-tabla{ font-size:12.5px; margin-top:0; }
+  .asesor-tabla th{ font-size:9.5px; padding:5px 6px; }
+  .asesor-tabla td{
+    padding:7px 6px; border-bottom:1px solid rgba(255,255,255,0.05);
+    font-variant-numeric: tabular-nums;
+  }
+  .asesor-tabla tr:last-child td{ border-bottom:none; background:none; font-weight:400; }
+  .asesor-tabla tr.cero td{ color:var(--pending); }
+  .asesor-tabla tr.ok .prog-name{ color:var(--good); }
+  .asesor-tabla .prog-name{ font-weight:500; }
   .subtotal-row td{ background:rgba(255,255,255,0.03); font-weight:600; }
   .row-sub{
     display:block;
@@ -608,6 +672,12 @@
       <div class="account-item" onclick="showAccount('maicao', this)">
         <div class="item-left"><span class="dot sample"></span> S/F Maicáo</div>
         <span class="item-tag">muestra</span>
+      </div>
+
+      <div class="accounts-label" style="margin-top:18px;">Equipo</div>
+      <div class="account-item" onclick="showAccount('asesores', this)">
+        <div class="item-left"><span class="dot" style="background:var(--ochre)"></span> Asesores BAQ</div>
+        <span class="item-tag">septiembre</span>
       </div>
     </nav>
 
@@ -1121,9 +1191,9 @@
       <div class="card full">
         <h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>
         <div class="stat-row" style="margin-bottom:20px;">
-          <div class="stat"><div class="num">1.298</div><div class="label">matrículas 2026 (ene–sep)</div></div>
+          <div class="stat"><div class="num">1.325</div><div class="label">matrículas 2026 (ene–sep)</div></div>
           <div class="stat"><div class="num">1.706</div><div class="label">matrículas 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num" style="color:var(--bad)">−408</div><div class="label">diferencia acumulada vs. 2025</div></div>
+          <div class="stat"><div class="num" style="color:var(--bad)">−381</div><div class="label">diferencia acumulada vs. 2025</div></div>
         </div>
         <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
@@ -1635,7 +1705,7 @@
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-8" data-target="rh-det-8">
               <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto</td>
-              <td>137</td><td>178</td><td>122</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">68,5%</span></td><td class="delta neg">−56</td><td class="delta neg">−15</td><td class="delta neg">−10,9%</td>
+              <td>137</td><td>178</td><td>121</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">68,0%</span></td><td class="delta neg">−57</td><td class="delta neg">−16</td><td class="delta neg">−11,7%</td>
             </tr>
             <tr class="detail-row" id="rh-det-8" hidden>
               <td colspan="8" class="detail-cell">
@@ -1672,7 +1742,7 @@
                     </tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>9</td><td>12</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−10</td><td class="delta neg">−7</td><td class="delta neg">−77,8%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>8</td><td>10</td><td>7</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:70%"></div></div><span class="pct">70,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−1</td><td class="delta neg">−12,5%</td></tr>
-                    <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>4</td><td>5</td><td>7</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">140,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+3</td><td class="delta pos">+75,0%</td></tr>
+                    <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>4</td><td>5</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">120,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+2</td><td class="delta pos">+50,0%</td></tr>
                     <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>0</td><td>—</td><td>6</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+6</td><td class="delta pos">+6</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+3</td><td class="delta pos">+4</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>3</td><td>4</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">125,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+2</td><td class="delta pos">+66,7%</td></tr>
@@ -1698,7 +1768,7 @@
                   <tbody>
                     <tr><td class="prog-name">Arturo Pimienta</td><td>55</td><td>59</td><td>49</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:83%"></div></div><span class="pct">83,1%</span></td><td class="delta neg">−10</td><td class="delta neg">−6</td><td class="delta neg">−10,9%</td></tr>
                     <tr><td class="prog-name">Angel Correa</td><td>50</td><td>59</td><td>40</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">67,8%</span></td><td class="delta neg">−19</td><td class="delta neg">−10</td><td class="delta neg">−20,0%</td></tr>
-                    <tr><td class="prog-name">Daniela Muñoz</td><td>32</td><td>59</td><td>32</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:54%"></div></div><span class="pct">54,2%</span></td><td class="delta neg">−27</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Daniela Muñoz</td><td>32</td><td>59</td><td>31</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:52%"></div></div><span class="pct">52,5%</span></td><td class="delta neg">−28</td><td class="delta neg">−1</td><td class="delta neg">−3,1%</td></tr>
                     <tr><td class="prog-name">Sin asesor registrado</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
@@ -1708,55 +1778,54 @@
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-9" data-target="rh-det-9">
               <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td>
-              <td>53</td><td>69</td><td>26</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:38%"></div></div><span class="pct">37,7%</span></td><td class="delta neg">−43</td><td class="delta neg">−27</td><td class="delta neg">−50,9%</td>
+              <td>53</td><td>69</td><td>54</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:78%"></div></div><span class="pct">78,3%</span></td><td class="delta neg">−15</td><td class="delta pos">+1</td><td class="delta pos">+1,9%</td>
             </tr>
             <tr class="detail-row" id="rh-det-9" hidden>
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Septiembre · por programa <span class="detail-count">24</span></div>
+                <div class="detail-title">Septiembre · por programa <span class="detail-count">23</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>10</td><td>13</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:15%"></div></div><span class="pct">15,4%</span></td><td class="delta neg">−11</td><td class="delta neg">−8</td><td class="delta neg">−80,0%</td></tr>
-                    <tr><td class="prog-name">Asistente de Primera Infancia</td><td>5</td><td>6</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>5</td><td>6</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−80,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
-                    <tr><td class="prog-name">Cocinero Principal</td><td>3</td><td>4</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
-                    <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
+                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>10</td><td>13</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:46%"></div></div><span class="pct">46,2%</span></td><td class="delta neg">−7</td><td class="delta neg">−4</td><td class="delta neg">−40,0%</td></tr>
+                    <tr><td class="prog-name">Asistente de Primera Infancia</td><td>5</td><td>6</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−80,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>5</td><td>6</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,7%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−20,0%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-bach-9" data-target="rh-bach-9">
-                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">4 ciclos</span></td><td>2</td><td>3</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+50,0%</td>
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">4 ciclos</span></td><td>2</td><td>3</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">166,7%</span></td><td class="delta pos">+2</td><td class="delta pos">+3</td><td class="delta pos">+150,0%</td>
                     </tr>
                     <tr class="sub-detail-row" id="rh-bach-9" hidden>
                       <td colspan="8" class="sub-detail-cell">
                         <table class="ciclo-table">
                           <thead><tr><th>Ciclo</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                           <tbody>
+                            <tr><td class="prog-name">Ciclo III (6-7°)</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
                             <tr><td class="prog-name">Bachillerato en 1 año</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                            <tr><td class="prog-name">Ciclo III (6-7°)</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                             <tr><td class="prog-name">Ciclo IV (8-9°)</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                             <tr><td class="prog-name">Ciclo VI (11°)</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                           </tbody>
                         </table>
                       </td>
                     </tr>
-                    <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>2</td><td>3</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+50,0%</td></tr>
+                    <tr><td class="prog-name">Excel Basico, Intermedio y Avanzado</td><td>0</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+5</td><td class="delta pos">+5</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>2</td><td>3</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">166,7%</span></td><td class="delta pos">+2</td><td class="delta pos">+3</td><td class="delta pos">+150,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
+                    <tr><td class="prog-name">Cocinero Principal</td><td>3</td><td>4</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
+                    <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>0</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+4</td><td class="delta pos">+4</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Inglés Conversacional</td><td>1</td><td>1</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">400,0%</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta pos">+300,0%</td></tr>
+                    <tr><td class="prog-name">Inyectologia</td><td>0</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+4</td><td class="delta pos">+4</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
+                    <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>1</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">300,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Sastrería y Confección a la Medida</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Estilista Integral en Peluquería</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Excel Basico, Intermedio y Avanzado</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Inyectologia</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
-                    <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Inglés Conversacional</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>1</td><td>1</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
+                    <tr><td class="prog-name">Sistemas Informáticos</td><td>1</td><td>1</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
+                    <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Sin programa</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Sistemas Informáticos</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                   </tbody>
                 </table>
                 </div>
@@ -1765,16 +1834,16 @@
                 <table class="prog-table">
                   <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Arturo Pimienta</td><td>28</td><td>34</td><td>12</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:35%"></div></div><span class="pct">35,3%</span></td><td class="delta neg">−22</td><td class="delta neg">−16</td><td class="delta neg">−57,1%</td></tr>
-                    <tr><td class="prog-name">Daniela Muñoz</td><td>16</td><td>34</td><td>12</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:35%"></div></div><span class="pct">35,3%</span></td><td class="delta neg">−22</td><td class="delta neg">−4</td><td class="delta neg">−25,0%</td></tr>
-                    <tr><td class="prog-name">Angel Correa</td><td>9</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta neg">−7</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Arturo Pimienta</td><td>28</td><td>34</td><td>24</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:71%"></div></div><span class="pct">70,6%</span></td><td class="delta neg">−10</td><td class="delta neg">−4</td><td class="delta neg">−14,3%</td></tr>
+                    <tr><td class="prog-name">Daniela Muñoz</td><td>16</td><td>34</td><td>22</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">64,7%</span></td><td class="delta neg">−12</td><td class="delta pos">+6</td><td class="delta pos">+37,5%</td></tr>
+                    <tr><td class="prog-name">Angel Correa</td><td>9</td><td>—</td><td>8</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta neg">−1</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
                 </div>
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-2</td><td>668</td><td>868</td><td>523</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:60%"></div></div><span class="pct">60,3%</span></td><td class="delta neg">−345</td><td class="delta neg">−145</td><td class="delta neg">−21,7%</td></tr>
+            <tr class="total-row"><td>Total 2026-2</td><td>668</td><td>868</td><td>550</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:63%"></div></div><span class="pct">63,4%</span></td><td class="delta neg">−318</td><td class="delta neg">−118</td><td class="delta neg">−17,7%</td></tr>
           </tbody>
         </table>
         </div>
@@ -1807,12 +1876,12 @@
         <div class="year-grid">
           <div class="year-cell"><span class="year-label">2025 ene–dic (cerrado)</span><span class="year-val">1.834</span></div>
           <div class="year-cell"><span class="year-label">Meta 2026 ene–dic (+30%)</span><span class="year-val">2.384</span></div>
-          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">1.298</span></div>
-          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">54,4%</span></div>
-          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−536</span></div>
-          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">1.086</span></div>
+          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">1.325</span></div>
+          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">55,6%</span></div>
+          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−509</span></div>
+          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">1.059</span></div>
         </div>
-        <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Septiembre a diciembre quedan pendientes hasta que cierre cada mes.</div>
+        <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Septiembre ya se mide como los demás meses, con el registro cortado a mitad del mes. Octubre a diciembre quedan pendientes hasta que cierre cada mes.</div>
       </div>
       <div class="card full" style="margin-top:14px;">
         <h3>Desempeño por asesor</h3>
@@ -1821,14 +1890,14 @@
         <table class="matriculas-table">
           <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
-            <tr><td class="prog-name">Arturo Pimienta</td><td>516</td><td>792</td><td>480</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:61%"></div></div><span class="pct">60,6%</span></td><td class="delta neg">−312</td><td class="delta neg">−36</td><td class="delta neg">−7,0%</td></tr>
-            <tr><td class="prog-name">Angel Correa</td><td>313</td><td>674</td><td>432</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:64%"></div></div><span class="pct">64,1%</span></td><td class="delta neg">−242</td><td class="delta pos">+119</td><td class="delta pos">+38,0%</td></tr>
-            <tr><td class="prog-name">Daniela Muñoz</td><td>490</td><td>792</td><td>368</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:46%"></div></div><span class="pct">46,5%</span></td><td class="delta neg">−424</td><td class="delta neg">−122</td><td class="delta neg">−24,9%</td></tr>
+            <tr><td class="prog-name">Arturo Pimienta</td><td>516</td><td>792</td><td>492</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:62%"></div></div><span class="pct">62,1%</span></td><td class="delta neg">−300</td><td class="delta neg">−24</td><td class="delta neg">−4,7%</td></tr>
+            <tr><td class="prog-name">Angel Correa</td><td>313</td><td>674</td><td>438</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">65,0%</span></td><td class="delta neg">−236</td><td class="delta pos">+125</td><td class="delta pos">+39,9%</td></tr>
+            <tr><td class="prog-name">Daniela Muñoz</td><td>490</td><td>792</td><td>377</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:48%"></div></div><span class="pct">47,6%</span></td><td class="delta neg">−415</td><td class="delta neg">−113</td><td class="delta neg">−23,1%</td></tr>
             <tr><td class="prog-name">Stebelk Galvan</td><td>314</td><td>128</td><td>17</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:13%"></div></div><span class="pct">13,3%</span></td><td class="delta neg">−111</td><td class="delta neg">−297</td><td class="delta neg">−94,6%</td></tr>
             <tr><td class="prog-name">Sin asesor registrado</td><td>1</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta ">0</td><td class="delta">—</td></tr>
-            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>1.634</td><td>2.386</td><td>1.298</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:54%"></div></div><span class="pct">54,4%</span></td><td class="delta neg">−1.088</td><td class="delta neg">−336</td><td class="delta neg">−20,6%</td></tr>
+            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>1.634</td><td>2.386</td><td>1.325</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">55,5%</span></td><td class="delta neg">−1.061</td><td class="delta neg">−309</td><td class="delta neg">−18,9%</td></tr>
             <tr class="muted-row"><td class="prog-name">Asesores que ya no están <span class="row-sub">Janina Duarte, Yiriemmy Bello</span></td><td>200</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct pending">no aplica</span></td><td class="delta">—</td><td class="delta neg">−200</td><td class="delta neg">−100,0%</td></tr>
-            <tr class="total-row"><td>Total sede</td><td>1.834</td><td>2.384</td><td>1.298</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:54%"></div></div><span class="pct">54,4%</span></td><td class="delta neg">−1.086</td><td class="delta neg">−536</td><td class="delta neg">−29,2%</td></tr>
+            <tr class="total-row"><td>Total sede</td><td>1.834</td><td>2.384</td><td>1.325</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">55,6%</span></td><td class="delta neg">−1.059</td><td class="delta neg">−509</td><td class="delta neg">−27,8%</td></tr>
           </tbody>
         </table>
         </div>
@@ -2043,15 +2112,15 @@
 
     <section class="block">
       <div class="block-head">
-        <span class="block-title">Admisiones — Maicao</span>
+        <span class="block-title">Admisiones — Maicáo</span>
         <span class="block-num">05</span>
       </div>
       <div class="card full">
         <h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>
         <div class="stat-row" style="margin-bottom:20px;">
-          <div class="stat"><div class="num">639</div><div class="label">matrículas 2026 (ene–sep)</div></div>
+          <div class="stat"><div class="num">644</div><div class="label">matrículas 2026 (ene–sep)</div></div>
           <div class="stat"><div class="num">1.039</div><div class="label">matrículas 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num" style="color:var(--bad)">−400</div><div class="label">diferencia acumulada vs. 2025</div></div>
+          <div class="stat"><div class="num" style="color:var(--bad)">−395</div><div class="label">diferencia acumulada vs. 2025</div></div>
         </div>
         <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
@@ -2473,7 +2542,7 @@
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>11</td><td>14</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:21%"></div></div><span class="pct">21,4%</span></td><td class="delta neg">−11</td><td class="delta neg">−8</td><td class="delta neg">−72,7%</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>10</td><td>13</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:8%"></div></div><span class="pct">7,7%</span></td><td class="delta neg">−12</td><td class="delta neg">−9</td><td class="delta neg">−90,0%</td></tr>
                     <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>10</td><td>13</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:31%"></div></div><span class="pct">30,8%</span></td><td class="delta neg">−9</td><td class="delta neg">−6</td><td class="delta neg">−60,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo</td><td>9</td><td>12</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−8</td><td class="delta neg">−5</td><td class="delta neg">−55,6%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo</td><td>9</td><td>12</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:42%"></div></div><span class="pct">41,7%</span></td><td class="delta neg">−7</td><td class="delta neg">−4</td><td class="delta neg">−44,4%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>9</td><td>12</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:8%"></div></div><span class="pct">8,3%</span></td><td class="delta neg">−11</td><td class="delta neg">−8</td><td class="delta neg">−88,9%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>8</td><td>10</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:30%"></div></div><span class="pct">30,0%</span></td><td class="delta neg">−7</td><td class="delta neg">−5</td><td class="delta neg">−62,5%</td></tr>
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>8</td><td>10</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:10%"></div></div><span class="pct">10,0%</span></td><td class="delta neg">−9</td><td class="delta neg">−7</td><td class="delta neg">−87,5%</td></tr>
@@ -2492,7 +2561,7 @@
                         </table>
                       </td>
                     </tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>6</td><td>8</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−4</td><td class="delta neg">−66,7%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>6</td><td>8</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:12%"></div></div><span class="pct">12,5%</span></td><td class="delta neg">−7</td><td class="delta neg">−5</td><td class="delta neg">−83,3%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>6</td><td>8</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−4</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
@@ -2529,7 +2598,7 @@
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>14</td><td>18</td><td>10</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">55,6%</span></td><td class="delta neg">−8</td><td class="delta neg">−4</td><td class="delta neg">−28,6%</td></tr>
+                    <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>14</td><td>18</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">44,4%</span></td><td class="delta neg">−10</td><td class="delta neg">−6</td><td class="delta neg">−42,9%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Enfermería</td><td>13</td><td>17</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:47%"></div></div><span class="pct">47,1%</span></td><td class="delta neg">−9</td><td class="delta neg">−5</td><td class="delta neg">−38,5%</td></tr>
                     <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>10</td><td>13</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:23%"></div></div><span class="pct">23,1%</span></td><td class="delta neg">−10</td><td class="delta neg">−7</td><td class="delta neg">−70,0%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-bach-8" data-target="mc-bach-8">
@@ -2551,8 +2620,8 @@
                     <tr><td class="prog-name">Cocinero Principal</td><td>2</td><td>3</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+3</td><td class="delta pos">+4</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>6</td><td>8</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:12%"></div></div><span class="pct">12,5%</span></td><td class="delta neg">−7</td><td class="delta neg">−5</td><td class="delta neg">−83,3%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo</td><td>5</td><td>6</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−60,0%</td></tr>
+                    <tr><td class="prog-name">Panadería y Repostería</td><td>4</td><td>5</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+25,0%</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
-                    <tr><td class="prog-name">Panadería y Repostería</td><td>4</td><td>5</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:60%"></div></div><span class="pct">60,0%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−25,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
@@ -2580,13 +2649,13 @@
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-9" data-target="mc-det-9">
               <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td>
-              <td>92</td><td>120</td><td>13</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:11%"></div></div><span class="pct">10,8%</span></td><td class="delta neg">−107</td><td class="delta neg">−79</td><td class="delta neg">−85,9%</td>
+              <td>92</td><td>120</td><td>18</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:15%"></div></div><span class="pct">15,0%</span></td><td class="delta neg">−102</td><td class="delta neg">−74</td><td class="delta neg">−80,4%</td>
             </tr>
             <tr class="detail-row" id="mc-det-9" hidden>
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Septiembre · por programa <span class="detail-count">22</span></div>
+                <div class="detail-title">Septiembre · por programa <span class="detail-count">23</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2605,9 +2674,9 @@
                         </table>
                       </td>
                     </tr>
-                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>6</td><td>8</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:12%"></div></div><span class="pct">12,5%</span></td><td class="delta neg">−7</td><td class="delta neg">−5</td><td class="delta neg">−83,3%</td></tr>
+                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>6</td><td>8</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−4</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>6</td><td>8</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−8</td><td class="delta neg">−6</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>6</td><td>8</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−2</td><td class="delta neg">−33,3%</td></tr>
+                    <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>6</td><td>8</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:62%"></div></div><span class="pct">62,5%</span></td><td class="delta neg">−3</td><td class="delta neg">−1</td><td class="delta neg">−16,7%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo</td><td>5</td><td>6</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−80,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>5</td><td>6</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Caja Registradora</td><td>5</td><td>6</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
@@ -2615,15 +2684,16 @@
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>5</td><td>6</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>5</td><td>6</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−80,0%</td></tr>
                     <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>5</td><td>6</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Sistemas Informáticos</td><td>5</td><td>6</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Sistemas Informáticos</td><td>5</td><td>6</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−80,0%</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>2</td><td>3</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,7%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Inyectologia Personal de la Salud</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Excel Basico, Intermedio y Avanzado</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Inyectologia</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Facturacion Hospitalaria</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                   </tbody>
                 </table>
@@ -2633,16 +2703,16 @@
                 <table class="prog-table">
                   <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Andreyna Pacheco</td><td>36</td><td>120</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:7%"></div></div><span class="pct">6,7%</span></td><td class="delta neg">−112</td><td class="delta neg">−28</td><td class="delta neg">−77,8%</td></tr>
+                    <tr><td class="prog-name">Andreyna Pacheco</td><td>36</td><td>120</td><td>12</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:10%"></div></div><span class="pct">10,0%</span></td><td class="delta neg">−108</td><td class="delta neg">−24</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Danny</td><td>0</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+4</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Marlon</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Marlon</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
                 </div>
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-2</td><td>519</td><td>675</td><td>189</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:28%"></div></div><span class="pct">28,0%</span></td><td class="delta neg">−486</td><td class="delta neg">−330</td><td class="delta neg">−63,6%</td></tr>
+            <tr class="total-row"><td>Total 2026-2</td><td>519</td><td>675</td><td>194</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:29%"></div></div><span class="pct">28,7%</span></td><td class="delta neg">−481</td><td class="delta neg">−325</td><td class="delta neg">−62,6%</td></tr>
           </tbody>
         </table>
         </div>
@@ -2675,12 +2745,12 @@
         <div class="year-grid">
           <div class="year-cell"><span class="year-label">2025 ene–dic (cerrado)</span><span class="year-val">1.154</span></div>
           <div class="year-cell"><span class="year-label">Meta 2026 ene–dic (+30%)</span><span class="year-val">1.494</span></div>
-          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">639</span></div>
-          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">42,8%</span></div>
-          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−515</span></div>
-          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">855</span></div>
+          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">644</span></div>
+          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">43,1%</span></div>
+          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−510</span></div>
+          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">850</span></div>
         </div>
-        <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Septiembre a diciembre quedan pendientes hasta que cierre cada mes. <strong style="color:var(--ink)">Enero</strong> aparece sin meta: el registro de 2025 de esta sede tiene muy pocas matrículas ese mes, así que no hay base con la cual comparar y se excluye del cálculo de la meta.</div>
+        <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Septiembre ya se mide como los demás meses, con el registro cortado a mitad del mes. Octubre a diciembre quedan pendientes hasta que cierre cada mes. <strong style="color:var(--ink)">Enero</strong> aparece sin meta: el registro de 2025 de esta sede tiene muy pocas matrículas ese mes, así que no hay base con la cual comparar y se excluye del cálculo de la meta.</div>
       </div>
       <div class="card full" style="margin-top:14px;">
         <h3>Desempeño por asesor</h3>
@@ -2689,14 +2759,14 @@
         <table class="matriculas-table">
           <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
-            <tr><td class="prog-name">Andreyna Pacheco</td><td>408</td><td>1.038</td><td>328</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:32%"></div></div><span class="pct">31,6%</span></td><td class="delta neg">−710</td><td class="delta neg">−80</td><td class="delta neg">−19,6%</td></tr>
+            <tr><td class="prog-name">Andreyna Pacheco</td><td>408</td><td>1.038</td><td>332</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:32%"></div></div><span class="pct">32,0%</span></td><td class="delta neg">−706</td><td class="delta neg">−76</td><td class="delta neg">−18,6%</td></tr>
             <tr><td class="prog-name">Jair Medina</td><td>216</td><td>456</td><td>297</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">65,1%</span></td><td class="delta neg">−159</td><td class="delta pos">+81</td><td class="delta pos">+37,5%</td></tr>
             <tr><td class="prog-name">Danny</td><td>0</td><td>—</td><td>12</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+12</td><td class="delta">—</td></tr>
+            <tr><td class="prog-name">Marlon</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
             <tr><td class="prog-name">Merlis Chamorro</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-            <tr><td class="prog-name">Marlon</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>624</td><td>1.494</td><td>639</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:43%"></div></div><span class="pct">42,8%</span></td><td class="delta neg">−855</td><td class="delta pos">+15</td><td class="delta pos">+2,4%</td></tr>
+            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>624</td><td>1.494</td><td>644</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:43%"></div></div><span class="pct">43,1%</span></td><td class="delta neg">−850</td><td class="delta pos">+20</td><td class="delta pos">+3,2%</td></tr>
             <tr class="muted-row"><td class="prog-name">Asesores que ya no están <span class="row-sub">Angel Correa, Mabel Daza, Jorge Pimienta, Luis Jose Van-grieken, Angela Parody, Sandra Sierra, Daniela Muñoz</span></td><td>530</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct pending">no aplica</span></td><td class="delta">—</td><td class="delta neg">−530</td><td class="delta neg">−100,0%</td></tr>
-            <tr class="total-row"><td>Total sede</td><td>1.154</td><td>1.494</td><td>639</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:43%"></div></div><span class="pct">42,8%</span></td><td class="delta neg">−855</td><td class="delta neg">−515</td><td class="delta neg">−44,6%</td></tr>
+            <tr class="total-row"><td>Total sede</td><td>1.154</td><td>1.494</td><td>644</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:43%"></div></div><span class="pct">43,1%</span></td><td class="delta neg">−850</td><td class="delta neg">−510</td><td class="delta neg">−44,2%</td></tr>
           </tbody>
         </table>
         </div>
@@ -2704,6 +2774,13 @@
       </div>
     </section>
   </div>
+  <!-- ============ TABLERO DE ASESORES ============ -->
+  <div class="account-page" id="acc-asesores">
+    <div id="tablero-asesores">
+      <div class="placeholder"><p>Cargando el tablero del equipo…</p></div>
+    </div>
+  </div>
+
   <!-- ============ FIN MAICÁO ============ -->
 
   </main>
@@ -2927,6 +3004,193 @@ function conectarDesplegables(raiz) {
   });
 }
 
+// ─────────────────────────────────────────────────────────────
+// TABLERO DE ASESORES — Barranquilla
+// Cada asesor es dueño de unos programas: su meta es la suma de las metas
+// de esos programas, y cuentan todas las matrículas del programa.
+// Asignación vigente desde septiembre de 2026.
+// ─────────────────────────────────────────────────────────────
+const ASIGNACION = {
+  'Keyla': ['Cosmetología y Estética Integral', 'Auxiliar en Enfermería',
+            'Auxiliar en Servicios Farmacéuticos', 'Auxiliar Administrativo en Salud',
+            'Seguridad Ocupacional y Laboral'],
+  'Andrés': ['Refrigeración y Aires Acondicionados', 'Panadería y Repostería',
+             'Marketing Digital', 'Mecánico de Vehículos Automotores',
+             'Auxiliar Contable y Financiero', 'Auxiliar Administrativo'],
+  'Luz Ángela': ['Inglés Conversacional', 'Cocinero Principal',
+                 'Patronaje, Cortador y Confección de Moda',
+                 'Auxiliar en Clínica Veterinaria', 'Bachillerato'],
+  'Danny': ['Auxiliar en Salud Oral', 'Investigador Criminalístico y Judicial',
+            'Asistente de Primera Infancia', 'Auxiliar en Suministros y Almacén',
+            'Peluquería y Estética Canina', 'Estilista Integral en Peluquería']
+};
+const DESDE_MES = 9;            // la asignación empieza a regir en septiembre
+
+// Meta total del equipo, fijada a mano por mes. Si un mes no está aquí,
+// se usa la meta natural (matrículas del mismo mes de 2025 × 1,30).
+// Ese total se reparte entre los programas en proporción a lo que cada uno
+// matriculó en el mismo mes del año pasado.
+const META_MENSUAL = { 9: 200 };
+
+/** clave tolerante: sin tildes, sin puntuación y sin palabras de relleno */
+function claveProg(s) {
+  return String(s).toUpperCase()
+    .replace(/[ÁÀÄÂ]/g,'A').replace(/[ÉÈËÊ]/g,'E').replace(/[ÍÌÏÎ]/g,'I')
+    .replace(/[ÓÒÖÔ]/g,'O').replace(/[ÚÙÜÛ]/g,'U')
+    .replace(/[^A-Z0-9]/g,' ')
+    .replace(/\b(DE|DEL|EN|Y|LA|EL|LOS|LAS|AUXILIAR|TECNICO|CURSO)\b/g,' ')
+    .replace(/(ES|S)\b/g,'')
+    .replace(/\s+/g,'');
+}
+
+/** algunos programas cambian de orden o abreviatura según la fuente */
+const ALIAS = [
+  [/CRIMINALIST/, 'CRIMINALISTICA'],
+  [/REFRIGERACION|AIREACONDICIONADO/, 'AIRES'],
+  [/PATRONAJE/, 'PATRONAJE'],
+  [/CANIN/, 'CANINA'],
+  [/INGLE/, 'INGLES']
+];
+function clave(s) {
+  const k = claveProg(s);
+  for (let i = 0; i < ALIAS.length; i++) if (ALIAS[i][0].test(k)) return ALIAS[i][1];
+  return k;
+}
+const DIAS_MES = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+function diasRestantes(mesNum) {
+  const hoy = new Date();
+  if (hoy.getFullYear() !== 2026 || hoy.getMonth() + 1 !== mesNum) return null;
+  return { total: DIAS_MES[mesNum-1], transcurridos: hoy.getDate(),
+           faltan: DIAS_MES[mesNum-1] - hoy.getDate() };
+}
+
+/** Reparte un total entre los programas según su peso en 2025 (resto mayor). */
+function repartirMeta(programas, total) {
+  const peso = programas.reduce((a, p) => a + p.y25, 0);
+  if (!peso) return null;
+  const exacto = programas.map(p => total * p.y25 / peso);
+  const base = exacto.map(Math.floor);
+  let sobra = total - base.reduce((a, b) => a + b, 0);
+  // las unidades sobrantes van a los programas con mayor parte decimal
+  const orden = exacto.map((e, i) => [e - base[i], i]).sort((a, b) => b[0] - a[0]);
+  for (let k = 0; k < orden.length && sobra > 0; k++, sobra--) base[orden[k][1]]++;
+  const meta = {};
+  programas.forEach((p, i) => { meta[p.prog] = base[i]; });
+  return meta;
+}
+
+function tableroAsesores(d) {
+  const m = d.meses[DESDE_MES - 1];
+  if (!m) return '<div class="placeholder"><p>Aún no hay datos de ese mes.</p></div>';
+  const dias = diasRestantes(DESDE_MES);
+  // si el mes tiene meta fijada a mano, se recalcula la de cada programa
+  const totalFijado = META_MENSUAL[DESDE_MES] || null;
+  const metaProg = totalFijado ? repartirMeta(m.programas, totalFijado) : null;
+
+  const idx = {};
+  m.programas.forEach(p => {
+    idx[clave(p.prog)] = metaProg
+      ? Object.assign({}, p, { meta: metaProg[p.prog],
+          cumpl: metaProg[p.prog] ? Math.round(p.y26 / metaProg[p.prog] * 1000) / 10 : null })
+      : p;
+  });
+
+  // reparto por asesor
+  const filas = Object.keys(ASIGNACION).map(nombre => {
+    const progs = ASIGNACION[nombre].map(nom =>
+      idx[clave(nom)] || { prog: nom, y25: 0, meta: 0, y26: 0, cumpl: null, sinmov: true });
+    const meta = progs.reduce((a, p) => a + (p.meta || 0), 0);
+    const y26  = progs.reduce((a, p) => a + p.y26, 0);
+    const y25  = progs.reduce((a, p) => a + p.y25, 0);
+    return { nombre, progs, meta, y26, y25, falta: Math.max(meta - y26, 0),
+             cumpl: meta ? Math.round(y26 / meta * 1000) / 10 : null };
+  }).sort((a, b) => (b.cumpl ?? -1) - (a.cumpl ?? -1));
+
+  // programas del mes que no tiene nadie
+  const asignados = new Set([].concat.apply([], Object.values(ASIGNACION)).map(clave));
+  const huerfanos = m.programas.filter(p => !asignados.has(clave(p.prog)));
+
+  const tm = filas.reduce((a, f) => a + f.meta, 0);
+  const t26 = filas.reduce((a, f) => a + f.y26, 0);
+
+  let h = '<div class="doc-header">' +
+    '<div class="eyebrow">Tablero del equipo · Barranquilla</div>' +
+    `<h1>${m.mes} 2026</h1>` +
+    '<div class="doc-sub">Cada asesor responde por sus programas: la meta es la suma de las metas ' +
+    'de esos programas, y cuenta toda matrícula que entre en ellos, sin importar quién la tomó.</div>' +
+    '<div class="status-row">' +
+    `<span class="pill src">🎯 meta del equipo ${N(tm)}</span>` +
+    `<span class="pill src">✓ llevan ${N(t26)}</span>`;
+  if (dias) h += `<span class="pill stamp">⏳ quedan ${dias.faltan} días</span>`;
+  h += '</div></div>';
+
+  // tarjetas
+  h += '<div class="asesor-grid">';
+  filas.forEach(f => {
+    const c = f.cumpl == null ? 0 : f.cumpl;
+    const estado = c >= 100 ? 'good' : c >= 60 ? 'warn' : 'bad';
+    const ritmo = (dias && dias.faltan > 0 && f.falta > 0)
+      ? (f.falta / dias.faltan) : null;
+    h += `<div class="asesor-card estado-${estado}">` +
+         `<div class="asesor-head"><span class="asesor-nombre">${esc(f.nombre)}</span>` +
+         `<span class="asesor-pct">${f.cumpl == null ? '—' : PC(f.cumpl)}</span></div>` +
+         '<div class="asesor-barra"><div class="asesor-fill" ' +
+         `style="width:${Math.min(c,100).toFixed(0)}%"></div></div>` +
+         '<div class="asesor-cifras">' +
+         `<div><span class="cifra">${N(f.y26)}</span><span class="cifra-lbl">llevan</span></div>` +
+         `<div><span class="cifra">${N(f.meta)}</span><span class="cifra-lbl">meta</span></div>` +
+         `<div><span class="cifra ${f.falta ? 'falta' : 'listo'}">${f.falta ? N(f.falta) : '✓'}</span>` +
+         `<span class="cifra-lbl">${f.falta ? 'le falta' : 'meta cumplida'}</span></div>` +
+         '</div>';
+    if (ritmo !== null) {
+      h += `<div class="asesor-ritmo">Necesita <strong>${ritmo.toFixed(1)}</strong> matrículas por día ` +
+           `para cerrar ${m.mes.toLowerCase()} en meta</div>`;
+    } else if (!f.falta && f.meta) {
+      h += '<div class="asesor-ritmo listo">Ya superó la meta del mes</div>';
+    }
+    // programas
+    h += '<table class="asesor-tabla"><thead><tr><th>Programa</th><th>2025</th><th>Meta</th>' +
+         '<th>2026</th><th>Falta</th></tr></thead><tbody>';
+    f.progs.slice().sort((a, b) => (b.meta || 0) - (a.meta || 0)).forEach(p => {
+      const falta = Math.max((p.meta || 0) - p.y26, 0);
+      const cls = p.y26 >= (p.meta || 0) && p.meta ? 'ok' : (p.y26 === 0 ? 'cero' : '');
+      h += `<tr class="${cls}"><td class="prog-name">${esc(p.prog)}</td>` +
+           `<td>${N(p.y25)}</td><td>${p.meta ? N(p.meta) : '—'}</td><td>${N(p.y26)}</td>` +
+           `<td class="delta ${falta ? 'neg' : 'pos'}">${falta ? N(falta) : '✓'}</td></tr>`;
+    });
+    h += '</tbody></table></div>';
+  });
+  h += '</div>';
+
+  if (huerfanos.length) {
+    h += '<div class="card full" style="margin-top:18px;"><h3>Programas sin asesor asignado</h3>' +
+         '<table class="prog-table"><thead><tr><th>Programa</th><th>2025</th><th>Meta</th>' +
+         '<th>2026</th></tr></thead><tbody>';
+    huerfanos.forEach(p => {
+      h += `<tr><td class="prog-name">${esc(p.prog)}</td><td>${N(p.y25)}</td>` +
+           `<td>${p.meta ? N(p.meta) : '—'}</td><td>${N(p.y26)}</td></tr>`;
+    });
+    h += '</tbody></table></div>';
+  }
+
+  h += '<div class="note" style="margin-top:18px;">' +
+       (totalFijado
+         ? `La meta del equipo para ${m.mes.toLowerCase()} se fijó en <strong style="color:var(--ink)">` +
+           `${N(totalFijado)}</strong> matrículas y se reparte entre los programas en proporción a lo que ` +
+           `cada uno matriculó en ${m.mes.toLowerCase()} de 2025. La meta de cada asesor es la suma de las ` +
+           'de sus programas. Es una meta más exigente que la del informe general de la sede, que sigue ' +
+           `calculándose como 2025 × 1,30 (${N(m.meta)} para este mes). Un programa sin matrículas en 2025 ` +
+           'no recibe meta, porque no hay base con la cual repartirla.'
+         : 'La meta de cada programa es lo que matriculó ese mismo mes de 2025 multiplicado por 1,30, y la ' +
+           'del asesor es la suma de las de sus programas.') +
+       '<br><br>' +
+       'La asignación rige desde septiembre de 2026, así que este tablero no aplica a los meses ' +
+       'anteriores. Peluquería canina y Estilista quedaron a cargo de Danny, y Bachillerato de Luz Ángela. ' +
+       'Un programa sin movimiento en 2025 ni en 2026 aparece con meta en guion.</div>';
+  return h;
+}
+
 async function cargarAdmisiones() {
   const slots = Array.from(document.querySelectorAll('.adm-slot'));
   if (!slots.length) return;   // ninguna sede en vivo en esta versión
@@ -2952,6 +3216,10 @@ async function cargarAdmisiones() {
       if (d.error) throw new Error(d.error);
       slot.innerHTML = seccion(sede, d);
       conectarDesplegables(slot);
+      if (sede === 'barranquilla') {
+        const tb = document.getElementById('tablero-asesores');
+        if (tb) tb.innerHTML = tableroAsesores(d);
+      }
     } catch (err) {
       slot.innerHTML = '<div class="placeholder"><p>No se pudieron cargar las admisiones de ' +
         esc(sede) + '.<br><small>' + esc(err.message) + '</small></p>' +
@@ -2997,7 +3265,7 @@ document.addEventListener('DOMContentLoaded', cargarAdmisiones);
   }
 </script>
 
-<footer>Informe Agosto — Marketing &amp; Ventas · Barranquilla en vivo desde Google Sheets · <span id="actualizado">consultando…</span> · Riohacha y Maicáo con corte manual al 8 de septiembre</footer>
+<footer>Informe Agosto — Marketing &amp; Ventas · Barranquilla en vivo desde Google Sheets · <span id="actualizado">consultando…</span> · Riohacha y Maicáo con corte manual al 14 de septiembre</footer>
 
 </body>
 </html>
