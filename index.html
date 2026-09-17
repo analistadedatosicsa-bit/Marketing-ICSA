@@ -521,6 +521,11 @@
 
   :root{ --restr:#B490F5; }
   /* --- aforo de salones --- */
+  .aviso-modelo{ border:1px solid rgba(244,196,48,.4); background:rgba(244,196,48,.08);
+    color:var(--warn); border-radius:10px; padding:12px 16px; font-size:13px; line-height:1.55;
+    margin-bottom:18px; }
+  .aviso-modelo code{ font-family:'IBM Plex Mono',monospace; font-size:12px;
+    background:rgba(255,255,255,.07); padding:1px 6px; border-radius:4px; color:var(--ink); }
   .salon-filtros{ display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end; margin-bottom:18px; }
   .sf{ display:flex; flex-direction:column; gap:5px; }
   .sf span{
@@ -2270,6 +2275,12 @@
       </div>
       <div class="card full">
         <div class="stat-row compact" id="s-kpis" style="margin-bottom:20px;"></div>
+        <div class="aviso-modelo" id="s-aviso" hidden>
+          El endpoint está devolviendo un cálculo de una versión anterior del script, así que el total
+          del ciclo y el desglose por programa no aparecen. Se arregla abriendo el proyecto en
+          script.google.com y ejecutando <code>precalcular</code> una vez: la caché guarda el resultado
+          seis horas y todavía tiene el anterior.
+        </div>
         <div class="salon-filtros">
           <label class="sf"><span>Vista</span>
             <select id="s-vista">
@@ -3097,11 +3108,12 @@ function pintarSalones(){
   const conR   = cel.filter(c=>c.restr && c.restr.length).length;
   const tot    = alumnosUnicos(cel);
   const M      = SAL.meta || {};
+  const legado = !M.total_alumnos;
   const global = (!prog && !sede && !minCap && M.total_alumnos) ? M.total_alumnos : tot.alumnos;
   const fuera  = (!prog && !sede && !minCap && M.total_alumnos) ? M.total_alumnos - tot.alumnos : 0;
   document.getElementById('s-kpis').innerHTML =
     `<div class="stat"><div class="num" style="color:var(--pine)">${sN(global)}</div>
-       <div class="label">alumnos del ciclo${prog?' en este programa':''} · ${tot.grupos} grupos${
+       <div class="label">${legado?'alumnos ubicados en el mapa':'alumnos del ciclo'}${prog?' en este programa':''} · ${tot.grupos} grupos${
          fuera?` · ${fuera} sin salón en el mapa`:''}</div></div>
      <div class="stat"><div class="num" style="color:var(--good)">${libres.length}</div>
        <div class="label">bloques totalmente libres</div></div>
@@ -3188,7 +3200,16 @@ function cargarSalonesVivo(){
     SC.forEach((c,i)=>c._i=i);
     selCelda = null;
     llenarSedes(); llenarProgramas(); pintarSalones();
-    selloSalones('⏺ en vivo · corte ' + ((d.meta&&d.meta.corte)||'—'), 'stamp');
+    /* Si el endpoint devuelve un modelo anterior —sin total_alumnos ni N° de
+       grupo— las cifras no son comparables, y vale decirlo en vez de mostrar
+       números raros sin explicación. Suele pasar cuando se pegó código nuevo
+       pero no se volvió a correr precalcular: la caché sirve el JSON viejo. */
+    const viejo = !(d.meta && d.meta.total_alumnos);
+    selloSalones(viejo
+      ? '⚠ en vivo · modelo anterior · corre precalcular'
+      : '⏺ en vivo · corte ' + ((d.meta&&d.meta.corte)||'—'), 'stamp');
+    const av = document.getElementById('s-aviso');
+    if(av){ av.hidden = !viejo; }
   };
   const s = document.createElement('script');
   s.id = cb; s.src = SAL_ENDPOINT + '?callback=' + cb;
