@@ -520,6 +520,18 @@
 
 
   :root{ --restr:#B490F5; }
+  /* --- matriz de admisiones por horario --- */
+  /* Solo este bloque se ensancha; lo de admisiones de arriba queda igual. */
+  .ah-wide{ width:min(1400px, calc(100vw - 372px)); min-width:100%; }
+  @media (max-width:1100px){ .ah-wide{ width:100%; } }
+  .ah-bleed{ width:100%; }
+  .ah-bleed .table-scroll{ overflow-x:auto; overflow-y:hidden; }
+  .ah-tabla{ min-width:1120px; }
+  .ah-tabla td.cl{ cursor:default; }
+  .ah-tabla col.c-prog{ width:196px; }
+  .ah-tabla td.sal.prog{ white-space:normal; line-height:1.3; font-size:11.5px; }
+  .ah-tabla th.bq span{ font-size:9.5px; }
+
   /* --- aforo de salones --- */
   .aviso-modelo{ border:1px solid rgba(244,196,48,.4); background:rgba(244,196,48,.08);
     color:var(--warn); border-radius:10px; padding:12px 16px; font-size:13px; line-height:1.55;
@@ -826,6 +838,57 @@
     </div>
 
     <section class="block adm-slot" data-sede="barranquilla"></section>
+
+    <!-- ============ MATRIZ HORARIOS BAQ ============ -->
+    <section class="block ah-wide">
+      <div class="block-head">
+        <span class="block-title">Matrícula por programa y horario</span>
+        <span class="block-num">02</span>
+      </div>
+      <div class="card full">
+        <div class="status-row" style="margin:-4px 0 16px">
+          <span class="pill stamp" id="ah-corte">⏺ último corte manual</span>
+        </div>
+        <div class="stat-row compact" id="ah-kpis" style="margin-bottom:20px;"></div>
+        <div class="aviso-modelo" id="ah-aviso" hidden>
+          No se pudo leer el cruce en vivo de la hoja de admisiones, así que la matriz muestra el último
+          corte cargado a mano. Si el problema persiste, abre el proyecto <code>Horarios</code> en
+          script.google.com y ejecuta <code>precalcular</code>.
+        </div>
+        <div class="salon-filtros">
+          <label class="sf"><span>Ver por</span>
+            <select id="ah-vista">
+              <option value="programa">Programa</option>
+              <option value="mes">Mes</option>
+            </select></label>
+          <label class="sf grande"><span>Programa académico</span><select id="ah-prog"></select></label>
+          <label class="sf"><span>Mes</span><select id="ah-mes"></select></label>
+        </div>
+        <div class="ah-bleed"><div class="table-scroll" id="ah-matriz"></div></div>
+        <div class="note">Cruce de las <strong style="color:var(--ink)">1.753 matrículas de 2026</strong>
+          contra la columna HORARIO del registro. El porcentaje bajo cada celda es el peso de ese horario
+          dentro de la fila, para leer de un vistazo en qué jornada se concentra cada programa. El filtro de
+          mes y el de programa se combinan, y el selector «Ver por» cambia las filas entre programa y mes:
+          con mes en las filas se ve cómo se ha movido la demanda de horario a lo largo del año.<br><br>
+          <strong style="color:var(--ink)">La columna HORARIO viene escrita a mano</strong> y trae 32 formas
+          distintas de decir quince jornadas: «SABADOS MAÑANA» y «SABADOS 7AM A 12M» son la misma, igual
+          que «NOCTURNO» y «LUNES A JUEVES 6:30PM A 8:30PM». Se normalizaron todas y ninguna quedó sin
+          clasificar. Vale la pena que coordinación estandarice esa casilla con una lista desplegable, porque
+          hoy depende de cómo lo escriba cada asesor.<br><br>
+          <strong style="color:var(--ink)">Esta matriz lee la misma hoja de admisiones, en vivo</strong>,
+          con las mismas reglas que el módulo de arriba: descarta las filas marcadas como no matriculadas,
+          elimina duplicados por documento, fecha y programa, excluye los programas que la sede ya no oferta
+          y usa la misma normalización de nombres. Por eso los totales cuadran. Va por un proyecto de Apps
+          Script aparte para no tocar el de admisiones, que ya funciona.</div>
+      </div>
+    </section>
+
+
+
+
+
+
+
 
   </div>
   <!-- ============ FIN ICSA ============ -->
@@ -3221,6 +3284,142 @@ function cargarSalonesVivo(){
   SC.forEach((c,i)=>{ c._i=i; if(!c.restr) c.restr=[]; if(!c.grupos) c.grupos=[]; });
   llenarSedes(); llenarProgramas(); pintarSalones();
   cargarSalonesVivo();
+})();
+
+</script>
+<script>
+/* ═══ ADMISIONES · matrícula por programa y horario ═══ */
+const AH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzn3faMiCfEuz2g5X4-u52BrtocAxnMYucd9BQ3g128AhwRaQPynvLiOENNxaehDCt6jw/exec';
+let AH = {"programas":["Asistente de Primera Infancia","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Salud Oral","Auxiliar en Servicios Farmacéuticos","Auxiliar en Suministros y Almacén","Bachillerato","Cocinero Principal","Cosmetología y Estética Integral","Estilista Integral en Peluquería","Inglés Conversacional","Investigador Criminalístico y Judicial","Marketing Digital","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Peluquería y Estética Canina","Refrigeración y Aires Acondicionados","Seguridad Ocupacional y Laboral"],"horarios":["Lunes a jueves · 6–8 am","Lunes a jueves · 8–10 am","Lunes a jueves · 10–12 m","Mañana · sin detalle","Lunes y miércoles · 8–12 m","Martes y jueves · 8–12 m","Lunes a jueves · 2–6 pm","Martes y jueves · 2–6 pm","Tarde · sin detalle","Viernes · tarde","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana","Virtual · tarde"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"celdas":[{"p":0,"h":6,"m":1,"n":4},{"p":0,"h":6,"m":2,"n":7},{"p":0,"h":6,"m":3,"n":1},{"p":0,"h":6,"m":5,"n":3},{"p":0,"h":6,"m":6,"n":1},{"p":0,"h":6,"m":7,"n":3},{"p":0,"h":6,"m":8,"n":3},{"p":0,"h":11,"m":1,"n":5},{"p":0,"h":11,"m":2,"n":2},{"p":0,"h":11,"m":3,"n":1},{"p":0,"h":11,"m":6,"n":3},{"p":0,"h":11,"m":7,"n":1},{"p":0,"h":11,"m":9,"n":1},{"p":1,"h":13,"m":1,"n":1},{"p":1,"h":6,"m":1,"n":1},{"p":1,"h":1,"m":1,"n":9},{"p":1,"h":1,"m":2,"n":5},{"p":1,"h":1,"m":3,"n":3},{"p":1,"h":1,"m":5,"n":3},{"p":1,"h":1,"m":6,"n":1},{"p":1,"h":10,"m":1,"n":3},{"p":1,"h":10,"m":2,"n":5},{"p":1,"h":10,"m":3,"n":1},{"p":1,"h":10,"m":6,"n":1},{"p":1,"h":10,"m":7,"n":2},{"p":1,"h":11,"m":1,"n":4},{"p":1,"h":11,"m":2,"n":3},{"p":1,"h":11,"m":3,"n":1},{"p":1,"h":11,"m":4,"n":1},{"p":1,"h":11,"m":5,"n":1},{"p":1,"h":11,"m":6,"n":1},{"p":1,"h":11,"m":7,"n":2},{"p":1,"h":11,"m":8,"n":1},{"p":1,"h":11,"m":9,"n":1},{"p":1,"h":12,"m":1,"n":1},{"p":2,"h":13,"m":7,"n":1},{"p":2,"h":2,"m":1,"n":4},{"p":2,"h":2,"m":2,"n":4},{"p":2,"h":2,"m":3,"n":5},{"p":2,"h":2,"m":4,"n":1},{"p":2,"h":6,"m":1,"n":1},{"p":2,"h":1,"m":1,"n":5},{"p":2,"h":1,"m":2,"n":6},{"p":2,"h":1,"m":4,"n":1},{"p":2,"h":1,"m":6,"n":1},{"p":2,"h":1,"m":7,"n":4},{"p":2,"h":1,"m":8,"n":6},{"p":2,"h":10,"m":1,"n":2},{"p":2,"h":10,"m":3,"n":5},{"p":2,"h":10,"m":4,"n":2},{"p":2,"h":10,"m":9,"n":1},{"p":2,"h":11,"m":1,"n":8},{"p":2,"h":11,"m":2,"n":8},{"p":2,"h":11,"m":3,"n":7},{"p":2,"h":11,"m":4,"n":2},{"p":2,"h":12,"m":5,"n":2},{"p":2,"h":12,"m":6,"n":4},{"p":2,"h":12,"m":7,"n":3},{"p":2,"h":12,"m":8,"n":4},{"p":3,"h":2,"m":1,"n":4},{"p":3,"h":2,"m":2,"n":6},{"p":3,"h":2,"m":3,"n":2},{"p":3,"h":2,"m":4,"n":5},{"p":3,"h":2,"m":5,"n":1},{"p":3,"h":2,"m":7,"n":1},{"p":3,"h":2,"m":8,"n":3},{"p":3,"h":10,"m":1,"n":3},{"p":3,"h":10,"m":2,"n":4},{"p":3,"h":10,"m":3,"n":1},{"p":3,"h":10,"m":4,"n":1},{"p":3,"h":10,"m":6,"n":1},{"p":3,"h":10,"m":7,"n":1},{"p":3,"h":10,"m":8,"n":1},{"p":3,"h":11,"m":1,"n":3},{"p":3,"h":11,"m":2,"n":6},{"p":3,"h":11,"m":3,"n":1},{"p":3,"h":11,"m":4,"n":1},{"p":3,"h":11,"m":5,"n":1},{"p":3,"h":11,"m":6,"n":2},{"p":4,"h":13,"m":2,"n":1},{"p":4,"h":2,"m":1,"n":4},{"p":4,"h":2,"m":2,"n":2},{"p":4,"h":2,"m":3,"n":3},{"p":4,"h":2,"m":4,"n":1},{"p":4,"h":6,"m":1,"n":2},{"p":4,"h":1,"m":1,"n":8},{"p":4,"h":1,"m":2,"n":2},{"p":4,"h":1,"m":3,"n":2},{"p":4,"h":1,"m":4,"n":2},{"p":4,"h":1,"m":5,"n":3},{"p":4,"h":1,"m":6,"n":1},{"p":4,"h":1,"m":7,"n":2},{"p":4,"h":1,"m":8,"n":4},{"p":4,"h":11,"m":1,"n":6},{"p":4,"h":11,"m":2,"n":3},{"p":4,"h":11,"m":3,"n":2},{"p":4,"h":12,"m":5,"n":1},{"p":4,"h":12,"m":6,"n":2},{"p":4,"h":12,"m":7,"n":3},{"p":4,"h":12,"m":8,"n":5},{"p":5,"h":13,"m":1,"n":1},{"p":5,"h":13,"m":6,"n":5},{"p":5,"h":13,"m":7,"n":2},{"p":5,"h":13,"m":8,"n":1},{"p":5,"h":2,"m":1,"n":4},{"p":5,"h":2,"m":2,"n":11},{"p":5,"h":2,"m":3,"n":1},{"p":5,"h":2,"m":4,"n":5},{"p":5,"h":2,"m":5,"n":1},{"p":5,"h":2,"m":6,"n":8},{"p":5,"h":2,"m":7,"n":4},{"p":5,"h":2,"m":8,"n":2},{"p":5,"h":6,"m":1,"n":6},{"p":5,"h":6,"m":2,"n":6},{"p":5,"h":1,"m":1,"n":7},{"p":5,"h":1,"m":2,"n":6},{"p":5,"h":1,"m":3,"n":4},{"p":5,"h":1,"m":4,"n":1},{"p":5,"h":10,"m":1,"n":1},{"p":5,"h":10,"m":2,"n":4},{"p":5,"h":10,"m":3,"n":1},{"p":5,"h":10,"m":4,"n":1},{"p":5,"h":10,"m":5,"n":1},{"p":5,"h":11,"m":1,"n":2},{"p":5,"h":11,"m":2,"n":3},{"p":5,"h":11,"m":3,"n":2},{"p":5,"h":11,"m":4,"n":3},{"p":5,"h":12,"m":1,"n":1},{"p":5,"h":12,"m":2,"n":1},{"p":5,"h":12,"m":4,"n":2},{"p":5,"h":12,"m":5,"n":3},{"p":5,"h":12,"m":6,"n":3},{"p":5,"h":12,"m":7,"n":2},{"p":5,"h":12,"m":8,"n":1},{"p":6,"h":2,"m":1,"n":3},{"p":6,"h":2,"m":2,"n":7},{"p":6,"h":2,"m":3,"n":2},{"p":6,"h":6,"m":1,"n":1},{"p":6,"h":11,"m":1,"n":1},{"p":6,"h":12,"m":1,"n":2},{"p":6,"h":12,"m":2,"n":4},{"p":6,"h":12,"m":3,"n":2},{"p":6,"h":12,"m":4,"n":1},{"p":6,"h":12,"m":5,"n":1},{"p":6,"h":12,"m":6,"n":1},{"p":6,"h":12,"m":7,"n":1},{"p":6,"h":12,"m":8,"n":1},{"p":7,"h":13,"m":1,"n":2},{"p":7,"h":13,"m":3,"n":2},{"p":7,"h":2,"m":1,"n":2},{"p":7,"h":2,"m":5,"n":1},{"p":7,"h":2,"m":6,"n":5},{"p":7,"h":2,"m":7,"n":1},{"p":7,"h":2,"m":8,"n":1},{"p":7,"h":6,"m":1,"n":2},{"p":7,"h":6,"m":2,"n":2},{"p":7,"h":6,"m":3,"n":1},{"p":7,"h":1,"m":1,"n":3},{"p":7,"h":1,"m":3,"n":3},{"p":7,"h":1,"m":4,"n":1},{"p":7,"h":1,"m":9,"n":1},{"p":7,"h":10,"m":1,"n":3},{"p":7,"h":10,"m":2,"n":1},{"p":7,"h":10,"m":4,"n":1},{"p":7,"h":10,"m":5,"n":5},{"p":7,"h":10,"m":6,"n":2},{"p":7,"h":10,"m":8,"n":2},{"p":7,"h":11,"m":1,"n":1},{"p":7,"h":12,"m":1,"n":1},{"p":7,"h":12,"m":2,"n":3},{"p":7,"h":12,"m":3,"n":6},{"p":7,"h":12,"m":6,"n":3},{"p":7,"h":12,"m":7,"n":3},{"p":7,"h":12,"m":8,"n":6},{"p":8,"h":13,"m":7,"n":1},{"p":8,"h":2,"m":1,"n":2},{"p":8,"h":2,"m":2,"n":4},{"p":8,"h":2,"m":3,"n":6},{"p":8,"h":2,"m":4,"n":2},{"p":8,"h":2,"m":5,"n":1},{"p":8,"h":2,"m":6,"n":1},{"p":8,"h":2,"m":7,"n":4},{"p":8,"h":2,"m":8,"n":6},{"p":8,"h":10,"m":1,"n":1},{"p":8,"h":11,"m":1,"n":1},{"p":8,"h":11,"m":2,"n":1},{"p":8,"h":12,"m":1,"n":1},{"p":8,"h":12,"m":2,"n":4},{"p":8,"h":12,"m":3,"n":1},{"p":8,"h":12,"m":4,"n":2},{"p":8,"h":12,"m":5,"n":1},{"p":8,"h":12,"m":6,"n":3},{"p":8,"h":12,"m":7,"n":5},{"p":8,"h":12,"m":8,"n":5},{"p":9,"h":1,"m":3,"n":2},{"p":9,"h":3,"m":1,"n":76},{"p":9,"h":3,"m":2,"n":26},{"p":9,"h":3,"m":3,"n":11},{"p":9,"h":3,"m":4,"n":1},{"p":9,"h":3,"m":6,"n":7},{"p":9,"h":3,"m":7,"n":13},{"p":9,"h":3,"m":8,"n":7},{"p":9,"h":11,"m":1,"n":2},{"p":9,"h":11,"m":2,"n":4},{"p":9,"h":11,"m":3,"n":2},{"p":9,"h":11,"m":4,"n":1},{"p":9,"h":11,"m":6,"n":3},{"p":9,"h":11,"m":7,"n":7},{"p":9,"h":11,"m":8,"n":4},{"p":9,"h":8,"m":1,"n":6},{"p":9,"h":8,"m":2,"n":2},{"p":9,"h":8,"m":4,"n":1},{"p":9,"h":8,"m":5,"n":1},{"p":9,"h":8,"m":6,"n":3},{"p":9,"h":8,"m":7,"n":3},{"p":9,"h":8,"m":8,"n":1},{"p":9,"h":14,"m":1,"n":10},{"p":9,"h":14,"m":2,"n":9},{"p":9,"h":14,"m":3,"n":3},{"p":9,"h":14,"m":6,"n":3},{"p":9,"h":14,"m":7,"n":3},{"p":10,"h":13,"m":1,"n":1},{"p":10,"h":1,"m":2,"n":1},{"p":10,"h":10,"m":1,"n":4},{"p":10,"h":10,"m":2,"n":3},{"p":10,"h":4,"m":1,"n":2},{"p":10,"h":7,"m":1,"n":2},{"p":10,"h":5,"m":1,"n":1},{"p":10,"h":5,"m":2,"n":3},{"p":10,"h":5,"m":3,"n":2},{"p":10,"h":5,"m":4,"n":2},{"p":10,"h":5,"m":5,"n":4},{"p":10,"h":5,"m":6,"n":3},{"p":10,"h":5,"m":7,"n":3},{"p":10,"h":5,"m":8,"n":2},{"p":10,"h":11,"m":1,"n":5},{"p":10,"h":11,"m":2,"n":2},{"p":10,"h":11,"m":3,"n":5},{"p":10,"h":11,"m":4,"n":1},{"p":10,"h":12,"m":1,"n":1},{"p":10,"h":12,"m":5,"n":3},{"p":10,"h":12,"m":6,"n":3},{"p":10,"h":12,"m":7,"n":6},{"p":10,"h":12,"m":8,"n":3},{"p":11,"h":13,"m":1,"n":5},{"p":11,"h":13,"m":2,"n":2},{"p":11,"h":13,"m":3,"n":1},{"p":11,"h":13,"m":4,"n":4},{"p":11,"h":2,"m":1,"n":7},{"p":11,"h":2,"m":2,"n":11},{"p":11,"h":2,"m":3,"n":8},{"p":11,"h":6,"m":1,"n":8},{"p":11,"h":6,"m":2,"n":9},{"p":11,"h":6,"m":3,"n":5},{"p":11,"h":6,"m":4,"n":7},{"p":11,"h":1,"m":1,"n":11},{"p":11,"h":1,"m":2,"n":7},{"p":11,"h":1,"m":3,"n":6},{"p":11,"h":1,"m":4,"n":1},{"p":11,"h":1,"m":5,"n":10},{"p":11,"h":1,"m":6,"n":6},{"p":11,"h":1,"m":7,"n":5},{"p":11,"h":1,"m":8,"n":6},{"p":11,"h":1,"m":9,"n":1},{"p":11,"h":10,"m":1,"n":3},{"p":11,"h":10,"m":6,"n":4},{"p":11,"h":10,"m":7,"n":1},{"p":11,"h":10,"m":8,"n":1},{"p":11,"h":4,"m":1,"n":1},{"p":11,"h":11,"m":1,"n":13},{"p":11,"h":11,"m":2,"n":7},{"p":11,"h":11,"m":3,"n":4},{"p":11,"h":12,"m":1,"n":2},{"p":11,"h":12,"m":2,"n":6},{"p":11,"h":12,"m":3,"n":5},{"p":11,"h":12,"m":4,"n":4},{"p":11,"h":12,"m":5,"n":4},{"p":11,"h":12,"m":6,"n":4},{"p":11,"h":12,"m":7,"n":3},{"p":11,"h":12,"m":8,"n":5},{"p":11,"h":12,"m":9,"n":1},{"p":12,"h":13,"m":1,"n":1},{"p":12,"h":13,"m":2,"n":1},{"p":12,"h":13,"m":4,"n":1},{"p":12,"h":13,"m":5,"n":1},{"p":12,"h":13,"m":7,"n":2},{"p":12,"h":1,"m":1,"n":1},{"p":12,"h":4,"m":1,"n":1},{"p":12,"h":5,"m":1,"n":2},{"p":12,"h":5,"m":2,"n":3},{"p":12,"h":5,"m":3,"n":1},{"p":12,"h":5,"m":5,"n":1},{"p":12,"h":5,"m":7,"n":2},{"p":12,"h":5,"m":8,"n":2},{"p":12,"h":11,"m":1,"n":2},{"p":12,"h":11,"m":3,"n":2},{"p":12,"h":12,"m":1,"n":1},{"p":13,"h":13,"m":1,"n":1},{"p":13,"h":13,"m":3,"n":1},{"p":13,"h":13,"m":5,"n":1},{"p":13,"h":13,"m":6,"n":11},{"p":13,"h":13,"m":7,"n":3},{"p":13,"h":13,"m":8,"n":4},{"p":13,"h":2,"m":1,"n":8},{"p":13,"h":2,"m":2,"n":8},{"p":13,"h":2,"m":3,"n":5},{"p":13,"h":6,"m":1,"n":8},{"p":13,"h":6,"m":2,"n":3},{"p":13,"h":6,"m":3,"n":2},{"p":13,"h":0,"m":2,"n":1},{"p":13,"h":1,"m":1,"n":13},{"p":13,"h":1,"m":2,"n":11},{"p":13,"h":1,"m":3,"n":2},{"p":13,"h":1,"m":4,"n":2},{"p":13,"h":1,"m":5,"n":1},{"p":13,"h":1,"m":6,"n":3},{"p":13,"h":1,"m":7,"n":10},{"p":13,"h":1,"m":8,"n":3},{"p":13,"h":10,"m":1,"n":6},{"p":13,"h":10,"m":2,"n":6},{"p":13,"h":10,"m":3,"n":3},{"p":13,"h":11,"m":1,"n":15},{"p":13,"h":11,"m":2,"n":8},{"p":13,"h":11,"m":3,"n":3},{"p":13,"h":11,"m":4,"n":3},{"p":13,"h":11,"m":5,"n":2},{"p":13,"h":11,"m":6,"n":8},{"p":13,"h":11,"m":7,"n":9},{"p":13,"h":11,"m":8,"n":10},{"p":13,"h":11,"m":9,"n":2},{"p":13,"h":12,"m":3,"n":2},{"p":13,"h":12,"m":4,"n":2},{"p":13,"h":12,"m":5,"n":5},{"p":13,"h":12,"m":9,"n":2},{"p":14,"h":6,"m":1,"n":8},{"p":14,"h":6,"m":2,"n":6},{"p":14,"h":6,"m":3,"n":5},{"p":14,"h":6,"m":4,"n":2},{"p":14,"h":12,"m":5,"n":2},{"p":14,"h":12,"m":6,"n":2},{"p":14,"h":12,"m":7,"n":2},{"p":14,"h":12,"m":8,"n":4},{"p":15,"h":13,"m":1,"n":3},{"p":15,"h":13,"m":2,"n":2},{"p":15,"h":13,"m":3,"n":1},{"p":15,"h":13,"m":5,"n":1},{"p":15,"h":13,"m":6,"n":3},{"p":15,"h":13,"m":7,"n":7},{"p":15,"h":13,"m":8,"n":2},{"p":15,"h":13,"m":9,"n":1},{"p":15,"h":2,"m":4,"n":1},{"p":15,"h":2,"m":5,"n":2},{"p":15,"h":2,"m":6,"n":2},{"p":15,"h":2,"m":7,"n":6},{"p":15,"h":2,"m":8,"n":1},{"p":15,"h":6,"m":1,"n":2},{"p":15,"h":6,"m":3,"n":3},{"p":15,"h":1,"m":1,"n":6},{"p":15,"h":1,"m":2,"n":6},{"p":15,"h":1,"m":3,"n":7},{"p":15,"h":10,"m":1,"n":2},{"p":15,"h":10,"m":2,"n":2},{"p":15,"h":10,"m":4,"n":1},{"p":15,"h":10,"m":5,"n":4},{"p":15,"h":10,"m":6,"n":5},{"p":15,"h":10,"m":8,"n":5},{"p":15,"h":10,"m":9,"n":1},{"p":15,"h":11,"m":1,"n":2},{"p":15,"h":11,"m":2,"n":3},{"p":15,"h":11,"m":3,"n":3},{"p":15,"h":11,"m":4,"n":1},{"p":16,"h":13,"m":6,"n":2},{"p":16,"h":13,"m":7,"n":6},{"p":16,"h":13,"m":8,"n":2},{"p":16,"h":13,"m":9,"n":1},{"p":16,"h":2,"m":1,"n":4},{"p":16,"h":2,"m":2,"n":9},{"p":16,"h":2,"m":3,"n":6},{"p":16,"h":2,"m":4,"n":2},{"p":16,"h":6,"m":1,"n":2},{"p":16,"h":6,"m":2,"n":1},{"p":16,"h":6,"m":3,"n":1},{"p":16,"h":6,"m":5,"n":2},{"p":16,"h":6,"m":6,"n":2},{"p":16,"h":6,"m":7,"n":2},{"p":16,"h":6,"m":8,"n":4},{"p":16,"h":1,"m":1,"n":1},{"p":16,"h":10,"m":1,"n":3},{"p":16,"h":10,"m":2,"n":6},{"p":16,"h":10,"m":4,"n":2},{"p":16,"h":11,"m":1,"n":3},{"p":16,"h":11,"m":2,"n":7},{"p":16,"h":11,"m":3,"n":6},{"p":16,"h":11,"m":4,"n":1},{"p":16,"h":12,"m":5,"n":1},{"p":16,"h":12,"m":6,"n":2},{"p":16,"h":12,"m":7,"n":7},{"p":16,"h":12,"m":8,"n":2},{"p":16,"h":12,"m":9,"n":2},{"p":17,"h":13,"m":1,"n":5},{"p":17,"h":13,"m":2,"n":5},{"p":17,"h":13,"m":3,"n":2},{"p":17,"h":13,"m":8,"n":4},{"p":17,"h":13,"m":9,"n":2},{"p":17,"h":11,"m":1,"n":10},{"p":17,"h":11,"m":5,"n":3},{"p":17,"h":11,"m":6,"n":8},{"p":17,"h":11,"m":7,"n":11},{"p":17,"h":12,"m":1,"n":6},{"p":17,"h":12,"m":2,"n":2},{"p":17,"h":12,"m":3,"n":11},{"p":17,"h":12,"m":6,"n":2},{"p":17,"h":12,"m":7,"n":14},{"p":17,"h":12,"m":8,"n":7},{"p":18,"h":13,"m":1,"n":3},{"p":18,"h":13,"m":6,"n":4},{"p":18,"h":13,"m":7,"n":1},{"p":18,"h":13,"m":8,"n":5},{"p":18,"h":6,"m":1,"n":1},{"p":18,"h":10,"m":1,"n":1},{"p":18,"h":10,"m":2,"n":1},{"p":18,"h":10,"m":3,"n":2},{"p":18,"h":10,"m":4,"n":1},{"p":18,"h":10,"m":6,"n":2},{"p":18,"h":7,"m":1,"n":1},{"p":18,"h":7,"m":2,"n":4},{"p":18,"h":7,"m":3,"n":6},{"p":18,"h":11,"m":1,"n":14},{"p":18,"h":11,"m":2,"n":3},{"p":18,"h":11,"m":3,"n":2},{"p":18,"h":12,"m":1,"n":3},{"p":18,"h":12,"m":2,"n":5},{"p":18,"h":12,"m":3,"n":6},{"p":18,"h":9,"m":5,"n":5},{"p":18,"h":9,"m":6,"n":5},{"p":18,"h":9,"m":7,"n":5},{"p":18,"h":9,"m":8,"n":7},{"p":18,"h":9,"m":9,"n":3},{"p":19,"h":13,"m":1,"n":5},{"p":19,"h":13,"m":2,"n":5},{"p":19,"h":13,"m":5,"n":3},{"p":19,"h":13,"m":6,"n":7},{"p":19,"h":13,"m":7,"n":6},{"p":19,"h":13,"m":9,"n":1},{"p":20,"h":13,"m":1,"n":5},{"p":20,"h":13,"m":2,"n":5},{"p":20,"h":13,"m":3,"n":5},{"p":20,"h":13,"m":9,"n":1},{"p":20,"h":10,"m":4,"n":1},{"p":20,"h":10,"m":5,"n":1},{"p":20,"h":11,"m":1,"n":10},{"p":20,"h":11,"m":2,"n":11},{"p":20,"h":11,"m":5,"n":7},{"p":20,"h":11,"m":6,"n":8},{"p":20,"h":11,"m":7,"n":10},{"p":20,"h":12,"m":1,"n":6},{"p":20,"h":12,"m":2,"n":1},{"p":20,"h":12,"m":3,"n":8},{"p":20,"h":12,"m":6,"n":1},{"p":20,"h":12,"m":7,"n":6},{"p":20,"h":12,"m":8,"n":9},{"p":21,"h":13,"m":2,"n":2},{"p":21,"h":13,"m":5,"n":1},{"p":21,"h":13,"m":7,"n":2},{"p":21,"h":13,"m":8,"n":1},{"p":21,"h":2,"m":1,"n":1},{"p":21,"h":1,"m":1,"n":4},{"p":21,"h":1,"m":2,"n":3},{"p":21,"h":1,"m":3,"n":8},{"p":21,"h":1,"m":6,"n":2},{"p":21,"h":1,"m":7,"n":3},{"p":21,"h":1,"m":8,"n":2},{"p":21,"h":10,"m":1,"n":1},{"p":21,"h":10,"m":2,"n":3},{"p":21,"h":10,"m":3,"n":1},{"p":21,"h":10,"m":7,"n":1},{"p":21,"h":10,"m":8,"n":7},{"p":21,"h":11,"m":1,"n":1}],"total":1753};
+const ahEsc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ahN = v => Number(v).toLocaleString('es-CO');
+
+/* Los meses que realmente tienen matrícula, para no pintar columnas vacías. */
+let AH_MESES = [];
+function ahMeses(){ AH_MESES = [...new Set(AH.celdas.map(c=>c.m))].sort((a,b)=>a-b); }
+
+function ahFiltrar(){
+  const p = document.getElementById('ah-prog').value;
+  const m = document.getElementById('ah-mes').value;
+  return AH.celdas.filter(c =>
+    (!p || AH.programas[c.p]===p) && (!m || String(c.m)===m));
+}
+
+function ahPintar(){
+  const cel = ahFiltrar();
+  const p = document.getElementById('ah-prog').value;
+  const m = document.getElementById('ah-mes').value;
+  const vista = document.getElementById('ah-vista').value;
+
+  // ── KPIs ──
+  const total = cel.reduce((a,c)=>a+c.n,0);
+  const porH = {}, porP = {};
+  cel.forEach(c=>{ porH[c.h]=(porH[c.h]||0)+c.n; porP[c.p]=(porP[c.p]||0)+c.n; });
+  const hTop = Object.keys(porH).sort((a,b)=>porH[b]-porH[a])[0];
+  const pTop = Object.keys(porP).sort((a,b)=>porP[b]-porP[a])[0];
+  document.getElementById('ah-kpis').innerHTML =
+    `<div class="stat"><div class="num" style="color:var(--pine)">${ahN(total)}</div>
+       <div class="label">matrículas${p?' de este programa':''}${m?' en '+AH.meses[m-1]:' en 2026'}</div></div>
+     <div class="stat"><div class="num">${Object.keys(porH).length}</div>
+       <div class="label">horarios con matrícula</div></div>
+     <div class="stat"><div class="num">${Object.keys(porP).length}</div>
+       <div class="label">programas con matrícula</div></div>
+     <div class="stat"><div class="num" style="color:var(--good)">${hTop!==undefined?
+         Math.round(porH[hTop]/total*100)+'%':'—'}</div>
+       <div class="label">${hTop!==undefined?'se concentra en '+ahEsc(AH.horarios[hTop]):'sin datos'}</div></div>`;
+
+  // ── matriz ──
+  const filas = (vista==='mes') ? AH_MESES : Object.keys(porP).map(Number)
+      .sort((a,b)=>porP[b]-porP[a]);
+  const cols = AH.horarios.map((_,i)=>i).filter(i=>porH[i]);
+  const idx = new Map();
+  cel.forEach(c=>{
+    const k = (vista==='mes' ? c.m : c.p) + '¦' + c.h;
+    idx.set(k,(idx.get(k)||0)+c.n);
+  });
+
+  let h = '<table class="aforo-tabla ah-tabla"><colgroup><col class="c-prog">' +
+          cols.map(()=>'<col>').join('') + '<col class="c-tot"></colgroup><thead><tr>' +
+          `<th>${vista==='mes'?'Mes':'Programa académico'}</th>`;
+  cols.forEach(i=>{
+    const t = AH.horarios[i].split(' · ');
+    h += `<th class="bq"><span>${ahEsc(t[0])}</span><em>${ahEsc(t[1]||'')}</em></th>`;
+  });
+  h += '<th class="bq tot"><span>Total</span><em>matrículas</em></th></tr></thead><tbody>';
+
+  const colT = cols.map(()=>0); let granT = 0;
+  filas.forEach(f=>{
+    const nombre = vista==='mes' ? AH.meses[f-1] : AH.programas[f];
+    const vals = cols.map(i=>idx.get(f+'¦'+i)||0);
+    const t = vals.reduce((a,b)=>a+b,0);
+    if(!t) return;
+    granT += t;
+    h += `<tr><td class="sal prog">${ahEsc(nombre)}</td>`;
+    vals.forEach((v,k)=>{
+      colT[k] += v;
+      h += v ? `<td class="cl s-prog"><span class="lbl">${v}</span>` +
+               `<em>${Math.round(v/t*100)}%</em></td>`
+             : '<td class="cl s-vacio"><span class="lbl">·</span></td>';
+    });
+    h += `<td class="cl tot-cel"><span class="lbl">${ahN(t)}</span></td></tr>`;
+  });
+  h += `<tr class="fila-tot"><td class="sal">Total por horario</td>`;
+  cols.forEach((i,k)=>{
+    h += `<td class="cl tot-cel"><span class="lbl">${colT[k]||'—'}</span>` +
+         `<em>${granT?Math.round(colT[k]/granT*100)+'%':''}</em></td>`;
+  });
+  h += `<td class="cl tot-cel gran"><span class="lbl">${ahN(granT)}</span></td></tr>`;
+  document.getElementById('ah-matriz').innerHTML = h + '</tbody></table>';
+}
+
+function ahSello(txt, aviso){
+  const el = document.getElementById('ah-corte');
+  if(el) el.textContent = txt;
+  const av = document.getElementById('ah-aviso');
+  if(av) av.hidden = !aviso;
+}
+/* Trae el cruce en vivo de la hoja de admisiones. Si falla, se queda con el
+   último corte incrustado y lo dice: la matriz nunca aparece vacía. */
+function ahCargarVivo(){
+  if(!AH_ENDPOINT || AH_ENDPOINT.indexOf('PEGA_AQUI') === 0){
+    ahSello('⏺ último corte manual', true); return;
+  }
+  ahSello('⟳ actualizando…', false);
+  const cb = 'ahCb' + Date.now();
+  const t = setTimeout(()=>{ limpiar(); ahSello('⏺ último corte manual', true); }, 25000);
+  function limpiar(){ try{ delete window[cb]; }catch(e){}
+    const s=document.getElementById(cb); if(s) s.remove(); }
+  window[cb] = function(d){
+    clearTimeout(t); limpiar();
+    if(!d || !d.celdas || !d.programas || !d.horarios){ ahSello('⏺ último corte manual', true); return; }
+    AH = d; ahMeses(); ahLlenar(); ahPintar();
+    ahSello('⏺ en vivo · corte ' + ((d.meta&&d.meta.corte)||'—'), false);
+  };
+  const s = document.createElement('script');
+  s.id = cb; s.src = AH_ENDPOINT + '?callback=' + cb;
+  s.onerror = function(){ clearTimeout(t); limpiar(); ahSello('⏺ último corte manual', true); };
+  document.body.appendChild(s);
+}
+
+function ahLlenar(){
+  const sp = document.getElementById('ah-prog'), prevP = sp.value;
+  const sm = document.getElementById('ah-mes'), prevM = sm.value;
+  const usados = [...new Set(AH.celdas.map(c=>c.p))]
+    .map(i=>AH.programas[i]).sort((a,b)=>a.localeCompare(b,'es'));
+  sp.innerHTML = '<option value="">Todos los programas</option>' +
+    usados.map(x=>`<option>${ahEsc(x)}</option>`).join('');
+  if(usados.includes(prevP)) sp.value = prevP;
+  sm.innerHTML = '<option value="">Todo 2026</option>' +
+    AH_MESES.map(m=>`<option value="${m}">${AH.meses[m-1]}</option>`).join('');
+  if(AH_MESES.map(String).includes(prevM)) sm.value = prevM;
+}
+
+(function initAH(){
+  ahMeses(); ahLlenar();
+  ['ah-prog','ah-mes','ah-vista'].forEach(id=>
+    document.getElementById(id).addEventListener('input', ahPintar));
+  ahPintar();
+  ahCargarVivo();
 })();
 
 </script>
