@@ -531,7 +531,18 @@
   .ah-tabla col.c-prog{ width:196px; }
   .ah-tabla td.sal.prog{ white-space:normal; line-height:1.3; font-size:11.5px; }
   .ah-tabla th.bq span{ font-size:9.5px; }
-
+  .sf-fichas{ display:flex; gap:26px; flex-wrap:wrap; margin:-6px 0 18px; }
+  .sf-tit{ display:block; font-family:'IBM Plex Mono', monospace; font-size:9.5px;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--pending); margin-bottom:6px; }
+  .fichas{ display:flex; gap:6px; flex-wrap:wrap; }
+  .ficha{
+    font-family:'Plus Jakarta Sans', sans-serif; font-size:12.5px; cursor:pointer;
+    background:var(--paper); color:var(--ink-soft); border:1px solid var(--line);
+    border-radius:20px; padding:5px 13px; transition:all .12s;
+  }
+  .ficha:hover{ border-color:var(--pine); color:var(--ink); }
+  .ficha.on{ background:rgba(79,195,247,.16); border-color:var(--pine); color:var(--pine); font-weight:600; }
+  .ficha.todas{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.04em; }
   /* --- aforo de salones --- */
   .aviso-modelo{ border:1px solid rgba(244,196,48,.4); background:rgba(244,196,48,.08);
     color:var(--warn); border-radius:10px; padding:12px 16px; font-size:13px; line-height:1.55;
@@ -865,7 +876,7 @@
 
     <section class="block adm-slot" data-sede="barranquilla"></section>
 
-    <!-- ============ MATRIZ HORARIOS BAQ ============ -->
+    <!-- ============ MATRIZ HORARIOS AH ============ -->
     <section class="block ah-wide">
       <div class="block-head">
         <span class="block-title">Matrícula por programa y horario</span>
@@ -877,9 +888,9 @@
         </div>
         <div class="stat-row compact" id="ah-kpis" style="margin-bottom:20px;"></div>
         <div class="aviso-modelo" id="ah-aviso" hidden>
-          No se pudo leer el cruce en vivo de la hoja de admisiones, así que la matriz muestra el último
-          corte cargado a mano. Si el problema persiste, abre el proyecto <code>Horarios</code> en
-          script.google.com y ejecuta <code>precalcular</code>.
+          No se pudo leer el cruce en vivo, así que la matriz muestra el último corte cargado a mano.
+          Si el problema persiste, abre el proyecto <code>Horarios</code> en script.google.com y ejecuta
+          <code>precalcular</code>.
         </div>
         <div class="salon-filtros">
           <label class="sf"><span>Ver por</span>
@@ -888,24 +899,26 @@
               <option value="mes">Mes</option>
             </select></label>
           <label class="sf grande"><span>Programa académico</span><select id="ah-prog"></select></label>
-          <label class="sf"><span>Mes</span><select id="ah-mes"></select></label>
+        </div>
+        <div class="sf-fichas">
+          <div><span class="sf-tit">Periodo</span><div class="fichas" id="ah-periodos"></div></div>
+          <div><span class="sf-tit">Mes</span><div class="fichas" id="ah-meses"></div></div>
         </div>
         <div class="ah-bleed"><div class="table-scroll" id="ah-matriz"></div></div>
-        <div class="note">Cruce de las <strong style="color:var(--ink)">1.753 matrículas de 2026</strong>
-          contra la columna HORARIO del registro. El porcentaje bajo cada celda es el peso de ese horario
-          dentro de la fila, para leer de un vistazo en qué jornada se concentra cada programa. El filtro de
-          mes y el de programa se combinan, y el selector «Ver por» cambia las filas entre programa y mes:
-          con mes en las filas se ve cómo se ha movido la demanda de horario a lo largo del año.<br><br>
-          <strong style="color:var(--ink)">La columna HORARIO viene escrita a mano</strong> y trae 32 formas
-          distintas de decir quince jornadas: «SABADOS MAÑANA» y «SABADOS 7AM A 12M» son la misma, igual
-          que «NOCTURNO» y «LUNES A JUEVES 6:30PM A 8:30PM». Se normalizaron todas y ninguna quedó sin
-          clasificar. Vale la pena que coordinación estandarice esa casilla con una lista desplegable, porque
-          hoy depende de cómo lo escriba cada asesor.<br><br>
-          <strong style="color:var(--ink)">Esta matriz lee la misma hoja de admisiones, en vivo</strong>,
-          con las mismas reglas que el módulo de arriba: descarta las filas marcadas como no matriculadas,
-          elimina duplicados por documento, fecha y programa, excluye los programas que la sede ya no oferta
-          y usa la misma normalización de nombres. Por eso los totales cuadran. Va por un proyecto de Apps
-          Script aparte para no tocar el de admisiones, que ya funciona.</div>
+        <div class="note">Cruce de las matrículas de 2026 contra la columna HORARIO del registro. El porcentaje bajo cada celda es el peso de ese horario dentro de la fila, para leer de un
+          vistazo en qué jornada se concentra cada programa. Los filtros de periodo, mes y programa se
+          combinan, y periodo y mes admiten varias selecciones a la vez: puedes marcar dos periodos juntos,
+          o solo dos meses, o ambas cosas. Sin nada marcado se ve todo el año. El selector «Ver por» cambia
+          las filas entre programa y mes: con mes en las filas se ve cómo se movió la demanda a lo largo
+          del año.<br><br><strong style="color:var(--ink)">La columna HORARIO se escribe a mano</strong> y cada quien la
+          nombra distinto, así que se normalizaron todas las variantes a un mismo conjunto de jornadas.
+          Ninguna quedó sin clasificar. Vale la pena que coordinación le ponga una lista desplegable, porque
+          hoy depende de cómo lo escriba cada asesor. Son 32 formas distintas de decir quince jornadas: «SABADOS MAÑANA» y «SABADOS 7AM A 12M» son la
+  misma, igual que «NOCTURNO» y «LUNES A JUEVES 6:30PM A 8:30PM».<br><br>
+  <strong style="color:var(--ink)">Esta matriz lee la misma hoja de admisiones, en vivo</strong>, con las
+  mismas reglas que el módulo de arriba: descarta las filas marcadas como no matriculadas, elimina
+  duplicados por documento, fecha y programa, excluye los programas que la sede ya no oferta y usa la misma
+  normalización de nombres. Por eso los totales cuadran.</div>
       </div>
     </section>
 
@@ -939,9 +952,9 @@
       <div class="card full">
         <h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>
         <div class="stat-row" style="margin-bottom:20px;">
-          <div class="stat"><div class="num">1.329</div><div class="label">matrículas 2026 (ene–sep)</div></div>
+          <div class="stat"><div class="num">1.338</div><div class="label">matrículas 2026 (ene–sep)</div></div>
           <div class="stat"><div class="num">1.706</div><div class="label">matrículas 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num" style="color:var(--bad)">−377</div><div class="label">diferencia acumulada vs. 2025</div></div>
+          <div class="stat"><div class="num" style="color:var(--bad)">−368</div><div class="label">diferencia acumulada vs. 2025</div></div>
         </div>
         <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
@@ -1526,19 +1539,21 @@
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-9" data-target="rh-det-9">
               <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td>
-              <td>53</td><td>69</td><td>58</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:84%"></div></div><span class="pct">84,1%</span></td><td class="delta neg">−11</td><td class="delta pos">+5</td><td class="delta pos">+9,4%</td>
+              <td>53</td><td>69</td><td>67</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:97%"></div></div><span class="pct">97,1%</span></td><td class="delta neg">−2</td><td class="delta pos">+14</td><td class="delta pos">+26,4%</td>
             </tr>
             <tr class="detail-row" id="rh-det-9" hidden>
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Septiembre · por programa <span class="detail-count">23</span></div>
+                <div class="detail-title">Septiembre · por programa <span class="detail-count">24</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>10</td><td>13</td><td>7</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:54%"></div></div><span class="pct">53,8%</span></td><td class="delta neg">−6</td><td class="delta neg">−3</td><td class="delta neg">−30,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>10</td><td>13</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:62%"></div></div><span class="pct">61,5%</span></td><td class="delta neg">−5</td><td class="delta neg">−2</td><td class="delta neg">−20,0%</td></tr>
+                    <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>2</td><td>3</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+3</td><td class="delta pos">+4</td><td class="delta pos">+200,0%</td></tr>
+                    <tr><td class="prog-name">Inyectologia</td><td>0</td><td>—</td><td>6</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+6</td><td class="delta pos">+6</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>5</td><td>6</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−60,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>5</td><td>6</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,7%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−20,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>5</td><td>6</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:83%"></div></div><span class="pct">83,3%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-bach-9" data-target="rh-bach-9">
                       <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">4 ciclos</span></td><td>2</td><td>3</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">166,7%</span></td><td class="delta pos">+2</td><td class="delta pos">+3</td><td class="delta pos">+150,0%</td>
                     </tr>
@@ -1557,41 +1572,40 @@
                     </tr>
                     <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>0</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+5</td><td class="delta pos">+5</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Excel Basico, Intermedio y Avanzado</td><td>0</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+5</td><td class="delta pos">+5</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>2</td><td>3</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">166,7%</span></td><td class="delta pos">+2</td><td class="delta pos">+3</td><td class="delta pos">+150,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:60%"></div></div><span class="pct">60,0%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−25,0%</td></tr>
                     <tr><td class="prog-name">Cocinero Principal</td><td>3</td><td>4</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>1</td><td>1</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">400,0%</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta pos">+300,0%</td></tr>
-                    <tr><td class="prog-name">Inyectologia</td><td>0</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+4</td><td class="delta pos">+4</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>1</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">300,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Sastrería y Confección a la Medida</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Sistemas Informáticos</td><td>1</td><td>1</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">300,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Estilista Integral en Peluquería</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>1</td><td>1</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
-                    <tr><td class="prog-name">Sistemas Informáticos</td><td>1</td><td>1</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Inyectologia Personal de la Salud</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                   </tbody>
                 </table>
                 </div>
                 <div class="detail-pane">
-                <div class="detail-title alt">Septiembre · por asesor <span class="detail-count">2 activos · meta 34 c/u</span></div>
+                <div class="detail-title alt">Septiembre · por asesor <span class="detail-count">3 activos · meta 23 c/u</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Arturo Pimienta</td><td>28</td><td>34</td><td>26</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:76%"></div></div><span class="pct">76,5%</span></td><td class="delta neg">−8</td><td class="delta neg">−2</td><td class="delta neg">−7,1%</td></tr>
-                    <tr><td class="prog-name">Daniela Muñoz</td><td>16</td><td>34</td><td>23</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">67,6%</span></td><td class="delta neg">−11</td><td class="delta pos">+7</td><td class="delta pos">+43,8%</td></tr>
-                    <tr><td class="prog-name">Angel Correa</td><td>9</td><td>—</td><td>9</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta ">0</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Arturo Pimienta</td><td>28</td><td>23</td><td>28</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">121,7%</span></td><td class="delta pos">+5</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Daniela Muñoz</td><td>16</td><td>23</td><td>24</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">104,3%</span></td><td class="delta pos">+1</td><td class="delta pos">+8</td><td class="delta pos">+50,0%</td></tr>
+                    <tr><td class="prog-name">Angel Correa</td><td>9</td><td>23</td><td>15</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">65,2%</span></td><td class="delta neg">−8</td><td class="delta pos">+6</td><td class="delta pos">+66,7%</td></tr>
                   </tbody>
                 </table>
                 </div>
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-2</td><td>668</td><td>868</td><td>554</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:64%"></div></div><span class="pct">63,8%</span></td><td class="delta neg">−314</td><td class="delta neg">−114</td><td class="delta neg">−17,1%</td></tr>
+            <tr class="total-row"><td>Total 2026-2</td><td>668</td><td>868</td><td>563</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">64,9%</span></td><td class="delta neg">−305</td><td class="delta neg">−105</td><td class="delta neg">−15,7%</td></tr>
           </tbody>
         </table>
         </div>
@@ -1624,10 +1638,10 @@
         <div class="year-grid">
           <div class="year-cell"><span class="year-label">2025 ene–dic (cerrado)</span><span class="year-val">1.834</span></div>
           <div class="year-cell"><span class="year-label">Meta 2026 ene–dic (+30%)</span><span class="year-val">2.384</span></div>
-          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">1.329</span></div>
-          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">55,7%</span></div>
-          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−505</span></div>
-          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">1.055</span></div>
+          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">1.338</span></div>
+          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">56,1%</span></div>
+          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−496</span></div>
+          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">1.046</span></div>
         </div>
         <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Septiembre a diciembre quedan pendientes hasta que cierre cada mes.</div>
       </div>
@@ -1638,18 +1652,65 @@
         <table class="matriculas-table">
           <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
-            <tr><td class="prog-name">Arturo Pimienta</td><td>516</td><td>792</td><td>494</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:62%"></div></div><span class="pct">62,4%</span></td><td class="delta neg">−298</td><td class="delta neg">−22</td><td class="delta neg">−4,3%</td></tr>
-            <tr><td class="prog-name">Angel Correa</td><td>313</td><td>674</td><td>439</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">65,1%</span></td><td class="delta neg">−235</td><td class="delta pos">+126</td><td class="delta pos">+40,3%</td></tr>
-            <tr><td class="prog-name">Daniela Muñoz</td><td>490</td><td>792</td><td>378</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:48%"></div></div><span class="pct">47,7%</span></td><td class="delta neg">−414</td><td class="delta neg">−112</td><td class="delta neg">−22,9%</td></tr>
+            <tr><td class="prog-name">Arturo Pimienta</td><td>516</td><td>752</td><td>496</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:66%"></div></div><span class="pct">66,0%</span></td><td class="delta neg">−256</td><td class="delta neg">−20</td><td class="delta neg">−3,9%</td></tr>
+            <tr><td class="prog-name">Angel Correa</td><td>313</td><td>752</td><td>445</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:59%"></div></div><span class="pct">59,2%</span></td><td class="delta neg">−307</td><td class="delta pos">+132</td><td class="delta pos">+42,2%</td></tr>
+            <tr><td class="prog-name">Daniela Muñoz</td><td>490</td><td>752</td><td>379</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,4%</span></td><td class="delta neg">−373</td><td class="delta neg">−111</td><td class="delta neg">−22,7%</td></tr>
             <tr><td class="prog-name">Stebelk Galvan</td><td>314</td><td>128</td><td>17</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:13%"></div></div><span class="pct">13,3%</span></td><td class="delta neg">−111</td><td class="delta neg">−297</td><td class="delta neg">−94,6%</td></tr>
             <tr><td class="prog-name">Sin asesor registrado</td><td>1</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta ">0</td><td class="delta">—</td></tr>
-            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>1.634</td><td>2.386</td><td>1.329</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">55,7%</span></td><td class="delta neg">−1.057</td><td class="delta neg">−305</td><td class="delta neg">−18,7%</td></tr>
+            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>1.634</td><td>2.384</td><td>1.338</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">56,1%</span></td><td class="delta neg">−1.046</td><td class="delta neg">−296</td><td class="delta neg">−18,1%</td></tr>
             <tr class="muted-row"><td class="prog-name">Asesores que ya no están <span class="row-sub">Janina Duarte, Yiriemmy Bello</span></td><td>200</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct pending">no aplica</span></td><td class="delta">—</td><td class="delta neg">−200</td><td class="delta neg">−100,0%</td></tr>
-            <tr class="total-row"><td>Total sede</td><td>1.834</td><td>2.384</td><td>1.329</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">55,7%</span></td><td class="delta neg">−1.055</td><td class="delta neg">−505</td><td class="delta neg">−27,5%</td></tr>
+            <tr class="total-row"><td>Total sede</td><td>1.834</td><td>2.384</td><td>1.338</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">56,1%</span></td><td class="delta neg">−1.046</td><td class="delta neg">−496</td><td class="delta neg">−27,0%</td></tr>
           </tbody>
         </table>
         </div>
         <div class="note"><strong style="color:var(--ink)">Cómo se calcula la meta por asesor:</strong> la meta del mes se reparte en partes iguales entre los asesores que hicieron <strong style="color:var(--ink)">10 matrículas o más</strong> ese mes; quien queda por debajo aparece con su cifra pero sin meta, y su parte se reparte entre los demás. Los meses que aún no cierran se proyectan entre el equipo activo en septiembre. Esta tabla es de año completo: la columna 2025 trae el año cerrado, la meta es la del año entero y la de 2026 va con corte a septiembre, así que «Dif. meta» es lo que falta por matricular para cerrar el año en meta.<br><br>Solo se listan los asesores que matricularon en 2026; los que salieron van agrupados en una fila porque sus matrículas de 2025 sí cuentan en el total de la sede. Datos normalizados: se unificaron mayúsculas, espacios y tildes, y los nombres de programa se consolidaron con sus variantes de escritura. Nombres de asesor unificados por errores de digitación: «Arturo Pimenta» → «Arturo Pimienta»; «Artuto Pimienta» → «Arturo Pimienta».</div>
+      </div>
+    </section>
+
+    <!-- ============ MATRIZ HORARIOS AHRH ============ -->
+    <section class="block ah-wide">
+      <div class="block-head">
+        <span class="block-title">Matrícula por programa y horario</span>
+        <span class="block-num">02</span>
+      </div>
+      <div class="card full">
+        <div class="status-row" style="margin:-4px 0 16px">
+          <span class="pill stamp" id="ahrh-corte">⏺ último corte manual</span>
+        </div>
+        <div class="stat-row compact" id="ahrh-kpis" style="margin-bottom:20px;"></div>
+        <div class="aviso-modelo" id="ahrh-aviso" hidden>
+          No se pudo leer el cruce en vivo, así que la matriz muestra el último corte cargado a mano.
+          Si el problema persiste, abre el proyecto <code>Horarios</code> en script.google.com y ejecuta
+          <code>precalcular</code>.
+        </div>
+        <div class="salon-filtros">
+          <label class="sf"><span>Ver por</span>
+            <select id="ahrh-vista">
+              <option value="programa">Programa</option>
+              <option value="mes">Mes</option>
+            </select></label>
+          <label class="sf grande"><span>Programa académico</span><select id="ahrh-prog"></select></label>
+        </div>
+        <div class="sf-fichas">
+          <div><span class="sf-tit">Periodo</span><div class="fichas" id="ahrh-periodos"></div></div>
+          <div><span class="sf-tit">Mes</span><div class="fichas" id="ahrh-meses"></div></div>
+        </div>
+        <div class="ah-bleed"><div class="table-scroll" id="ahrh-matriz"></div></div>
+        <div class="note">Cruce de las <strong style="color:var(--ink)">1.338 matrículas de 2026</strong> contra la columna JORNADA del listado. El porcentaje bajo cada celda es el peso de ese horario dentro de la fila, para leer de un
+          vistazo en qué jornada se concentra cada programa. Los filtros de periodo, mes y programa se
+          combinan, y periodo y mes admiten varias selecciones a la vez: puedes marcar dos periodos juntos,
+          o solo dos meses, o ambas cosas. Sin nada marcado se ve todo el año. El selector «Ver por» cambia
+          las filas entre programa y mes: con mes en las filas se ve cómo se movió la demanda a lo largo
+          del año.<br><br><strong style="color:var(--ink)">La casilla de jornada se escribe a mano</strong> y cada quien la
+          nombra distinto, así que se normalizaron todas las variantes a un mismo conjunto de jornadas.
+          Ninguna quedó sin clasificar. Vale la pena que coordinación le ponga una lista desplegable, porque
+          hoy depende de cómo lo escriba cada asesor. En Riohacha son 24 formas distintas de nombrar
+  nueve jornadas —«SÁBADOS AM», «SABADOS AM» y «SÁBADOS - 7 AM A 12 PM» son la misma—, y el cambio de
+  criterio entre 2026-1 y 2026-2 se nota: el primer periodo usa etiquetas cortas como «NOCHE» o «MAÑANA
+  8-10 AM» y el segundo pasó a escribir el rango completo.<br><br>
+  <strong style="color:var(--ink)">Sale del último archivo cargado a mano</strong>, igual que las cifras de
+  admisiones de esta sede: aplica el mismo descarte de no matriculados y el mismo deduplicado por documento,
+  fecha y programa, así que el total coincide con el de arriba.</div>
       </div>
     </section>
   </div>
@@ -1669,15 +1730,15 @@
 
     <section class="block">
       <div class="block-head">
-        <span class="block-title">Admisiones — Maicáo</span>
+        <span class="block-title">Admisiones — Maicao</span>
         <span class="block-num">01</span>
       </div>
       <div class="card full">
         <h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>
         <div class="stat-row" style="margin-bottom:20px;">
-          <div class="stat"><div class="num">646</div><div class="label">matrículas 2026 (ene–sep)</div></div>
+          <div class="stat"><div class="num">650</div><div class="label">matrículas 2026 (ene–sep)</div></div>
           <div class="stat"><div class="num">1.039</div><div class="label">matrículas 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num" style="color:var(--bad)">−393</div><div class="label">diferencia acumulada vs. 2025</div></div>
+          <div class="stat"><div class="num" style="color:var(--bad)">−389</div><div class="label">diferencia acumulada vs. 2025</div></div>
         </div>
         <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
@@ -1886,7 +1947,7 @@
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-4" data-target="mc-det-4">
               <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril</td>
-              <td>115</td><td>150</td><td>54</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:36%"></div></div><span class="pct">36,0%</span></td><td class="delta neg">−96</td><td class="delta neg">−61</td><td class="delta neg">−53,0%</td>
+              <td>115</td><td>150</td><td>58</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:39%"></div></div><span class="pct">38,7%</span></td><td class="delta neg">−92</td><td class="delta neg">−57</td><td class="delta neg">−49,6%</td>
             </tr>
             <tr class="detail-row" id="mc-det-4" hidden>
               <td colspan="8" class="detail-cell">
@@ -1896,12 +1957,12 @@
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>14</td><td>18</td><td>7</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:39%"></div></div><span class="pct">38,9%</span></td><td class="delta neg">−11</td><td class="delta neg">−7</td><td class="delta neg">−50,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar en Enfermería</td><td>14</td><td>18</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">44,4%</span></td><td class="delta neg">−10</td><td class="delta neg">−6</td><td class="delta neg">−42,9%</td></tr>
                     <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>14</td><td>18</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−12</td><td class="delta neg">−8</td><td class="delta neg">−57,1%</td></tr>
                     <tr><td class="prog-name">Sastrería y Confección a la Medida</td><td>14</td><td>18</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−18</td><td class="delta neg">−14</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>0</td><td>—</td><td>11</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+11</td><td class="delta pos">+11</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>9</td><td>12</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−9</td><td class="delta neg">−6</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo</td><td>9</td><td>12</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−10</td><td class="delta neg">−7</td><td class="delta neg">−77,8%</td></tr>
-                    <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>0</td><td>—</td><td>9</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+9</td><td class="delta pos">+9</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>7</td><td>9</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:11%"></div></div><span class="pct">11,1%</span></td><td class="delta neg">−8</td><td class="delta neg">−6</td><td class="delta neg">−85,7%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-bach-4" data-target="mc-bach-4">
                       <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">2 ciclos</span></td><td>7</td><td>9</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:11%"></div></div><span class="pct">11,1%</span></td><td class="delta neg">−8</td><td class="delta neg">−6</td><td class="delta neg">−85,7%</td>
@@ -1922,8 +1983,8 @@
                     <tr><td class="prog-name">Inglés Conversacional</td><td>5</td><td>6</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:17%"></div></div><span class="pct">16,7%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−80,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>3</td><td>4</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
+                    <tr><td class="prog-name">Caja Registradora</td><td>3</td><td>4</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
-                    <tr><td class="prog-name">Caja Registradora</td><td>3</td><td>4</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:75%"></div></div><span class="pct">75,0%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Inglés Kids Conversacional</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>3</td><td>4</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,0%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−33,3%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
@@ -1939,15 +2000,15 @@
                 <table class="prog-table">
                   <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Jair Medina</td><td>0</td><td>75</td><td>28</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:37%"></div></div><span class="pct">37,3%</span></td><td class="delta neg">−47</td><td class="delta pos">+28</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Andreyna Pacheco</td><td>36</td><td>75</td><td>26</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:35%"></div></div><span class="pct">34,7%</span></td><td class="delta neg">−49</td><td class="delta neg">−10</td><td class="delta neg">−27,8%</td></tr>
+                    <tr><td class="prog-name">Jair Medina</td><td>0</td><td>75</td><td>30</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−45</td><td class="delta pos">+30</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Andreyna Pacheco</td><td>36</td><td>75</td><td>28</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:37%"></div></div><span class="pct">37,3%</span></td><td class="delta neg">−47</td><td class="delta neg">−8</td><td class="delta neg">−22,2%</td></tr>
                   </tbody>
                 </table>
                 </div>
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-1</td><td>520</td><td>669</td><td>450</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">67,3%</span></td><td class="delta neg">−219</td><td class="delta neg">−70</td><td class="delta neg">−13,5%</td></tr>
+            <tr class="total-row"><td>Total 2026-1</td><td>520</td><td>669</td><td>454</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">67,9%</span></td><td class="delta neg">−215</td><td class="delta neg">−66</td><td class="delta neg">−12,7%</td></tr>
           </tbody>
         </table>
         </div>
@@ -1964,13 +2025,13 @@
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Mayo · por programa <span class="detail-count">22</span></div>
+                <div class="detail-title">Mayo · por programa <span class="detail-count">23</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
                     <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>16</td><td>21</td><td>7</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−14</td><td class="delta neg">−9</td><td class="delta neg">−56,2%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-bach-5" data-target="mc-bach-5">
-                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">4 ciclos</span></td><td>11</td><td>14</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:7%"></div></div><span class="pct">7,1%</span></td><td class="delta neg">−13</td><td class="delta neg">−10</td><td class="delta neg">−90,9%</td>
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">5 ciclos</span></td><td>11</td><td>14</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:7%"></div></div><span class="pct">7,1%</span></td><td class="delta neg">−13</td><td class="delta neg">−10</td><td class="delta neg">−90,9%</td>
                     </tr>
                     <tr class="sub-detail-row" id="mc-bach-5" hidden>
                       <td colspan="8" class="sub-detail-cell">
@@ -1979,8 +2040,9 @@
                           <tbody>
                             <tr><td class="prog-name">Bachillerato en 1 año</td><td>8</td><td>10</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−10</td><td class="delta neg">−8</td><td class="delta neg">−100,0%</td></tr>
                             <tr><td class="prog-name">Ciclo III</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                            <tr><td class="prog-name">Ciclo IV</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                            <tr><td class="prog-name">Ciclo IV</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                             <tr><td class="prog-name">Ciclo VI (11°)</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Sin ciclo especificado</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                           </tbody>
                         </table>
                       </td>
@@ -1993,18 +2055,19 @@
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>3</td><td>4</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:75%"></div></div><span class="pct">75,0%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar de Cocina</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar de Cocina</td><td>3</td><td>4</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,0%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−33,3%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>1</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">300,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Cocinero Principal</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Seguridad y Salud Ocupacional</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
                 </div>
@@ -2029,7 +2092,7 @@
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Junio · por programa <span class="detail-count">19</span></div>
+                <div class="detail-title">Junio · por programa <span class="detail-count">22</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2040,9 +2103,9 @@
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>7</td><td>9</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−6</td><td class="delta neg">−4</td><td class="delta neg">−57,1%</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>5</td><td>6</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−40,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
-                    <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
+                    <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>3</td><td>4</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,0%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−33,3%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>2</td><td>3</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+50,0%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-bach-6" data-target="mc-bach-6">
                       <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">2 ciclos</span></td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td>
@@ -2053,7 +2116,7 @@
                           <thead><tr><th>Ciclo</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                           <tbody>
                             <tr><td class="prog-name">Bachillerato en 1 año</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
-                            <tr><td class="prog-name">Ciclo V (10°)</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Sin ciclo especificado</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                           </tbody>
                         </table>
                       </td>
@@ -2061,10 +2124,13 @@
                     <tr><td class="prog-name">Inglés Conversacional</td><td>2</td><td>3</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+50,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Auxiliar de Cocina</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Caja Registradora</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Cocinero Principal</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Cocinero Principal</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr><td class="prog-name">Seguridad y Salud Ocupacional</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
                 </div>
@@ -2090,7 +2156,7 @@
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Julio · por programa <span class="detail-count">19</span></div>
+                <div class="detail-title">Julio · por programa <span class="detail-count">21</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2118,15 +2184,17 @@
                         </table>
                       </td>
                     </tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>6</td><td>8</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:12%"></div></div><span class="pct">12,5%</span></td><td class="delta neg">−7</td><td class="delta neg">−5</td><td class="delta neg">−83,3%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>6</td><td>8</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−8</td><td class="delta neg">−6</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>6</td><td>8</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−6</td><td class="delta neg">−4</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>4</td><td>5</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:20%"></div></div><span class="pct">20,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−75,0%</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>3</td><td>4</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:75%"></div></div><span class="pct">75,0%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Caja Registradora</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Cocinero Principal</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
+                    <tr><td class="prog-name">Cocinero Principal</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Auxiliar de Cocina</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
                 </div>
@@ -2157,7 +2225,7 @@
                   <tbody>
                     <tr><td class="prog-name">Cosmetología y Estética Integral</td><td>14</td><td>18</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">44,4%</span></td><td class="delta neg">−10</td><td class="delta neg">−6</td><td class="delta neg">−42,9%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Enfermería</td><td>13</td><td>17</td><td>8</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:47%"></div></div><span class="pct">47,1%</span></td><td class="delta neg">−9</td><td class="delta neg">−5</td><td class="delta neg">−38,5%</td></tr>
-                    <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>10</td><td>13</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:23%"></div></div><span class="pct">23,1%</span></td><td class="delta neg">−10</td><td class="delta neg">−7</td><td class="delta neg">−70,0%</td></tr>
+                    <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>10</td><td>13</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:31%"></div></div><span class="pct">30,8%</span></td><td class="delta neg">−9</td><td class="delta neg">−6</td><td class="delta neg">−60,0%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-bach-8" data-target="mc-bach-8">
                       <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">2 ciclos</span></td><td>9</td><td>12</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−12</td><td class="delta neg">−9</td><td class="delta neg">−100,0%</td>
                     </tr>
@@ -2173,21 +2241,21 @@
                       </td>
                     </tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>7</td><td>9</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">44,4%</span></td><td class="delta neg">−5</td><td class="delta neg">−3</td><td class="delta neg">−42,9%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>6</td><td>8</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:38%"></div></div><span class="pct">37,5%</span></td><td class="delta neg">−5</td><td class="delta neg">−3</td><td class="delta neg">−50,0%</td></tr>
-                    <tr><td class="prog-name">Cocinero Principal</td><td>2</td><td>3</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+3</td><td class="delta pos">+4</td><td class="delta pos">+200,0%</td></tr>
+                    <tr><td class="prog-name">Panadería y Repostería</td><td>4</td><td>5</td><td>7</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">140,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+3</td><td class="delta pos">+75,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>6</td><td>8</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−8</td><td class="delta neg">−6</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar de Cocina</td><td>0</td><td>—</td><td>6</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+6</td><td class="delta pos">+6</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>6</td><td>8</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:12%"></div></div><span class="pct">12,5%</span></td><td class="delta neg">−7</td><td class="delta neg">−5</td><td class="delta neg">−83,3%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administrativo</td><td>5</td><td>6</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−60,0%</td></tr>
-                    <tr><td class="prog-name">Panadería y Repostería</td><td>4</td><td>5</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+25,0%</td></tr>
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Auxiliar Contable y Financiero</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
-                    <tr><td class="prog-name">Excel Basico, Intermedio y Avanzado</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Panaderos y Resposteros</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Cocinero Principal</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Excel (curso)</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Cortador y Confeccion de Moda</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                   </tbody>
                 </table>
                 </div>
@@ -2212,11 +2280,11 @@
               <td colspan="8" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
-                <div class="detail-title">Septiembre · por programa <span class="detail-count">23</span></div>
+                <div class="detail-title">Septiembre · por programa <span class="detail-count">25</span></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
-                    <tr><td class="prog-name">Cocinero Principal</td><td>9</td><td>12</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:8%"></div></div><span class="pct">8,3%</span></td><td class="delta neg">−11</td><td class="delta neg">−8</td><td class="delta neg">−88,9%</td></tr>
+                    <tr><td class="prog-name">Cocinero Principal</td><td>9</td><td>12</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−12</td><td class="delta neg">−9</td><td class="delta neg">−100,0%</td></tr>
                     <tr class="sub-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-bach-9" data-target="mc-bach-9">
                       <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Bachillerato <span class="row-tag">2 ciclos</span></td><td>8</td><td>10</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−10</td><td class="delta neg">−8</td><td class="delta neg">−100,0%</td>
                     </tr>
@@ -2245,12 +2313,14 @@
                     <tr><td class="prog-name">Asistente de Primera Infancia</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>3</td><td>4</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−4</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>2</td><td>3</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,7%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
-                    <tr><td class="prog-name">Inyectologia Personal de la Salud</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Inyectologia Personal de Salud (curso)</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
-                    <tr><td class="prog-name">Excel Basico, Intermedio y Avanzado</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-                    <tr><td class="prog-name">Facturacion Hospitalaria</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Auxiliar de Cocina</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Excel (curso)</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr><td class="prog-name">Facturacion Hospitalaria (curso)</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                   </tbody>
                 </table>
@@ -2302,10 +2372,10 @@
         <div class="year-grid">
           <div class="year-cell"><span class="year-label">2025 ene–dic (cerrado)</span><span class="year-val">1.154</span></div>
           <div class="year-cell"><span class="year-label">Meta 2026 ene–dic (+30%)</span><span class="year-val">1.494</span></div>
-          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">646</span></div>
-          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">43,2%</span></div>
-          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−508</span></div>
-          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">848</span></div>
+          <div class="year-cell"><span class="year-label">2026 acumulado (ene–sep)</span><span class="year-val">650</span></div>
+          <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">43,5%</span></div>
+          <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−504</span></div>
+          <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">844</span></div>
         </div>
         <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Septiembre a diciembre quedan pendientes hasta que cierre cada mes. <strong style="color:var(--ink)">Enero</strong> aparece sin meta: el registro de 2025 de esta sede tiene muy pocas matrículas ese mes, así que no hay base con la cual comparar y se excluye del cálculo de la meta.</div>
       </div>
@@ -2316,18 +2386,69 @@
         <table class="matriculas-table">
           <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
-            <tr><td class="prog-name">Andreyna Pacheco</td><td>408</td><td>1.038</td><td>334</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:32%"></div></div><span class="pct">32,2%</span></td><td class="delta neg">−704</td><td class="delta neg">−74</td><td class="delta neg">−18,1%</td></tr>
-            <tr><td class="prog-name">Jair Medina</td><td>216</td><td>456</td><td>297</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">65,1%</span></td><td class="delta neg">−159</td><td class="delta pos">+81</td><td class="delta pos">+37,5%</td></tr>
+            <tr><td class="prog-name">Andreyna Pacheco</td><td>408</td><td>1.038</td><td>336</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:32%"></div></div><span class="pct">32,4%</span></td><td class="delta neg">−702</td><td class="delta neg">−72</td><td class="delta neg">−17,6%</td></tr>
+            <tr><td class="prog-name">Jair Medina</td><td>216</td><td>456</td><td>299</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:66%"></div></div><span class="pct">65,6%</span></td><td class="delta neg">−157</td><td class="delta pos">+83</td><td class="delta pos">+38,4%</td></tr>
             <tr><td class="prog-name">Danny</td><td>0</td><td>—</td><td>12</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+12</td><td class="delta">—</td></tr>
             <tr><td class="prog-name">Marlon</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
             <tr><td class="prog-name">Merlis Chamorro</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>624</td><td>1.494</td><td>646</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:43%"></div></div><span class="pct">43,2%</span></td><td class="delta neg">−848</td><td class="delta pos">+22</td><td class="delta pos">+3,5%</td></tr>
+            <tr class="subtotal-row"><td>Subtotal asesores listados</td><td>624</td><td>1.494</td><td>650</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">43,5%</span></td><td class="delta neg">−844</td><td class="delta pos">+26</td><td class="delta pos">+4,2%</td></tr>
             <tr class="muted-row"><td class="prog-name">Asesores que ya no están <span class="row-sub">Angel Correa, Mabel Daza, Jorge Pimienta, Luis Jose Van-grieken, Angela Parody, Sandra Sierra, Daniela Muñoz</span></td><td>530</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct pending">no aplica</span></td><td class="delta">—</td><td class="delta neg">−530</td><td class="delta neg">−100,0%</td></tr>
-            <tr class="total-row"><td>Total sede</td><td>1.154</td><td>1.494</td><td>646</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:43%"></div></div><span class="pct">43,2%</span></td><td class="delta neg">−848</td><td class="delta neg">−508</td><td class="delta neg">−44,0%</td></tr>
+            <tr class="total-row"><td>Total sede</td><td>1.154</td><td>1.494</td><td>650</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">43,5%</span></td><td class="delta neg">−844</td><td class="delta neg">−504</td><td class="delta neg">−43,7%</td></tr>
           </tbody>
         </table>
         </div>
         <div class="note"><strong style="color:var(--ink)">Cómo se calcula la meta por asesor:</strong> la meta del mes se reparte en partes iguales entre los asesores que hicieron <strong style="color:var(--ink)">10 matrículas o más</strong> ese mes; quien queda por debajo aparece con su cifra pero sin meta, y su parte se reparte entre los demás. Los meses que aún no cierran se proyectan entre el equipo activo en septiembre. Esta tabla es de año completo: la columna 2025 trae el año cerrado, la meta es la del año entero y la de 2026 va con corte a septiembre, así que «Dif. meta» es lo que falta por matricular para cerrar el año en meta.<br><br>Solo se listan los asesores que matricularon en 2026; los que salieron van agrupados en una fila porque sus matrículas de 2025 sí cuentan en el total de la sede. Datos normalizados: se unificaron mayúsculas, espacios y tildes, y los nombres de programa se consolidaron con sus variantes de escritura. Nombres de asesor unificados por errores de digitación: «Andreina Pacheco» → «Andreyna Pacheco».</div>
+      </div>
+    </section>
+
+    <!-- ============ MATRIZ HORARIOS AHMC ============ -->
+    <section class="block ah-wide">
+      <div class="block-head">
+        <span class="block-title">Matrícula por programa y horario</span>
+        <span class="block-num">02</span>
+      </div>
+      <div class="card full">
+        <div class="status-row" style="margin:-4px 0 16px">
+          <span class="pill stamp" id="ahmc-corte">⏺ último corte manual</span>
+        </div>
+        <div class="stat-row compact" id="ahmc-kpis" style="margin-bottom:20px;"></div>
+        <div class="aviso-modelo" id="ahmc-aviso" hidden>
+          No se pudo leer el cruce en vivo, así que la matriz muestra el último corte cargado a mano.
+          Si el problema persiste, abre el proyecto <code>Horarios</code> en script.google.com y ejecuta
+          <code>precalcular</code>.
+        </div>
+        <div class="salon-filtros">
+          <label class="sf"><span>Ver por</span>
+            <select id="ahmc-vista">
+              <option value="programa">Programa</option>
+              <option value="mes">Mes</option>
+            </select></label>
+          <label class="sf grande"><span>Programa académico</span><select id="ahmc-prog"></select></label>
+        </div>
+        <div class="sf-fichas">
+          <div><span class="sf-tit">Periodo</span><div class="fichas" id="ahmc-periodos"></div></div>
+          <div><span class="sf-tit">Mes</span><div class="fichas" id="ahmc-meses"></div></div>
+        </div>
+        <div class="ah-bleed"><div class="table-scroll" id="ahmc-matriz"></div></div>
+        <div class="note">Cruce de las <strong style="color:var(--ink)">650 matrículas de 2026</strong> contra la columna JORNADA del listado. El porcentaje bajo cada celda es el peso de ese horario dentro de la fila, para leer de un
+          vistazo en qué jornada se concentra cada programa. Los filtros de periodo, mes y programa se
+          combinan, y periodo y mes admiten varias selecciones a la vez: puedes marcar dos periodos juntos,
+          o solo dos meses, o ambas cosas. Sin nada marcado se ve todo el año. El selector «Ver por» cambia
+          las filas entre programa y mes: con mes en las filas se ve cómo se movió la demanda a lo largo
+          del año.<br><br><strong style="color:var(--ink)">La casilla de jornada se escribe a mano</strong> y cada quien la
+          nombra distinto, así que se normalizaron todas las variantes a un mismo conjunto de jornadas.
+          Ninguna quedó sin clasificar. Vale la pena que coordinación le ponga una lista desplegable, porque
+          hoy depende de cómo lo escriba cada asesor. En Maicáo hay dos rarezas: el prefijo
+  «PRINCIPAL - » delante de media jornada, que se ignora porque solo nombra la sede, y
+  <strong style="color:var(--ink)">137 filas que dicen «SELECCIONE JORNADA»</strong> —el texto de ayuda del
+  desplegable, que quedó guardado como si fuera un dato—. Esas aparecen como «sin horario» y son la quinta
+  parte del año: llenarlas es lo que más cambiaría esta lectura. Tres filas más traían el nombre del
+  programa en esa casilla.<br><br>
+  <strong style="color:var(--ink)">Una matrícula de junio quedó registrada en la pestaña 2025-1</strong>, y
+  por eso aparece un periodo con ese nombre y un solo alumno. No es un error del cruce: es una fila
+  guardada en la pestaña equivocada.<br><br>
+  <strong style="color:var(--ink)">Sale del último archivo cargado a mano</strong>, con el mismo descarte de
+  no matriculados y el mismo deduplicado que las cifras de arriba, así que el total coincide.</div>
       </div>
     </section>
   </div>
@@ -2482,7 +2603,7 @@
 // Pinta las secciones de admisiones con lo que devuelve el Apps Script.
 // Pega aquí la URL de tu implementación (paso 5 de las instrucciones).
 // ─────────────────────────────────────────────────────────────
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxvO3IaLdBH-4FK6Mk-SWZyVGaS8mVmnaoM5tK6gP6o4ZxpMQyUCSaM4pi2MuHZ21I4/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbykgkn5ZLzcio3yKPFIbsRdLAxyR7ncahoFv7l91rSxKqhr9h9iltCM22I0-1YJaG0JIg/exec';
 
 const N  = v => Number(v).toLocaleString('es-CO');
 const PC = v => v.toFixed(1).replace('.', ',') + '%';
@@ -3373,139 +3494,173 @@ function cargarSalonesVivo(){
 
 </script>
 <script>
-/* ═══ ADMISIONES · matrícula por programa y horario ═══ */
-const AH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzn3faMiCfEuz2g5X4-u52BrtocAxnMYucd9BQ3g128AhwRaQPynvLiOENNxaehDCt6jw/exec';
-let AH = {"programas":["Asistente de Primera Infancia","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Salud Oral","Auxiliar en Servicios Farmacéuticos","Auxiliar en Suministros y Almacén","Bachillerato","Cocinero Principal","Cosmetología y Estética Integral","Estilista Integral en Peluquería","Inglés Conversacional","Investigador Criminalístico y Judicial","Marketing Digital","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Peluquería y Estética Canina","Refrigeración y Aires Acondicionados","Seguridad Ocupacional y Laboral"],"horarios":["Lunes a jueves · 6–8 am","Lunes a jueves · 8–10 am","Lunes a jueves · 10–12 m","Mañana · sin detalle","Lunes y miércoles · 8–12 m","Martes y jueves · 8–12 m","Lunes a jueves · 2–6 pm","Martes y jueves · 2–6 pm","Tarde · sin detalle","Viernes · tarde","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana","Virtual · tarde"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"celdas":[{"p":0,"h":6,"m":1,"n":4},{"p":0,"h":6,"m":2,"n":7},{"p":0,"h":6,"m":3,"n":1},{"p":0,"h":6,"m":5,"n":3},{"p":0,"h":6,"m":6,"n":1},{"p":0,"h":6,"m":7,"n":3},{"p":0,"h":6,"m":8,"n":3},{"p":0,"h":11,"m":1,"n":5},{"p":0,"h":11,"m":2,"n":2},{"p":0,"h":11,"m":3,"n":1},{"p":0,"h":11,"m":6,"n":3},{"p":0,"h":11,"m":7,"n":1},{"p":0,"h":11,"m":9,"n":1},{"p":1,"h":13,"m":1,"n":1},{"p":1,"h":6,"m":1,"n":1},{"p":1,"h":1,"m":1,"n":9},{"p":1,"h":1,"m":2,"n":5},{"p":1,"h":1,"m":3,"n":3},{"p":1,"h":1,"m":5,"n":3},{"p":1,"h":1,"m":6,"n":1},{"p":1,"h":10,"m":1,"n":3},{"p":1,"h":10,"m":2,"n":5},{"p":1,"h":10,"m":3,"n":1},{"p":1,"h":10,"m":6,"n":1},{"p":1,"h":10,"m":7,"n":2},{"p":1,"h":11,"m":1,"n":4},{"p":1,"h":11,"m":2,"n":3},{"p":1,"h":11,"m":3,"n":1},{"p":1,"h":11,"m":4,"n":1},{"p":1,"h":11,"m":5,"n":1},{"p":1,"h":11,"m":6,"n":1},{"p":1,"h":11,"m":7,"n":2},{"p":1,"h":11,"m":8,"n":1},{"p":1,"h":11,"m":9,"n":1},{"p":1,"h":12,"m":1,"n":1},{"p":2,"h":13,"m":7,"n":1},{"p":2,"h":2,"m":1,"n":4},{"p":2,"h":2,"m":2,"n":4},{"p":2,"h":2,"m":3,"n":5},{"p":2,"h":2,"m":4,"n":1},{"p":2,"h":6,"m":1,"n":1},{"p":2,"h":1,"m":1,"n":5},{"p":2,"h":1,"m":2,"n":6},{"p":2,"h":1,"m":4,"n":1},{"p":2,"h":1,"m":6,"n":1},{"p":2,"h":1,"m":7,"n":4},{"p":2,"h":1,"m":8,"n":6},{"p":2,"h":10,"m":1,"n":2},{"p":2,"h":10,"m":3,"n":5},{"p":2,"h":10,"m":4,"n":2},{"p":2,"h":10,"m":9,"n":1},{"p":2,"h":11,"m":1,"n":8},{"p":2,"h":11,"m":2,"n":8},{"p":2,"h":11,"m":3,"n":7},{"p":2,"h":11,"m":4,"n":2},{"p":2,"h":12,"m":5,"n":2},{"p":2,"h":12,"m":6,"n":4},{"p":2,"h":12,"m":7,"n":3},{"p":2,"h":12,"m":8,"n":4},{"p":3,"h":2,"m":1,"n":4},{"p":3,"h":2,"m":2,"n":6},{"p":3,"h":2,"m":3,"n":2},{"p":3,"h":2,"m":4,"n":5},{"p":3,"h":2,"m":5,"n":1},{"p":3,"h":2,"m":7,"n":1},{"p":3,"h":2,"m":8,"n":3},{"p":3,"h":10,"m":1,"n":3},{"p":3,"h":10,"m":2,"n":4},{"p":3,"h":10,"m":3,"n":1},{"p":3,"h":10,"m":4,"n":1},{"p":3,"h":10,"m":6,"n":1},{"p":3,"h":10,"m":7,"n":1},{"p":3,"h":10,"m":8,"n":1},{"p":3,"h":11,"m":1,"n":3},{"p":3,"h":11,"m":2,"n":6},{"p":3,"h":11,"m":3,"n":1},{"p":3,"h":11,"m":4,"n":1},{"p":3,"h":11,"m":5,"n":1},{"p":3,"h":11,"m":6,"n":2},{"p":4,"h":13,"m":2,"n":1},{"p":4,"h":2,"m":1,"n":4},{"p":4,"h":2,"m":2,"n":2},{"p":4,"h":2,"m":3,"n":3},{"p":4,"h":2,"m":4,"n":1},{"p":4,"h":6,"m":1,"n":2},{"p":4,"h":1,"m":1,"n":8},{"p":4,"h":1,"m":2,"n":2},{"p":4,"h":1,"m":3,"n":2},{"p":4,"h":1,"m":4,"n":2},{"p":4,"h":1,"m":5,"n":3},{"p":4,"h":1,"m":6,"n":1},{"p":4,"h":1,"m":7,"n":2},{"p":4,"h":1,"m":8,"n":4},{"p":4,"h":11,"m":1,"n":6},{"p":4,"h":11,"m":2,"n":3},{"p":4,"h":11,"m":3,"n":2},{"p":4,"h":12,"m":5,"n":1},{"p":4,"h":12,"m":6,"n":2},{"p":4,"h":12,"m":7,"n":3},{"p":4,"h":12,"m":8,"n":5},{"p":5,"h":13,"m":1,"n":1},{"p":5,"h":13,"m":6,"n":5},{"p":5,"h":13,"m":7,"n":2},{"p":5,"h":13,"m":8,"n":1},{"p":5,"h":2,"m":1,"n":4},{"p":5,"h":2,"m":2,"n":11},{"p":5,"h":2,"m":3,"n":1},{"p":5,"h":2,"m":4,"n":5},{"p":5,"h":2,"m":5,"n":1},{"p":5,"h":2,"m":6,"n":8},{"p":5,"h":2,"m":7,"n":4},{"p":5,"h":2,"m":8,"n":2},{"p":5,"h":6,"m":1,"n":6},{"p":5,"h":6,"m":2,"n":6},{"p":5,"h":1,"m":1,"n":7},{"p":5,"h":1,"m":2,"n":6},{"p":5,"h":1,"m":3,"n":4},{"p":5,"h":1,"m":4,"n":1},{"p":5,"h":10,"m":1,"n":1},{"p":5,"h":10,"m":2,"n":4},{"p":5,"h":10,"m":3,"n":1},{"p":5,"h":10,"m":4,"n":1},{"p":5,"h":10,"m":5,"n":1},{"p":5,"h":11,"m":1,"n":2},{"p":5,"h":11,"m":2,"n":3},{"p":5,"h":11,"m":3,"n":2},{"p":5,"h":11,"m":4,"n":3},{"p":5,"h":12,"m":1,"n":1},{"p":5,"h":12,"m":2,"n":1},{"p":5,"h":12,"m":4,"n":2},{"p":5,"h":12,"m":5,"n":3},{"p":5,"h":12,"m":6,"n":3},{"p":5,"h":12,"m":7,"n":2},{"p":5,"h":12,"m":8,"n":1},{"p":6,"h":2,"m":1,"n":3},{"p":6,"h":2,"m":2,"n":7},{"p":6,"h":2,"m":3,"n":2},{"p":6,"h":6,"m":1,"n":1},{"p":6,"h":11,"m":1,"n":1},{"p":6,"h":12,"m":1,"n":2},{"p":6,"h":12,"m":2,"n":4},{"p":6,"h":12,"m":3,"n":2},{"p":6,"h":12,"m":4,"n":1},{"p":6,"h":12,"m":5,"n":1},{"p":6,"h":12,"m":6,"n":1},{"p":6,"h":12,"m":7,"n":1},{"p":6,"h":12,"m":8,"n":1},{"p":7,"h":13,"m":1,"n":2},{"p":7,"h":13,"m":3,"n":2},{"p":7,"h":2,"m":1,"n":2},{"p":7,"h":2,"m":5,"n":1},{"p":7,"h":2,"m":6,"n":5},{"p":7,"h":2,"m":7,"n":1},{"p":7,"h":2,"m":8,"n":1},{"p":7,"h":6,"m":1,"n":2},{"p":7,"h":6,"m":2,"n":2},{"p":7,"h":6,"m":3,"n":1},{"p":7,"h":1,"m":1,"n":3},{"p":7,"h":1,"m":3,"n":3},{"p":7,"h":1,"m":4,"n":1},{"p":7,"h":1,"m":9,"n":1},{"p":7,"h":10,"m":1,"n":3},{"p":7,"h":10,"m":2,"n":1},{"p":7,"h":10,"m":4,"n":1},{"p":7,"h":10,"m":5,"n":5},{"p":7,"h":10,"m":6,"n":2},{"p":7,"h":10,"m":8,"n":2},{"p":7,"h":11,"m":1,"n":1},{"p":7,"h":12,"m":1,"n":1},{"p":7,"h":12,"m":2,"n":3},{"p":7,"h":12,"m":3,"n":6},{"p":7,"h":12,"m":6,"n":3},{"p":7,"h":12,"m":7,"n":3},{"p":7,"h":12,"m":8,"n":6},{"p":8,"h":13,"m":7,"n":1},{"p":8,"h":2,"m":1,"n":2},{"p":8,"h":2,"m":2,"n":4},{"p":8,"h":2,"m":3,"n":6},{"p":8,"h":2,"m":4,"n":2},{"p":8,"h":2,"m":5,"n":1},{"p":8,"h":2,"m":6,"n":1},{"p":8,"h":2,"m":7,"n":4},{"p":8,"h":2,"m":8,"n":6},{"p":8,"h":10,"m":1,"n":1},{"p":8,"h":11,"m":1,"n":1},{"p":8,"h":11,"m":2,"n":1},{"p":8,"h":12,"m":1,"n":1},{"p":8,"h":12,"m":2,"n":4},{"p":8,"h":12,"m":3,"n":1},{"p":8,"h":12,"m":4,"n":2},{"p":8,"h":12,"m":5,"n":1},{"p":8,"h":12,"m":6,"n":3},{"p":8,"h":12,"m":7,"n":5},{"p":8,"h":12,"m":8,"n":5},{"p":9,"h":1,"m":3,"n":2},{"p":9,"h":3,"m":1,"n":76},{"p":9,"h":3,"m":2,"n":26},{"p":9,"h":3,"m":3,"n":11},{"p":9,"h":3,"m":4,"n":1},{"p":9,"h":3,"m":6,"n":7},{"p":9,"h":3,"m":7,"n":13},{"p":9,"h":3,"m":8,"n":7},{"p":9,"h":11,"m":1,"n":2},{"p":9,"h":11,"m":2,"n":4},{"p":9,"h":11,"m":3,"n":2},{"p":9,"h":11,"m":4,"n":1},{"p":9,"h":11,"m":6,"n":3},{"p":9,"h":11,"m":7,"n":7},{"p":9,"h":11,"m":8,"n":4},{"p":9,"h":8,"m":1,"n":6},{"p":9,"h":8,"m":2,"n":2},{"p":9,"h":8,"m":4,"n":1},{"p":9,"h":8,"m":5,"n":1},{"p":9,"h":8,"m":6,"n":3},{"p":9,"h":8,"m":7,"n":3},{"p":9,"h":8,"m":8,"n":1},{"p":9,"h":14,"m":1,"n":10},{"p":9,"h":14,"m":2,"n":9},{"p":9,"h":14,"m":3,"n":3},{"p":9,"h":14,"m":6,"n":3},{"p":9,"h":14,"m":7,"n":3},{"p":10,"h":13,"m":1,"n":1},{"p":10,"h":1,"m":2,"n":1},{"p":10,"h":10,"m":1,"n":4},{"p":10,"h":10,"m":2,"n":3},{"p":10,"h":4,"m":1,"n":2},{"p":10,"h":7,"m":1,"n":2},{"p":10,"h":5,"m":1,"n":1},{"p":10,"h":5,"m":2,"n":3},{"p":10,"h":5,"m":3,"n":2},{"p":10,"h":5,"m":4,"n":2},{"p":10,"h":5,"m":5,"n":4},{"p":10,"h":5,"m":6,"n":3},{"p":10,"h":5,"m":7,"n":3},{"p":10,"h":5,"m":8,"n":2},{"p":10,"h":11,"m":1,"n":5},{"p":10,"h":11,"m":2,"n":2},{"p":10,"h":11,"m":3,"n":5},{"p":10,"h":11,"m":4,"n":1},{"p":10,"h":12,"m":1,"n":1},{"p":10,"h":12,"m":5,"n":3},{"p":10,"h":12,"m":6,"n":3},{"p":10,"h":12,"m":7,"n":6},{"p":10,"h":12,"m":8,"n":3},{"p":11,"h":13,"m":1,"n":5},{"p":11,"h":13,"m":2,"n":2},{"p":11,"h":13,"m":3,"n":1},{"p":11,"h":13,"m":4,"n":4},{"p":11,"h":2,"m":1,"n":7},{"p":11,"h":2,"m":2,"n":11},{"p":11,"h":2,"m":3,"n":8},{"p":11,"h":6,"m":1,"n":8},{"p":11,"h":6,"m":2,"n":9},{"p":11,"h":6,"m":3,"n":5},{"p":11,"h":6,"m":4,"n":7},{"p":11,"h":1,"m":1,"n":11},{"p":11,"h":1,"m":2,"n":7},{"p":11,"h":1,"m":3,"n":6},{"p":11,"h":1,"m":4,"n":1},{"p":11,"h":1,"m":5,"n":10},{"p":11,"h":1,"m":6,"n":6},{"p":11,"h":1,"m":7,"n":5},{"p":11,"h":1,"m":8,"n":6},{"p":11,"h":1,"m":9,"n":1},{"p":11,"h":10,"m":1,"n":3},{"p":11,"h":10,"m":6,"n":4},{"p":11,"h":10,"m":7,"n":1},{"p":11,"h":10,"m":8,"n":1},{"p":11,"h":4,"m":1,"n":1},{"p":11,"h":11,"m":1,"n":13},{"p":11,"h":11,"m":2,"n":7},{"p":11,"h":11,"m":3,"n":4},{"p":11,"h":12,"m":1,"n":2},{"p":11,"h":12,"m":2,"n":6},{"p":11,"h":12,"m":3,"n":5},{"p":11,"h":12,"m":4,"n":4},{"p":11,"h":12,"m":5,"n":4},{"p":11,"h":12,"m":6,"n":4},{"p":11,"h":12,"m":7,"n":3},{"p":11,"h":12,"m":8,"n":5},{"p":11,"h":12,"m":9,"n":1},{"p":12,"h":13,"m":1,"n":1},{"p":12,"h":13,"m":2,"n":1},{"p":12,"h":13,"m":4,"n":1},{"p":12,"h":13,"m":5,"n":1},{"p":12,"h":13,"m":7,"n":2},{"p":12,"h":1,"m":1,"n":1},{"p":12,"h":4,"m":1,"n":1},{"p":12,"h":5,"m":1,"n":2},{"p":12,"h":5,"m":2,"n":3},{"p":12,"h":5,"m":3,"n":1},{"p":12,"h":5,"m":5,"n":1},{"p":12,"h":5,"m":7,"n":2},{"p":12,"h":5,"m":8,"n":2},{"p":12,"h":11,"m":1,"n":2},{"p":12,"h":11,"m":3,"n":2},{"p":12,"h":12,"m":1,"n":1},{"p":13,"h":13,"m":1,"n":1},{"p":13,"h":13,"m":3,"n":1},{"p":13,"h":13,"m":5,"n":1},{"p":13,"h":13,"m":6,"n":11},{"p":13,"h":13,"m":7,"n":3},{"p":13,"h":13,"m":8,"n":4},{"p":13,"h":2,"m":1,"n":8},{"p":13,"h":2,"m":2,"n":8},{"p":13,"h":2,"m":3,"n":5},{"p":13,"h":6,"m":1,"n":8},{"p":13,"h":6,"m":2,"n":3},{"p":13,"h":6,"m":3,"n":2},{"p":13,"h":0,"m":2,"n":1},{"p":13,"h":1,"m":1,"n":13},{"p":13,"h":1,"m":2,"n":11},{"p":13,"h":1,"m":3,"n":2},{"p":13,"h":1,"m":4,"n":2},{"p":13,"h":1,"m":5,"n":1},{"p":13,"h":1,"m":6,"n":3},{"p":13,"h":1,"m":7,"n":10},{"p":13,"h":1,"m":8,"n":3},{"p":13,"h":10,"m":1,"n":6},{"p":13,"h":10,"m":2,"n":6},{"p":13,"h":10,"m":3,"n":3},{"p":13,"h":11,"m":1,"n":15},{"p":13,"h":11,"m":2,"n":8},{"p":13,"h":11,"m":3,"n":3},{"p":13,"h":11,"m":4,"n":3},{"p":13,"h":11,"m":5,"n":2},{"p":13,"h":11,"m":6,"n":8},{"p":13,"h":11,"m":7,"n":9},{"p":13,"h":11,"m":8,"n":10},{"p":13,"h":11,"m":9,"n":2},{"p":13,"h":12,"m":3,"n":2},{"p":13,"h":12,"m":4,"n":2},{"p":13,"h":12,"m":5,"n":5},{"p":13,"h":12,"m":9,"n":2},{"p":14,"h":6,"m":1,"n":8},{"p":14,"h":6,"m":2,"n":6},{"p":14,"h":6,"m":3,"n":5},{"p":14,"h":6,"m":4,"n":2},{"p":14,"h":12,"m":5,"n":2},{"p":14,"h":12,"m":6,"n":2},{"p":14,"h":12,"m":7,"n":2},{"p":14,"h":12,"m":8,"n":4},{"p":15,"h":13,"m":1,"n":3},{"p":15,"h":13,"m":2,"n":2},{"p":15,"h":13,"m":3,"n":1},{"p":15,"h":13,"m":5,"n":1},{"p":15,"h":13,"m":6,"n":3},{"p":15,"h":13,"m":7,"n":7},{"p":15,"h":13,"m":8,"n":2},{"p":15,"h":13,"m":9,"n":1},{"p":15,"h":2,"m":4,"n":1},{"p":15,"h":2,"m":5,"n":2},{"p":15,"h":2,"m":6,"n":2},{"p":15,"h":2,"m":7,"n":6},{"p":15,"h":2,"m":8,"n":1},{"p":15,"h":6,"m":1,"n":2},{"p":15,"h":6,"m":3,"n":3},{"p":15,"h":1,"m":1,"n":6},{"p":15,"h":1,"m":2,"n":6},{"p":15,"h":1,"m":3,"n":7},{"p":15,"h":10,"m":1,"n":2},{"p":15,"h":10,"m":2,"n":2},{"p":15,"h":10,"m":4,"n":1},{"p":15,"h":10,"m":5,"n":4},{"p":15,"h":10,"m":6,"n":5},{"p":15,"h":10,"m":8,"n":5},{"p":15,"h":10,"m":9,"n":1},{"p":15,"h":11,"m":1,"n":2},{"p":15,"h":11,"m":2,"n":3},{"p":15,"h":11,"m":3,"n":3},{"p":15,"h":11,"m":4,"n":1},{"p":16,"h":13,"m":6,"n":2},{"p":16,"h":13,"m":7,"n":6},{"p":16,"h":13,"m":8,"n":2},{"p":16,"h":13,"m":9,"n":1},{"p":16,"h":2,"m":1,"n":4},{"p":16,"h":2,"m":2,"n":9},{"p":16,"h":2,"m":3,"n":6},{"p":16,"h":2,"m":4,"n":2},{"p":16,"h":6,"m":1,"n":2},{"p":16,"h":6,"m":2,"n":1},{"p":16,"h":6,"m":3,"n":1},{"p":16,"h":6,"m":5,"n":2},{"p":16,"h":6,"m":6,"n":2},{"p":16,"h":6,"m":7,"n":2},{"p":16,"h":6,"m":8,"n":4},{"p":16,"h":1,"m":1,"n":1},{"p":16,"h":10,"m":1,"n":3},{"p":16,"h":10,"m":2,"n":6},{"p":16,"h":10,"m":4,"n":2},{"p":16,"h":11,"m":1,"n":3},{"p":16,"h":11,"m":2,"n":7},{"p":16,"h":11,"m":3,"n":6},{"p":16,"h":11,"m":4,"n":1},{"p":16,"h":12,"m":5,"n":1},{"p":16,"h":12,"m":6,"n":2},{"p":16,"h":12,"m":7,"n":7},{"p":16,"h":12,"m":8,"n":2},{"p":16,"h":12,"m":9,"n":2},{"p":17,"h":13,"m":1,"n":5},{"p":17,"h":13,"m":2,"n":5},{"p":17,"h":13,"m":3,"n":2},{"p":17,"h":13,"m":8,"n":4},{"p":17,"h":13,"m":9,"n":2},{"p":17,"h":11,"m":1,"n":10},{"p":17,"h":11,"m":5,"n":3},{"p":17,"h":11,"m":6,"n":8},{"p":17,"h":11,"m":7,"n":11},{"p":17,"h":12,"m":1,"n":6},{"p":17,"h":12,"m":2,"n":2},{"p":17,"h":12,"m":3,"n":11},{"p":17,"h":12,"m":6,"n":2},{"p":17,"h":12,"m":7,"n":14},{"p":17,"h":12,"m":8,"n":7},{"p":18,"h":13,"m":1,"n":3},{"p":18,"h":13,"m":6,"n":4},{"p":18,"h":13,"m":7,"n":1},{"p":18,"h":13,"m":8,"n":5},{"p":18,"h":6,"m":1,"n":1},{"p":18,"h":10,"m":1,"n":1},{"p":18,"h":10,"m":2,"n":1},{"p":18,"h":10,"m":3,"n":2},{"p":18,"h":10,"m":4,"n":1},{"p":18,"h":10,"m":6,"n":2},{"p":18,"h":7,"m":1,"n":1},{"p":18,"h":7,"m":2,"n":4},{"p":18,"h":7,"m":3,"n":6},{"p":18,"h":11,"m":1,"n":14},{"p":18,"h":11,"m":2,"n":3},{"p":18,"h":11,"m":3,"n":2},{"p":18,"h":12,"m":1,"n":3},{"p":18,"h":12,"m":2,"n":5},{"p":18,"h":12,"m":3,"n":6},{"p":18,"h":9,"m":5,"n":5},{"p":18,"h":9,"m":6,"n":5},{"p":18,"h":9,"m":7,"n":5},{"p":18,"h":9,"m":8,"n":7},{"p":18,"h":9,"m":9,"n":3},{"p":19,"h":13,"m":1,"n":5},{"p":19,"h":13,"m":2,"n":5},{"p":19,"h":13,"m":5,"n":3},{"p":19,"h":13,"m":6,"n":7},{"p":19,"h":13,"m":7,"n":6},{"p":19,"h":13,"m":9,"n":1},{"p":20,"h":13,"m":1,"n":5},{"p":20,"h":13,"m":2,"n":5},{"p":20,"h":13,"m":3,"n":5},{"p":20,"h":13,"m":9,"n":1},{"p":20,"h":10,"m":4,"n":1},{"p":20,"h":10,"m":5,"n":1},{"p":20,"h":11,"m":1,"n":10},{"p":20,"h":11,"m":2,"n":11},{"p":20,"h":11,"m":5,"n":7},{"p":20,"h":11,"m":6,"n":8},{"p":20,"h":11,"m":7,"n":10},{"p":20,"h":12,"m":1,"n":6},{"p":20,"h":12,"m":2,"n":1},{"p":20,"h":12,"m":3,"n":8},{"p":20,"h":12,"m":6,"n":1},{"p":20,"h":12,"m":7,"n":6},{"p":20,"h":12,"m":8,"n":9},{"p":21,"h":13,"m":2,"n":2},{"p":21,"h":13,"m":5,"n":1},{"p":21,"h":13,"m":7,"n":2},{"p":21,"h":13,"m":8,"n":1},{"p":21,"h":2,"m":1,"n":1},{"p":21,"h":1,"m":1,"n":4},{"p":21,"h":1,"m":2,"n":3},{"p":21,"h":1,"m":3,"n":8},{"p":21,"h":1,"m":6,"n":2},{"p":21,"h":1,"m":7,"n":3},{"p":21,"h":1,"m":8,"n":2},{"p":21,"h":10,"m":1,"n":1},{"p":21,"h":10,"m":2,"n":3},{"p":21,"h":10,"m":3,"n":1},{"p":21,"h":10,"m":7,"n":1},{"p":21,"h":10,"m":8,"n":7},{"p":21,"h":11,"m":1,"n":1}],"total":1753};
+/* ═══ ADMISIONES · matrícula por programa y horario ═══
+   Una sola implementación para las tres sedes. Cada una se monta con su
+   prefijo de ids, sus datos y, si la tiene, su URL en vivo. */
 const ahEsc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ahN = v => Number(v).toLocaleString('es-CO');
 
-/* Los meses que realmente tienen matrícula, para no pintar columnas vacías. */
-let AH_MESES = [];
-function ahMeses(){ AH_MESES = [...new Set(AH.celdas.map(c=>c.m))].sort((a,b)=>a-b); }
+function crearMatrizHorarios(pfx, datos, endpoint){
+  const $ = id => document.getElementById(pfx + '-' + id);
+  if(!$('matriz')) return;                       // la sede no tiene este bloque
+  let AH = datos;
+  let MESES = [], PERIODOS = [];
+  /* Meses y periodos son selección múltiple: ninguno marcado = todos. Se
+     guardan en Set para poder combinar, por ejemplo 2026-1 con 2026-2 viendo
+     solo marzo y abril de los dos a la vez. */
+  const SELM = new Set(), SELP = new Set();
 
-function ahFiltrar(){
-  const p = document.getElementById('ah-prog').value;
-  const m = document.getElementById('ah-mes').value;
-  return AH.celdas.filter(c =>
-    (!p || AH.programas[c.p]===p) && (!m || String(c.m)===m));
-}
-
-function ahPintar(){
-  const cel = ahFiltrar();
-  const p = document.getElementById('ah-prog').value;
-  const m = document.getElementById('ah-mes').value;
-  const vista = document.getElementById('ah-vista').value;
-
-  // ── KPIs ──
-  const total = cel.reduce((a,c)=>a+c.n,0);
-  const porH = {}, porP = {};
-  cel.forEach(c=>{ porH[c.h]=(porH[c.h]||0)+c.n; porP[c.p]=(porP[c.p]||0)+c.n; });
-  const hTop = Object.keys(porH).sort((a,b)=>porH[b]-porH[a])[0];
-  const pTop = Object.keys(porP).sort((a,b)=>porP[b]-porP[a])[0];
-  document.getElementById('ah-kpis').innerHTML =
-    `<div class="stat"><div class="num" style="color:var(--pine)">${ahN(total)}</div>
-       <div class="label">matrículas${p?' de este programa':''}${m?' en '+AH.meses[m-1]:' en 2026'}</div></div>
-     <div class="stat"><div class="num">${Object.keys(porH).length}</div>
-       <div class="label">horarios con matrícula</div></div>
-     <div class="stat"><div class="num">${Object.keys(porP).length}</div>
-       <div class="label">programas con matrícula</div></div>
-     <div class="stat"><div class="num" style="color:var(--good)">${hTop!==undefined?
-         Math.round(porH[hTop]/total*100)+'%':'—'}</div>
-       <div class="label">${hTop!==undefined?'se concentra en '+ahEsc(AH.horarios[hTop]):'sin datos'}</div></div>`;
-
-  // ── matriz ──
-  const filas = (vista==='mes') ? AH_MESES : Object.keys(porP).map(Number)
-      .sort((a,b)=>porP[b]-porP[a]);
-  const cols = AH.horarios.map((_,i)=>i).filter(i=>porH[i]);
-  const idx = new Map();
-  cel.forEach(c=>{
-    const k = (vista==='mes' ? c.m : c.p) + '¦' + c.h;
-    idx.set(k,(idx.get(k)||0)+c.n);
-  });
-
-  let h = '<table class="aforo-tabla ah-tabla"><colgroup><col class="c-prog">' +
-          cols.map(()=>'<col>').join('') + '<col class="c-tot"></colgroup><thead><tr>' +
-          `<th>${vista==='mes'?'Mes':'Programa académico'}</th>`;
-  cols.forEach(i=>{
-    const t = AH.horarios[i].split(' · ');
-    h += `<th class="bq"><span>${ahEsc(t[0])}</span><em>${ahEsc(t[1]||'')}</em></th>`;
-  });
-  h += '<th class="bq tot"><span>Total</span><em>matrículas</em></th></tr></thead><tbody>';
-
-  const colT = cols.map(()=>0); let granT = 0;
-  filas.forEach(f=>{
-    const nombre = vista==='mes' ? AH.meses[f-1] : AH.programas[f];
-    const vals = cols.map(i=>idx.get(f+'¦'+i)||0);
-    const t = vals.reduce((a,b)=>a+b,0);
-    if(!t) return;
-    granT += t;
-    h += `<tr><td class="sal prog">${ahEsc(nombre)}</td>`;
-    vals.forEach((v,k)=>{
-      colT[k] += v;
-      h += v ? `<td class="cl s-prog"><span class="lbl">${v}</span>` +
-               `<em>${Math.round(v/t*100)}%</em></td>`
-             : '<td class="cl s-vacio"><span class="lbl">·</span></td>';
-    });
-    h += `<td class="cl tot-cel"><span class="lbl">${ahN(t)}</span></td></tr>`;
-  });
-  h += `<tr class="fila-tot"><td class="sal">Total por horario</td>`;
-  cols.forEach((i,k)=>{
-    h += `<td class="cl tot-cel"><span class="lbl">${colT[k]||'—'}</span>` +
-         `<em>${granT?Math.round(colT[k]/granT*100)+'%':''}</em></td>`;
-  });
-  h += `<td class="cl tot-cel gran"><span class="lbl">${ahN(granT)}</span></td></tr>`;
-  document.getElementById('ah-matriz').innerHTML = h + '</tbody></table>';
-}
-
-function ahSello(txt, aviso){
-  const el = document.getElementById('ah-corte');
-  if(el) el.textContent = txt;
-  const av = document.getElementById('ah-aviso');
-  if(av) av.hidden = !aviso;
-}
-/* Trae el cruce en vivo de la hoja de admisiones. Si falla, se queda con el
-   último corte incrustado y lo dice: la matriz nunca aparece vacía. */
-function ahCargarVivo(){
-  if(!AH_ENDPOINT || AH_ENDPOINT.indexOf('PEGA_AQUI') === 0){
-    ahSello('⏺ último corte manual', true); return;
+  function listas(){
+    MESES    = [...new Set(AH.celdas.map(c=>c.m))].sort((a,b)=>a-b);
+    PERIODOS = (AH.periodos||[]).map((_,i)=>i);
   }
-  ahSello('⟳ actualizando…', false);
-  const cb = 'ahCb' + Date.now();
-  const t = setTimeout(()=>{ limpiar(); ahSello('⏺ último corte manual', true); }, 25000);
-  function limpiar(){ try{ delete window[cb]; }catch(e){}
-    const s=document.getElementById(cb); if(s) s.remove(); }
-  window[cb] = function(d){
-    clearTimeout(t); limpiar();
-    if(!d || !d.celdas || !d.programas || !d.horarios){ ahSello('⏺ último corte manual', true); return; }
-    AH = d; ahMeses(); ahLlenar(); ahPintar();
-    ahSello('⏺ en vivo · corte ' + ((d.meta&&d.meta.corte)||'—'), false);
-  };
-  const s = document.createElement('script');
-  s.id = cb; s.src = AH_ENDPOINT + '?callback=' + cb;
-  s.onerror = function(){ clearTimeout(t); limpiar(); ahSello('⏺ último corte manual', true); };
-  document.body.appendChild(s);
+  function filtrar(){
+    const p = $('prog').value;
+    return AH.celdas.filter(c =>
+      (!p || AH.programas[c.p]===p) &&
+      (!SELM.size || SELM.has(c.m)) &&
+      (!SELP.size || SELP.has(c.pe)));
+  }
+  function etiqueta(){
+    const ms = [...SELM].sort((a,b)=>a-b).map(m=>AH.meses[m-1]);
+    const ps = [...SELP].sort((a,b)=>a-b).map(i=>(AH.periodos||[])[i]);
+    if(!ms.length && !ps.length) return ' en 2026';
+    const partes = [];
+    if(ps.length) partes.push(ps.join(' y '));
+    if(ms.length) partes.push(ms.length>3 ? ms.length+' meses' : ms.join(', '));
+    return ' · ' + partes.join(' · ');
+  }
+
+  function pintar(){
+    const cel = filtrar();
+    const p = $('prog').value;
+    const vista = $('vista').value;
+
+    const total = cel.reduce((a,c)=>a+c.n,0);
+    const porH = {}, porP = {};
+    cel.forEach(c=>{ porH[c.h]=(porH[c.h]||0)+c.n; porP[c.p]=(porP[c.p]||0)+c.n; });
+    const hTop = Object.keys(porH).sort((a,b)=>porH[b]-porH[a])[0];
+    $('kpis').innerHTML =
+      `<div class="stat"><div class="num" style="color:var(--pine)">${ahN(total)}</div>
+         <div class="label">matrículas${p?' de este programa':''}${etiqueta()}</div></div>
+       <div class="stat"><div class="num">${Object.keys(porH).length}</div>
+         <div class="label">horarios con matrícula</div></div>
+       <div class="stat"><div class="num">${Object.keys(porP).length}</div>
+         <div class="label">programas con matrícula</div></div>
+       <div class="stat"><div class="num" style="color:var(--good)">${hTop!==undefined?
+           Math.round(porH[hTop]/total*100)+'%':'—'}</div>
+         <div class="label">${hTop!==undefined?'se concentra en '+ahEsc(AH.horarios[hTop]):'sin datos'}</div></div>`;
+
+    const filas = (vista==='mes')
+        ? MESES.filter(mm=>!SELM.size || SELM.has(mm))
+        : Object.keys(porP).map(Number).sort((a,b)=>porP[b]-porP[a]);
+    const cols = AH.horarios.map((_,i)=>i).filter(i=>porH[i]);
+    const idx = new Map();
+    cel.forEach(c=>{
+      const k = (vista==='mes' ? c.m : c.p) + '¦' + c.h;
+      idx.set(k,(idx.get(k)||0)+c.n);
+    });
+
+    let h = '<table class="aforo-tabla ah-tabla"><colgroup><col class="c-prog">' +
+            cols.map(()=>'<col>').join('') + '<col class="c-tot"></colgroup><thead><tr>' +
+            `<th>${vista==='mes'?'Mes':'Programa académico'}</th>`;
+    cols.forEach(i=>{
+      const t = AH.horarios[i].split(' · ');
+      h += `<th class="bq"><span>${ahEsc(t[0])}</span><em>${ahEsc(t[1]||'')}</em></th>`;
+    });
+    h += '<th class="bq tot"><span>Total</span><em>matrículas</em></th></tr></thead><tbody>';
+
+    const colT = cols.map(()=>0); let granT = 0, nf = 0;
+    filas.forEach(f=>{
+      const nombre = vista==='mes' ? AH.meses[f-1] : AH.programas[f];
+      const vals = cols.map(i=>idx.get(f+'¦'+i)||0);
+      const t = vals.reduce((a,b)=>a+b,0);
+      if(!t) return;
+      nf++;
+      h += `<tr><td class="sal prog">${ahEsc(nombre)}</td>`;
+      vals.forEach((v,k)=>{
+        colT[k] += v;
+        h += v ? `<td class="cl s-prog"><span class="lbl">${v}</span>` +
+                 `<em>${Math.round(v/t*100)}%</em></td>`
+               : '<td class="cl s-vacio"><span class="lbl">·</span></td>';
+      });
+      granT += t;
+      h += `<td class="cl tot-cel"><span class="lbl">${ahN(t)}</span></td></tr>`;
+    });
+    if(!nf){ $('matriz').innerHTML =
+      '<p style="color:var(--pending);padding:20px">Nada cumple ese filtro.</p>'; return; }
+    h += `<tr class="fila-tot"><td class="sal">Total por horario</td>`;
+    cols.forEach((i,k)=>{
+      h += `<td class="cl tot-cel"><span class="lbl">${colT[k]||'—'}</span>` +
+           `<em>${granT?Math.round(colT[k]/granT*100)+'%':''}</em></td>`;
+    });
+    h += `<td class="cl tot-cel gran"><span class="lbl">${ahN(granT)}</span></td></tr>`;
+    $('matriz').innerHTML = h + '</tbody></table>';
+  }
+
+  function fichas(cont, items, sel, texto){
+    const c = $(cont);
+    if(!c) return;
+    c.innerHTML = items.map(v=>
+      `<button type="button" class="ficha${sel.has(v)?' on':''}" data-v="${v}">${ahEsc(texto(v))}</button>`
+    ).join('') + (items.length
+      ? `<button type="button" class="ficha todas${sel.size?'':' on'}" data-v="">Todos</button>` : '');
+    [...c.querySelectorAll('.ficha')].forEach(b=>{
+      b.onclick = () => {
+        const v = b.dataset.v;
+        if(v==='') sel.clear();
+        else { const n = Number(v); sel.has(n) ? sel.delete(n) : sel.add(n); }
+        fichas(cont, items, sel, texto);
+        pintar();
+      };
+    });
+  }
+  function llenar(){
+    const sp = $('prog'), prev = sp.value;
+    const usados = [...new Set(AH.celdas.map(c=>c.p))]
+      .map(i=>AH.programas[i]).sort((a,b)=>a.localeCompare(b,'es'));
+    sp.innerHTML = '<option value="">Todos los programas</option>' +
+      usados.map(x=>`<option>${ahEsc(x)}</option>`).join('');
+    if(usados.includes(prev)) sp.value = prev;
+    [...SELM].forEach(m=>{ if(!MESES.includes(m)) SELM.delete(m); });
+    [...SELP].forEach(i=>{ if(!PERIODOS.includes(i)) SELP.delete(i); });
+    fichas('periodos', PERIODOS, SELP, i => (AH.periodos||[])[i]);
+    fichas('meses',    MESES,    SELM, m => AH.meses[m-1]);
+  }
+
+  function sello(txt, aviso){
+    const el = $('corte'); if(el) el.textContent = txt;
+    const av = $('aviso'); if(av) av.hidden = !aviso;
+  }
+  /* Trae el cruce en vivo. Si falla, se queda con el último corte incrustado
+     y lo dice: la matriz nunca aparece vacía. */
+  function cargarVivo(){
+    if(!endpoint){ sello('⏺ último corte manual', false); return; }
+    sello('⟳ actualizando…', false);
+    const cb = 'ahCb' + pfx + Date.now();
+    const t = setTimeout(()=>{ limpiar(); sello('⏺ último corte manual', true); }, 25000);
+    function limpiar(){ try{ delete window[cb]; }catch(e){}
+      const s=document.getElementById(cb); if(s) s.remove(); }
+    window[cb] = function(d){
+      clearTimeout(t); limpiar();
+      if(!d || !d.celdas || !d.programas || !d.horarios){ sello('⏺ último corte manual', true); return; }
+      AH = d; listas(); llenar(); pintar();
+      sello('⏺ en vivo · corte ' + ((d.meta&&d.meta.corte)||'—'), false);
+    };
+    const s = document.createElement('script');
+    s.id = cb; s.src = endpoint + '?callback=' + cb;
+    s.onerror = function(){ clearTimeout(t); limpiar(); sello('⏺ último corte manual', true); };
+    document.body.appendChild(s);
+  }
+
+  listas(); llenar(); pintar();
+  ['prog','vista'].forEach(id=>$(id).addEventListener('input', pintar));
+  cargarVivo();
 }
 
-function ahLlenar(){
-  const sp = document.getElementById('ah-prog'), prevP = sp.value;
-  const sm = document.getElementById('ah-mes'), prevM = sm.value;
-  const usados = [...new Set(AH.celdas.map(c=>c.p))]
-    .map(i=>AH.programas[i]).sort((a,b)=>a.localeCompare(b,'es'));
-  sp.innerHTML = '<option value="">Todos los programas</option>' +
-    usados.map(x=>`<option>${ahEsc(x)}</option>`).join('');
-  if(usados.includes(prevP)) sp.value = prevP;
-  sm.innerHTML = '<option value="">Todo 2026</option>' +
-    AH_MESES.map(m=>`<option value="${m}">${AH.meses[m-1]}</option>`).join('');
-  if(AH_MESES.map(String).includes(prevM)) sm.value = prevM;
-}
-
-(function initAH(){
-  ahMeses(); ahLlenar();
-  ['ah-prog','ah-mes','ah-vista'].forEach(id=>
-    document.getElementById(id).addEventListener('input', ahPintar));
-  ahPintar();
-  ahCargarVivo();
-})();
+crearMatrizHorarios('ah',   {"programas":["Asistente de Primera Infancia","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Salud Oral","Auxiliar en Servicios Farmacéuticos","Auxiliar en Suministros y Almacén","Bachillerato","Cocinero Principal","Cosmetología y Estética Integral","Estilista Integral en Peluquería","Inglés Conversacional","Investigador Criminalístico y Judicial","Marketing Digital","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Peluquería y Estética Canina","Refrigeración y Aires Acondicionados","Seguridad Ocupacional y Laboral"],"horarios":["Lunes a jueves · 6–8 am","Lunes a jueves · 8–10 am","Lunes a jueves · 10–12 m","Mañana · sin detalle","Lunes y miércoles · 8–12 m","Martes y jueves · 8–12 m","Lunes a jueves · 2–6 pm","Martes y jueves · 2–6 pm","Tarde · sin detalle","Viernes · tarde","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana","Virtual · tarde"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"periodos":["2026-1","2026-2"],"celdas":[{"p":0,"h":6,"m":1,"pe":0,"n":4},{"p":0,"h":6,"m":2,"pe":0,"n":7},{"p":0,"h":6,"m":3,"pe":0,"n":1},{"p":0,"h":6,"m":5,"pe":0,"n":1},{"p":0,"h":6,"m":5,"pe":1,"n":2},{"p":0,"h":6,"m":6,"pe":1,"n":1},{"p":0,"h":6,"m":7,"pe":1,"n":3},{"p":0,"h":6,"m":8,"pe":1,"n":3},{"p":0,"h":11,"m":1,"pe":0,"n":5},{"p":0,"h":11,"m":2,"pe":0,"n":2},{"p":0,"h":11,"m":3,"pe":0,"n":1},{"p":0,"h":11,"m":6,"pe":0,"n":1},{"p":0,"h":11,"m":6,"pe":1,"n":2},{"p":0,"h":11,"m":7,"pe":1,"n":1},{"p":0,"h":11,"m":9,"pe":1,"n":1},{"p":1,"h":13,"m":1,"pe":0,"n":1},{"p":1,"h":6,"m":1,"pe":0,"n":1},{"p":1,"h":1,"m":1,"pe":0,"n":9},{"p":1,"h":1,"m":2,"pe":0,"n":5},{"p":1,"h":1,"m":3,"pe":0,"n":3},{"p":1,"h":1,"m":5,"pe":1,"n":3},{"p":1,"h":1,"m":6,"pe":1,"n":1},{"p":1,"h":10,"m":1,"pe":0,"n":3},{"p":1,"h":10,"m":2,"pe":0,"n":5},{"p":1,"h":10,"m":3,"pe":0,"n":1},{"p":1,"h":10,"m":6,"pe":1,"n":1},{"p":1,"h":10,"m":7,"pe":1,"n":2},{"p":1,"h":11,"m":1,"pe":0,"n":4},{"p":1,"h":11,"m":2,"pe":0,"n":3},{"p":1,"h":11,"m":3,"pe":0,"n":1},{"p":1,"h":11,"m":4,"pe":0,"n":1},{"p":1,"h":11,"m":5,"pe":1,"n":1},{"p":1,"h":11,"m":6,"pe":1,"n":1},{"p":1,"h":11,"m":7,"pe":1,"n":2},{"p":1,"h":11,"m":8,"pe":1,"n":1},{"p":1,"h":11,"m":9,"pe":1,"n":1},{"p":1,"h":12,"m":1,"pe":0,"n":1},{"p":2,"h":13,"m":7,"pe":1,"n":1},{"p":2,"h":2,"m":1,"pe":0,"n":4},{"p":2,"h":2,"m":2,"pe":0,"n":4},{"p":2,"h":2,"m":3,"pe":0,"n":5},{"p":2,"h":2,"m":4,"pe":0,"n":1},{"p":2,"h":6,"m":1,"pe":0,"n":1},{"p":2,"h":1,"m":1,"pe":0,"n":5},{"p":2,"h":1,"m":2,"pe":0,"n":6},{"p":2,"h":1,"m":4,"pe":1,"n":1},{"p":2,"h":1,"m":6,"pe":1,"n":1},{"p":2,"h":1,"m":7,"pe":1,"n":4},{"p":2,"h":1,"m":8,"pe":1,"n":6},{"p":2,"h":10,"m":1,"pe":0,"n":2},{"p":2,"h":10,"m":3,"pe":0,"n":5},{"p":2,"h":10,"m":4,"pe":0,"n":2},{"p":2,"h":10,"m":9,"pe":1,"n":1},{"p":2,"h":11,"m":1,"pe":0,"n":8},{"p":2,"h":11,"m":2,"pe":0,"n":8},{"p":2,"h":11,"m":3,"pe":0,"n":7},{"p":2,"h":11,"m":4,"pe":0,"n":2},{"p":2,"h":12,"m":5,"pe":1,"n":2},{"p":2,"h":12,"m":6,"pe":1,"n":4},{"p":2,"h":12,"m":7,"pe":1,"n":3},{"p":2,"h":12,"m":8,"pe":1,"n":4},{"p":3,"h":2,"m":1,"pe":0,"n":4},{"p":3,"h":2,"m":2,"pe":0,"n":6},{"p":3,"h":2,"m":3,"pe":0,"n":2},{"p":3,"h":2,"m":4,"pe":0,"n":5},{"p":3,"h":2,"m":5,"pe":1,"n":1},{"p":3,"h":2,"m":7,"pe":1,"n":1},{"p":3,"h":2,"m":8,"pe":1,"n":3},{"p":3,"h":10,"m":1,"pe":0,"n":3},{"p":3,"h":10,"m":2,"pe":0,"n":4},{"p":3,"h":10,"m":3,"pe":0,"n":1},{"p":3,"h":10,"m":4,"pe":0,"n":1},{"p":3,"h":10,"m":6,"pe":1,"n":1},{"p":3,"h":10,"m":7,"pe":1,"n":1},{"p":3,"h":10,"m":8,"pe":1,"n":1},{"p":3,"h":11,"m":1,"pe":0,"n":3},{"p":3,"h":11,"m":2,"pe":0,"n":6},{"p":3,"h":11,"m":3,"pe":0,"n":1},{"p":3,"h":11,"m":4,"pe":1,"n":1},{"p":3,"h":11,"m":5,"pe":0,"n":1},{"p":3,"h":11,"m":6,"pe":1,"n":2},{"p":4,"h":13,"m":2,"pe":0,"n":1},{"p":4,"h":2,"m":1,"pe":0,"n":4},{"p":4,"h":2,"m":2,"pe":0,"n":2},{"p":4,"h":2,"m":3,"pe":0,"n":3},{"p":4,"h":2,"m":4,"pe":0,"n":1},{"p":4,"h":6,"m":1,"pe":0,"n":2},{"p":4,"h":1,"m":1,"pe":0,"n":8},{"p":4,"h":1,"m":2,"pe":0,"n":2},{"p":4,"h":1,"m":3,"pe":0,"n":2},{"p":4,"h":1,"m":4,"pe":0,"n":1},{"p":4,"h":1,"m":4,"pe":1,"n":1},{"p":4,"h":1,"m":5,"pe":1,"n":3},{"p":4,"h":1,"m":6,"pe":1,"n":1},{"p":4,"h":1,"m":7,"pe":1,"n":2},{"p":4,"h":1,"m":8,"pe":1,"n":4},{"p":4,"h":11,"m":1,"pe":0,"n":6},{"p":4,"h":11,"m":2,"pe":0,"n":3},{"p":4,"h":11,"m":3,"pe":0,"n":2},{"p":4,"h":12,"m":5,"pe":1,"n":1},{"p":4,"h":12,"m":6,"pe":1,"n":2},{"p":4,"h":12,"m":7,"pe":1,"n":3},{"p":4,"h":12,"m":8,"pe":1,"n":5},{"p":5,"h":13,"m":1,"pe":0,"n":1},{"p":5,"h":13,"m":6,"pe":1,"n":5},{"p":5,"h":13,"m":7,"pe":1,"n":2},{"p":5,"h":13,"m":8,"pe":1,"n":1},{"p":5,"h":2,"m":1,"pe":0,"n":4},{"p":5,"h":2,"m":2,"pe":0,"n":11},{"p":5,"h":2,"m":3,"pe":0,"n":1},{"p":5,"h":2,"m":4,"pe":0,"n":4},{"p":5,"h":2,"m":4,"pe":1,"n":1},{"p":5,"h":2,"m":5,"pe":1,"n":1},{"p":5,"h":2,"m":6,"pe":1,"n":8},{"p":5,"h":2,"m":7,"pe":1,"n":4},{"p":5,"h":2,"m":8,"pe":1,"n":2},{"p":5,"h":6,"m":1,"pe":0,"n":6},{"p":5,"h":6,"m":2,"pe":0,"n":6},{"p":5,"h":1,"m":1,"pe":0,"n":7},{"p":5,"h":1,"m":2,"pe":0,"n":6},{"p":5,"h":1,"m":3,"pe":0,"n":4},{"p":5,"h":1,"m":4,"pe":0,"n":1},{"p":5,"h":10,"m":1,"pe":0,"n":1},{"p":5,"h":10,"m":2,"pe":0,"n":4},{"p":5,"h":10,"m":3,"pe":0,"n":1},{"p":5,"h":10,"m":4,"pe":0,"n":1},{"p":5,"h":10,"m":5,"pe":0,"n":1},{"p":5,"h":11,"m":1,"pe":0,"n":2},{"p":5,"h":11,"m":2,"pe":0,"n":3},{"p":5,"h":11,"m":3,"pe":0,"n":2},{"p":5,"h":11,"m":4,"pe":0,"n":3},{"p":5,"h":12,"m":1,"pe":0,"n":1},{"p":5,"h":12,"m":2,"pe":0,"n":1},{"p":5,"h":12,"m":4,"pe":1,"n":2},{"p":5,"h":12,"m":5,"pe":1,"n":3},{"p":5,"h":12,"m":6,"pe":1,"n":3},{"p":5,"h":12,"m":7,"pe":1,"n":2},{"p":5,"h":12,"m":8,"pe":1,"n":1},{"p":6,"h":2,"m":1,"pe":0,"n":3},{"p":6,"h":2,"m":2,"pe":0,"n":7},{"p":6,"h":2,"m":3,"pe":0,"n":2},{"p":6,"h":6,"m":1,"pe":0,"n":1},{"p":6,"h":11,"m":1,"pe":0,"n":1},{"p":6,"h":12,"m":1,"pe":0,"n":2},{"p":6,"h":12,"m":2,"pe":0,"n":4},{"p":6,"h":12,"m":3,"pe":0,"n":2},{"p":6,"h":12,"m":4,"pe":0,"n":1},{"p":6,"h":12,"m":5,"pe":1,"n":1},{"p":6,"h":12,"m":6,"pe":1,"n":1},{"p":6,"h":12,"m":7,"pe":1,"n":1},{"p":6,"h":12,"m":8,"pe":1,"n":1},{"p":7,"h":13,"m":1,"pe":0,"n":2},{"p":7,"h":13,"m":3,"pe":0,"n":2},{"p":7,"h":2,"m":1,"pe":0,"n":2},{"p":7,"h":2,"m":5,"pe":1,"n":1},{"p":7,"h":2,"m":6,"pe":1,"n":5},{"p":7,"h":2,"m":7,"pe":1,"n":1},{"p":7,"h":2,"m":8,"pe":1,"n":1},{"p":7,"h":6,"m":1,"pe":0,"n":2},{"p":7,"h":6,"m":2,"pe":0,"n":2},{"p":7,"h":6,"m":3,"pe":0,"n":1},{"p":7,"h":1,"m":1,"pe":0,"n":3},{"p":7,"h":1,"m":3,"pe":0,"n":3},{"p":7,"h":1,"m":4,"pe":0,"n":1},{"p":7,"h":1,"m":9,"pe":1,"n":1},{"p":7,"h":10,"m":1,"pe":0,"n":3},{"p":7,"h":10,"m":2,"pe":0,"n":1},{"p":7,"h":10,"m":4,"pe":0,"n":1},{"p":7,"h":10,"m":5,"pe":0,"n":3},{"p":7,"h":10,"m":5,"pe":1,"n":2},{"p":7,"h":10,"m":6,"pe":1,"n":2},{"p":7,"h":10,"m":8,"pe":1,"n":2},{"p":7,"h":11,"m":1,"pe":0,"n":1},{"p":7,"h":12,"m":1,"pe":0,"n":1},{"p":7,"h":12,"m":2,"pe":0,"n":3},{"p":7,"h":12,"m":3,"pe":0,"n":6},{"p":7,"h":12,"m":6,"pe":1,"n":3},{"p":7,"h":12,"m":7,"pe":1,"n":3},{"p":7,"h":12,"m":8,"pe":1,"n":6},{"p":8,"h":13,"m":7,"pe":1,"n":1},{"p":8,"h":2,"m":1,"pe":0,"n":2},{"p":8,"h":2,"m":2,"pe":0,"n":4},{"p":8,"h":2,"m":3,"pe":0,"n":6},{"p":8,"h":2,"m":4,"pe":0,"n":2},{"p":8,"h":2,"m":5,"pe":1,"n":1},{"p":8,"h":2,"m":6,"pe":1,"n":1},{"p":8,"h":2,"m":7,"pe":1,"n":4},{"p":8,"h":2,"m":8,"pe":1,"n":6},{"p":8,"h":10,"m":1,"pe":0,"n":1},{"p":8,"h":11,"m":1,"pe":0,"n":1},{"p":8,"h":11,"m":2,"pe":0,"n":1},{"p":8,"h":12,"m":1,"pe":0,"n":1},{"p":8,"h":12,"m":2,"pe":0,"n":4},{"p":8,"h":12,"m":3,"pe":0,"n":1},{"p":8,"h":12,"m":4,"pe":0,"n":2},{"p":8,"h":12,"m":5,"pe":1,"n":1},{"p":8,"h":12,"m":6,"pe":1,"n":3},{"p":8,"h":12,"m":7,"pe":1,"n":5},{"p":8,"h":12,"m":8,"pe":1,"n":5},{"p":9,"h":1,"m":3,"pe":0,"n":2},{"p":9,"h":3,"m":1,"pe":0,"n":76},{"p":9,"h":3,"m":2,"pe":0,"n":26},{"p":9,"h":3,"m":3,"pe":0,"n":11},{"p":9,"h":3,"m":4,"pe":0,"n":1},{"p":9,"h":3,"m":6,"pe":1,"n":7},{"p":9,"h":3,"m":7,"pe":1,"n":13},{"p":9,"h":3,"m":8,"pe":1,"n":7},{"p":9,"h":11,"m":1,"pe":0,"n":2},{"p":9,"h":11,"m":2,"pe":0,"n":4},{"p":9,"h":11,"m":3,"pe":0,"n":2},{"p":9,"h":11,"m":4,"pe":0,"n":1},{"p":9,"h":11,"m":6,"pe":1,"n":3},{"p":9,"h":11,"m":7,"pe":1,"n":7},{"p":9,"h":11,"m":8,"pe":1,"n":4},{"p":9,"h":8,"m":1,"pe":0,"n":6},{"p":9,"h":8,"m":2,"pe":0,"n":2},{"p":9,"h":8,"m":4,"pe":0,"n":1},{"p":9,"h":8,"m":5,"pe":1,"n":1},{"p":9,"h":8,"m":6,"pe":1,"n":3},{"p":9,"h":8,"m":7,"pe":1,"n":3},{"p":9,"h":8,"m":8,"pe":1,"n":1},{"p":9,"h":14,"m":1,"pe":0,"n":10},{"p":9,"h":14,"m":2,"pe":0,"n":9},{"p":9,"h":14,"m":3,"pe":0,"n":3},{"p":9,"h":14,"m":6,"pe":1,"n":3},{"p":9,"h":14,"m":7,"pe":1,"n":3},{"p":10,"h":13,"m":1,"pe":0,"n":1},{"p":10,"h":1,"m":2,"pe":0,"n":1},{"p":10,"h":10,"m":1,"pe":0,"n":4},{"p":10,"h":10,"m":2,"pe":0,"n":3},{"p":10,"h":4,"m":1,"pe":0,"n":2},{"p":10,"h":7,"m":1,"pe":0,"n":2},{"p":10,"h":5,"m":1,"pe":0,"n":1},{"p":10,"h":5,"m":2,"pe":0,"n":3},{"p":10,"h":5,"m":3,"pe":0,"n":2},{"p":10,"h":5,"m":4,"pe":0,"n":2},{"p":10,"h":5,"m":5,"pe":1,"n":4},{"p":10,"h":5,"m":6,"pe":1,"n":3},{"p":10,"h":5,"m":7,"pe":1,"n":3},{"p":10,"h":5,"m":8,"pe":1,"n":2},{"p":10,"h":11,"m":1,"pe":0,"n":5},{"p":10,"h":11,"m":2,"pe":0,"n":2},{"p":10,"h":11,"m":3,"pe":0,"n":5},{"p":10,"h":11,"m":4,"pe":0,"n":1},{"p":10,"h":12,"m":1,"pe":0,"n":1},{"p":10,"h":12,"m":5,"pe":1,"n":3},{"p":10,"h":12,"m":6,"pe":1,"n":3},{"p":10,"h":12,"m":7,"pe":1,"n":6},{"p":10,"h":12,"m":8,"pe":1,"n":3},{"p":11,"h":13,"m":1,"pe":0,"n":5},{"p":11,"h":13,"m":2,"pe":0,"n":2},{"p":11,"h":13,"m":3,"pe":0,"n":1},{"p":11,"h":13,"m":4,"pe":0,"n":4},{"p":11,"h":2,"m":1,"pe":0,"n":7},{"p":11,"h":2,"m":2,"pe":0,"n":11},{"p":11,"h":2,"m":3,"pe":0,"n":8},{"p":11,"h":6,"m":1,"pe":0,"n":8},{"p":11,"h":6,"m":2,"pe":0,"n":9},{"p":11,"h":6,"m":3,"pe":0,"n":5},{"p":11,"h":6,"m":4,"pe":0,"n":7},{"p":11,"h":1,"m":1,"pe":0,"n":11},{"p":11,"h":1,"m":2,"pe":0,"n":7},{"p":11,"h":1,"m":3,"pe":0,"n":6},{"p":11,"h":1,"m":4,"pe":0,"n":1},{"p":11,"h":1,"m":5,"pe":1,"n":10},{"p":11,"h":1,"m":6,"pe":1,"n":6},{"p":11,"h":1,"m":7,"pe":1,"n":5},{"p":11,"h":1,"m":8,"pe":1,"n":6},{"p":11,"h":1,"m":9,"pe":1,"n":1},{"p":11,"h":10,"m":1,"pe":0,"n":3},{"p":11,"h":10,"m":6,"pe":1,"n":4},{"p":11,"h":10,"m":7,"pe":1,"n":1},{"p":11,"h":10,"m":8,"pe":1,"n":1},{"p":11,"h":4,"m":1,"pe":0,"n":1},{"p":11,"h":11,"m":1,"pe":0,"n":13},{"p":11,"h":11,"m":2,"pe":0,"n":7},{"p":11,"h":11,"m":3,"pe":0,"n":4},{"p":11,"h":12,"m":1,"pe":0,"n":2},{"p":11,"h":12,"m":2,"pe":0,"n":6},{"p":11,"h":12,"m":3,"pe":0,"n":5},{"p":11,"h":12,"m":4,"pe":0,"n":4},{"p":11,"h":12,"m":5,"pe":1,"n":4},{"p":11,"h":12,"m":6,"pe":1,"n":4},{"p":11,"h":12,"m":7,"pe":1,"n":3},{"p":11,"h":12,"m":8,"pe":1,"n":5},{"p":11,"h":12,"m":9,"pe":1,"n":1},{"p":12,"h":13,"m":1,"pe":0,"n":1},{"p":12,"h":13,"m":2,"pe":0,"n":1},{"p":12,"h":13,"m":4,"pe":0,"n":1},{"p":12,"h":13,"m":5,"pe":1,"n":1},{"p":12,"h":13,"m":7,"pe":1,"n":2},{"p":12,"h":1,"m":1,"pe":0,"n":1},{"p":12,"h":4,"m":1,"pe":0,"n":1},{"p":12,"h":5,"m":1,"pe":0,"n":2},{"p":12,"h":5,"m":2,"pe":0,"n":3},{"p":12,"h":5,"m":3,"pe":0,"n":1},{"p":12,"h":5,"m":5,"pe":1,"n":1},{"p":12,"h":5,"m":7,"pe":1,"n":2},{"p":12,"h":5,"m":8,"pe":1,"n":2},{"p":12,"h":11,"m":1,"pe":0,"n":2},{"p":12,"h":11,"m":3,"pe":0,"n":2},{"p":12,"h":12,"m":1,"pe":0,"n":1},{"p":13,"h":13,"m":1,"pe":0,"n":1},{"p":13,"h":13,"m":3,"pe":1,"n":1},{"p":13,"h":13,"m":5,"pe":1,"n":1},{"p":13,"h":13,"m":6,"pe":1,"n":11},{"p":13,"h":13,"m":7,"pe":1,"n":3},{"p":13,"h":13,"m":8,"pe":1,"n":4},{"p":13,"h":2,"m":1,"pe":0,"n":8},{"p":13,"h":2,"m":2,"pe":0,"n":8},{"p":13,"h":2,"m":3,"pe":0,"n":5},{"p":13,"h":6,"m":1,"pe":0,"n":8},{"p":13,"h":6,"m":2,"pe":0,"n":3},{"p":13,"h":6,"m":3,"pe":0,"n":2},{"p":13,"h":0,"m":2,"pe":0,"n":1},{"p":13,"h":1,"m":1,"pe":0,"n":13},{"p":13,"h":1,"m":2,"pe":0,"n":11},{"p":13,"h":1,"m":3,"pe":0,"n":2},{"p":13,"h":1,"m":4,"pe":1,"n":2},{"p":13,"h":1,"m":5,"pe":1,"n":1},{"p":13,"h":1,"m":6,"pe":1,"n":3},{"p":13,"h":1,"m":7,"pe":1,"n":10},{"p":13,"h":1,"m":8,"pe":1,"n":3},{"p":13,"h":10,"m":1,"pe":0,"n":6},{"p":13,"h":10,"m":2,"pe":0,"n":6},{"p":13,"h":10,"m":3,"pe":0,"n":3},{"p":13,"h":11,"m":1,"pe":0,"n":15},{"p":13,"h":11,"m":2,"pe":0,"n":8},{"p":13,"h":11,"m":3,"pe":0,"n":3},{"p":13,"h":11,"m":4,"pe":0,"n":2},{"p":13,"h":11,"m":4,"pe":1,"n":1},{"p":13,"h":11,"m":5,"pe":1,"n":2},{"p":13,"h":11,"m":6,"pe":1,"n":8},{"p":13,"h":11,"m":7,"pe":1,"n":9},{"p":13,"h":11,"m":8,"pe":1,"n":10},{"p":13,"h":11,"m":9,"pe":1,"n":2},{"p":13,"h":12,"m":3,"pe":0,"n":2},{"p":13,"h":12,"m":4,"pe":0,"n":2},{"p":13,"h":12,"m":5,"pe":0,"n":2},{"p":13,"h":12,"m":5,"pe":1,"n":3},{"p":13,"h":12,"m":9,"pe":1,"n":2},{"p":14,"h":6,"m":1,"pe":0,"n":8},{"p":14,"h":6,"m":2,"pe":0,"n":6},{"p":14,"h":6,"m":3,"pe":0,"n":5},{"p":14,"h":6,"m":4,"pe":0,"n":2},{"p":14,"h":12,"m":5,"pe":1,"n":2},{"p":14,"h":12,"m":6,"pe":1,"n":2},{"p":14,"h":12,"m":7,"pe":1,"n":2},{"p":14,"h":12,"m":8,"pe":1,"n":4},{"p":15,"h":13,"m":1,"pe":0,"n":3},{"p":15,"h":13,"m":2,"pe":0,"n":2},{"p":15,"h":13,"m":3,"pe":0,"n":1},{"p":15,"h":13,"m":5,"pe":1,"n":1},{"p":15,"h":13,"m":6,"pe":1,"n":3},{"p":15,"h":13,"m":7,"pe":1,"n":7},{"p":15,"h":13,"m":8,"pe":1,"n":2},{"p":15,"h":13,"m":9,"pe":1,"n":1},{"p":15,"h":2,"m":4,"pe":1,"n":1},{"p":15,"h":2,"m":5,"pe":1,"n":2},{"p":15,"h":2,"m":6,"pe":1,"n":2},{"p":15,"h":2,"m":7,"pe":1,"n":6},{"p":15,"h":2,"m":8,"pe":1,"n":1},{"p":15,"h":6,"m":1,"pe":0,"n":2},{"p":15,"h":6,"m":3,"pe":0,"n":3},{"p":15,"h":1,"m":1,"pe":0,"n":6},{"p":15,"h":1,"m":2,"pe":0,"n":6},{"p":15,"h":1,"m":3,"pe":0,"n":7},{"p":15,"h":10,"m":1,"pe":0,"n":2},{"p":15,"h":10,"m":2,"pe":0,"n":2},{"p":15,"h":10,"m":4,"pe":0,"n":1},{"p":15,"h":10,"m":5,"pe":0,"n":2},{"p":15,"h":10,"m":5,"pe":1,"n":2},{"p":15,"h":10,"m":6,"pe":1,"n":5},{"p":15,"h":10,"m":8,"pe":1,"n":5},{"p":15,"h":10,"m":9,"pe":1,"n":1},{"p":15,"h":11,"m":1,"pe":0,"n":2},{"p":15,"h":11,"m":2,"pe":0,"n":3},{"p":15,"h":11,"m":3,"pe":0,"n":3},{"p":15,"h":11,"m":4,"pe":0,"n":1},{"p":16,"h":13,"m":6,"pe":1,"n":2},{"p":16,"h":13,"m":7,"pe":1,"n":6},{"p":16,"h":13,"m":8,"pe":1,"n":2},{"p":16,"h":13,"m":9,"pe":1,"n":1},{"p":16,"h":2,"m":1,"pe":0,"n":4},{"p":16,"h":2,"m":2,"pe":0,"n":9},{"p":16,"h":2,"m":3,"pe":0,"n":6},{"p":16,"h":2,"m":4,"pe":0,"n":2},{"p":16,"h":6,"m":1,"pe":0,"n":2},{"p":16,"h":6,"m":2,"pe":0,"n":1},{"p":16,"h":6,"m":3,"pe":0,"n":1},{"p":16,"h":6,"m":5,"pe":1,"n":2},{"p":16,"h":6,"m":6,"pe":1,"n":2},{"p":16,"h":6,"m":7,"pe":1,"n":2},{"p":16,"h":6,"m":8,"pe":1,"n":4},{"p":16,"h":1,"m":1,"pe":0,"n":1},{"p":16,"h":10,"m":1,"pe":0,"n":3},{"p":16,"h":10,"m":2,"pe":0,"n":6},{"p":16,"h":10,"m":4,"pe":0,"n":2},{"p":16,"h":11,"m":1,"pe":0,"n":3},{"p":16,"h":11,"m":2,"pe":0,"n":7},{"p":16,"h":11,"m":3,"pe":0,"n":6},{"p":16,"h":11,"m":4,"pe":0,"n":1},{"p":16,"h":12,"m":5,"pe":1,"n":1},{"p":16,"h":12,"m":6,"pe":1,"n":2},{"p":16,"h":12,"m":7,"pe":1,"n":7},{"p":16,"h":12,"m":8,"pe":1,"n":2},{"p":16,"h":12,"m":9,"pe":1,"n":2},{"p":17,"h":13,"m":1,"pe":0,"n":5},{"p":17,"h":13,"m":2,"pe":0,"n":5},{"p":17,"h":13,"m":3,"pe":0,"n":2},{"p":17,"h":13,"m":8,"pe":1,"n":4},{"p":17,"h":13,"m":9,"pe":1,"n":2},{"p":17,"h":11,"m":1,"pe":0,"n":10},{"p":17,"h":11,"m":5,"pe":1,"n":3},{"p":17,"h":11,"m":6,"pe":1,"n":8},{"p":17,"h":11,"m":7,"pe":1,"n":11},{"p":17,"h":12,"m":1,"pe":0,"n":6},{"p":17,"h":12,"m":2,"pe":0,"n":2},{"p":17,"h":12,"m":3,"pe":0,"n":11},{"p":17,"h":12,"m":6,"pe":1,"n":2},{"p":17,"h":12,"m":7,"pe":1,"n":14},{"p":17,"h":12,"m":8,"pe":1,"n":7},{"p":18,"h":13,"m":1,"pe":0,"n":2},{"p":18,"h":13,"m":1,"pe":1,"n":1},{"p":18,"h":13,"m":6,"pe":1,"n":4},{"p":18,"h":13,"m":7,"pe":1,"n":1},{"p":18,"h":13,"m":8,"pe":1,"n":5},{"p":18,"h":6,"m":1,"pe":0,"n":1},{"p":18,"h":10,"m":1,"pe":0,"n":1},{"p":18,"h":10,"m":2,"pe":0,"n":1},{"p":18,"h":10,"m":3,"pe":0,"n":2},{"p":18,"h":10,"m":4,"pe":0,"n":1},{"p":18,"h":10,"m":6,"pe":1,"n":2},{"p":18,"h":7,"m":1,"pe":0,"n":1},{"p":18,"h":7,"m":2,"pe":0,"n":4},{"p":18,"h":7,"m":3,"pe":0,"n":6},{"p":18,"h":11,"m":1,"pe":0,"n":14},{"p":18,"h":11,"m":2,"pe":0,"n":3},{"p":18,"h":11,"m":3,"pe":0,"n":2},{"p":18,"h":12,"m":1,"pe":0,"n":3},{"p":18,"h":12,"m":2,"pe":0,"n":5},{"p":18,"h":12,"m":3,"pe":0,"n":6},{"p":18,"h":9,"m":5,"pe":1,"n":5},{"p":18,"h":9,"m":6,"pe":1,"n":5},{"p":18,"h":9,"m":7,"pe":1,"n":5},{"p":18,"h":9,"m":8,"pe":1,"n":7},{"p":18,"h":9,"m":9,"pe":1,"n":3},{"p":19,"h":13,"m":1,"pe":0,"n":5},{"p":19,"h":13,"m":2,"pe":0,"n":5},{"p":19,"h":13,"m":5,"pe":1,"n":3},{"p":19,"h":13,"m":6,"pe":1,"n":7},{"p":19,"h":13,"m":7,"pe":1,"n":6},{"p":19,"h":13,"m":9,"pe":1,"n":1},{"p":20,"h":13,"m":1,"pe":0,"n":5},{"p":20,"h":13,"m":2,"pe":0,"n":5},{"p":20,"h":13,"m":3,"pe":0,"n":5},{"p":20,"h":13,"m":9,"pe":1,"n":1},{"p":20,"h":10,"m":4,"pe":1,"n":1},{"p":20,"h":10,"m":5,"pe":1,"n":1},{"p":20,"h":11,"m":1,"pe":0,"n":10},{"p":20,"h":11,"m":2,"pe":0,"n":11},{"p":20,"h":11,"m":5,"pe":1,"n":7},{"p":20,"h":11,"m":6,"pe":1,"n":8},{"p":20,"h":11,"m":7,"pe":1,"n":10},{"p":20,"h":12,"m":1,"pe":0,"n":6},{"p":20,"h":12,"m":2,"pe":0,"n":1},{"p":20,"h":12,"m":3,"pe":0,"n":8},{"p":20,"h":12,"m":6,"pe":1,"n":1},{"p":20,"h":12,"m":7,"pe":1,"n":6},{"p":20,"h":12,"m":8,"pe":1,"n":9},{"p":21,"h":13,"m":2,"pe":0,"n":1},{"p":21,"h":13,"m":2,"pe":1,"n":1},{"p":21,"h":13,"m":5,"pe":1,"n":1},{"p":21,"h":13,"m":7,"pe":1,"n":2},{"p":21,"h":13,"m":8,"pe":1,"n":1},{"p":21,"h":2,"m":1,"pe":0,"n":1},{"p":21,"h":1,"m":1,"pe":0,"n":4},{"p":21,"h":1,"m":2,"pe":0,"n":3},{"p":21,"h":1,"m":3,"pe":0,"n":8},{"p":21,"h":1,"m":6,"pe":1,"n":2},{"p":21,"h":1,"m":7,"pe":1,"n":3},{"p":21,"h":1,"m":8,"pe":1,"n":2},{"p":21,"h":10,"m":1,"pe":0,"n":1},{"p":21,"h":10,"m":2,"pe":0,"n":3},{"p":21,"h":10,"m":3,"pe":0,"n":1},{"p":21,"h":10,"m":7,"pe":1,"n":1},{"p":21,"h":10,"m":8,"pe":1,"n":7},{"p":21,"h":11,"m":1,"pe":0,"n":1}],"total":1753}, 'https://script.google.com/macros/s/AKfycbzn3faMiCfEuz2g5X4-u52BrtocAxnMYucd9BQ3g128AhwRaQPynvLiOENNxaehDCt6jw/exec');
+crearMatrizHorarios('ahrh', {"programas":["Asistente de Primera Infancia","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Salud Oral","Auxiliar en Servicios Farmacéuticos","Bachillerato","Caja Registradora","Cocinero Principal","Cosmetología y Estética Integral","D","Diseño Gráfico","Estilista Integral en Peluquería","Excel Basico, Intermedio y Avanzado","Inglés Conversacional","Inglés Kids Conversacional","Investigador Criminalístico y Judicial","Inyectologia","Inyectologia Personal de la Salud","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Seguridad Ocupacional y Laboral","Sin programa","Sistemas Informáticos"],"horarios":["Lunes a jueves · 8-10 am","Lunes a jueves · 10-12 m","Mañana · sin detalle","Lunes a jueves · 2-6 pm","Viernes · mañana","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"periodos":["2026-1","2026-2"],"celdas":[{"p":0,"h":8,"m":1,"pe":0,"n":2},{"p":0,"h":8,"m":2,"pe":0,"n":2},{"p":0,"h":8,"m":3,"pe":0,"n":1},{"p":0,"h":8,"m":4,"pe":0,"n":4},{"p":0,"h":1,"m":2,"pe":0,"n":1},{"p":0,"h":3,"m":1,"pe":0,"n":4},{"p":0,"h":3,"m":2,"pe":0,"n":3},{"p":0,"h":3,"m":3,"pe":0,"n":1},{"p":0,"h":6,"m":1,"pe":0,"n":6},{"p":0,"h":6,"m":2,"pe":0,"n":8},{"p":0,"h":6,"m":3,"pe":0,"n":7},{"p":0,"h":7,"m":5,"pe":1,"n":5},{"p":0,"h":7,"m":6,"pe":1,"n":5},{"p":0,"h":7,"m":7,"pe":1,"n":7},{"p":0,"h":7,"m":8,"pe":1,"n":2},{"p":0,"h":7,"m":9,"pe":1,"n":2},{"p":1,"h":1,"m":1,"pe":0,"n":1},{"p":1,"h":1,"m":5,"pe":1,"n":2},{"p":1,"h":1,"m":6,"pe":1,"n":3},{"p":1,"h":1,"m":7,"pe":1,"n":2},{"p":1,"h":1,"m":8,"pe":1,"n":3},{"p":1,"h":3,"m":1,"pe":0,"n":1},{"p":1,"h":0,"m":1,"pe":0,"n":3},{"p":1,"h":0,"m":2,"pe":0,"n":8},{"p":1,"h":0,"m":3,"pe":0,"n":4},{"p":1,"h":0,"m":4,"pe":0,"n":1},{"p":1,"h":6,"m":1,"pe":0,"n":3},{"p":1,"h":6,"m":2,"pe":0,"n":8},{"p":1,"h":6,"m":3,"pe":0,"n":4},{"p":1,"h":7,"m":5,"pe":1,"n":2},{"p":1,"h":7,"m":6,"pe":1,"n":8},{"p":1,"h":7,"m":7,"pe":1,"n":9},{"p":1,"h":7,"m":8,"pe":1,"n":3},{"p":2,"h":8,"m":3,"pe":0,"n":1},{"p":2,"h":1,"m":5,"pe":1,"n":2},{"p":2,"h":1,"m":6,"pe":1,"n":1},{"p":2,"h":1,"m":7,"pe":1,"n":2},{"p":2,"h":1,"m":9,"pe":1,"n":2},{"p":2,"h":0,"m":1,"pe":0,"n":4},{"p":2,"h":0,"m":2,"pe":0,"n":2},{"p":2,"h":0,"m":3,"pe":0,"n":4},{"p":2,"h":6,"m":1,"pe":0,"n":1},{"p":2,"h":6,"m":2,"pe":0,"n":2},{"p":2,"h":6,"m":4,"pe":0,"n":1},{"p":2,"h":6,"m":9,"pe":1,"n":1},{"p":2,"h":7,"m":1,"pe":0,"n":6},{"p":2,"h":7,"m":2,"pe":0,"n":5},{"p":2,"h":7,"m":3,"pe":0,"n":5},{"p":2,"h":7,"m":4,"pe":0,"n":2},{"p":2,"h":7,"m":5,"pe":1,"n":2},{"p":2,"h":7,"m":6,"pe":1,"n":7},{"p":2,"h":7,"m":7,"pe":1,"n":5},{"p":2,"h":7,"m":8,"pe":1,"n":7},{"p":2,"h":7,"m":9,"pe":1,"n":2},{"p":3,"h":8,"m":1,"pe":0,"n":1},{"p":3,"h":8,"m":2,"pe":0,"n":1},{"p":3,"h":1,"m":5,"pe":1,"n":1},{"p":3,"h":1,"m":6,"pe":1,"n":2},{"p":3,"h":1,"m":7,"pe":1,"n":1},{"p":3,"h":1,"m":8,"pe":1,"n":2},{"p":3,"h":0,"m":1,"pe":0,"n":1},{"p":3,"h":0,"m":2,"pe":0,"n":3},{"p":3,"h":0,"m":3,"pe":0,"n":2},{"p":3,"h":6,"m":1,"pe":0,"n":4},{"p":3,"h":6,"m":2,"pe":0,"n":7},{"p":3,"h":6,"m":3,"pe":0,"n":4},{"p":3,"h":6,"m":9,"pe":1,"n":1},{"p":3,"h":7,"m":5,"pe":1,"n":2},{"p":3,"h":7,"m":6,"pe":1,"n":1},{"p":3,"h":7,"m":7,"pe":1,"n":4},{"p":3,"h":7,"m":8,"pe":1,"n":3},{"p":3,"h":7,"m":9,"pe":1,"n":2},{"p":4,"h":3,"m":1,"pe":0,"n":3},{"p":4,"h":3,"m":3,"pe":0,"n":4},{"p":4,"h":6,"m":1,"pe":0,"n":6},{"p":4,"h":6,"m":2,"pe":0,"n":6},{"p":4,"h":6,"m":4,"pe":0,"n":1},{"p":4,"h":7,"m":5,"pe":1,"n":3},{"p":4,"h":7,"m":6,"pe":1,"n":2},{"p":4,"h":7,"m":7,"pe":1,"n":2},{"p":4,"h":7,"m":8,"pe":1,"n":3},{"p":5,"h":8,"m":1,"pe":0,"n":2},{"p":5,"h":8,"m":3,"pe":0,"n":3},{"p":5,"h":8,"m":4,"pe":0,"n":2},{"p":5,"h":8,"m":6,"pe":1,"n":1},{"p":5,"h":8,"m":7,"pe":1,"n":1},{"p":5,"h":8,"m":8,"pe":1,"n":4},{"p":5,"h":8,"m":9,"pe":1,"n":3},{"p":5,"h":1,"m":1,"pe":0,"n":1},{"p":5,"h":1,"m":4,"pe":1,"n":1},{"p":5,"h":1,"m":5,"pe":1,"n":4},{"p":5,"h":1,"m":6,"pe":1,"n":5},{"p":5,"h":1,"m":7,"pe":1,"n":9},{"p":5,"h":1,"m":8,"pe":1,"n":6},{"p":5,"h":1,"m":9,"pe":1,"n":1},{"p":5,"h":3,"m":1,"pe":0,"n":8},{"p":5,"h":3,"m":2,"pe":0,"n":4},{"p":5,"h":3,"m":3,"pe":0,"n":4},{"p":5,"h":3,"m":4,"pe":0,"n":4},{"p":5,"h":0,"m":1,"pe":0,"n":12},{"p":5,"h":0,"m":2,"pe":0,"n":5},{"p":5,"h":0,"m":3,"pe":0,"n":4},{"p":5,"h":5,"m":1,"pe":0,"n":1},{"p":5,"h":6,"m":1,"pe":0,"n":12},{"p":5,"h":6,"m":2,"pe":0,"n":15},{"p":5,"h":6,"m":3,"pe":0,"n":1},{"p":5,"h":6,"m":5,"pe":1,"n":5},{"p":5,"h":6,"m":6,"pe":1,"n":9},{"p":5,"h":6,"m":7,"pe":1,"n":9},{"p":5,"h":6,"m":8,"pe":1,"n":7},{"p":5,"h":6,"m":9,"pe":1,"n":1},{"p":5,"h":7,"m":2,"pe":0,"n":4},{"p":5,"h":7,"m":3,"pe":0,"n":10},{"p":5,"h":7,"m":4,"pe":0,"n":2},{"p":5,"h":7,"m":5,"pe":1,"n":1},{"p":5,"h":7,"m":7,"pe":1,"n":3},{"p":5,"h":7,"m":8,"pe":1,"n":2},{"p":5,"h":7,"m":9,"pe":1,"n":3},{"p":6,"h":0,"m":1,"pe":0,"n":2},{"p":6,"h":6,"m":1,"pe":0,"n":3},{"p":6,"h":6,"m":2,"pe":0,"n":5},{"p":6,"h":6,"m":3,"pe":0,"n":2},{"p":6,"h":6,"m":5,"pe":1,"n":1},{"p":6,"h":6,"m":6,"pe":1,"n":1},{"p":6,"h":6,"m":7,"pe":1,"n":7},{"p":6,"h":6,"m":8,"pe":1,"n":2},{"p":6,"h":6,"m":9,"pe":1,"n":2},{"p":7,"h":8,"m":1,"pe":0,"n":1},{"p":7,"h":8,"m":2,"pe":0,"n":1},{"p":7,"h":8,"m":5,"pe":1,"n":2},{"p":7,"h":8,"m":6,"pe":1,"n":1},{"p":7,"h":8,"m":7,"pe":1,"n":2},{"p":7,"h":3,"m":1,"pe":0,"n":3},{"p":7,"h":5,"m":1,"pe":0,"n":1},{"p":7,"h":5,"m":2,"pe":0,"n":4},{"p":7,"h":5,"m":3,"pe":0,"n":3},{"p":7,"h":5,"m":4,"pe":0,"n":1},{"p":7,"h":5,"m":5,"pe":1,"n":2},{"p":7,"h":5,"m":6,"pe":1,"n":2},{"p":7,"h":5,"m":7,"pe":1,"n":4},{"p":7,"h":5,"m":8,"pe":1,"n":6},{"p":7,"h":6,"m":1,"pe":0,"n":8},{"p":7,"h":6,"m":2,"pe":0,"n":9},{"p":7,"h":6,"m":3,"pe":0,"n":2},{"p":7,"h":6,"m":4,"pe":0,"n":2},{"p":7,"h":7,"m":1,"pe":0,"n":3},{"p":7,"h":7,"m":2,"pe":0,"n":3},{"p":7,"h":7,"m":3,"pe":0,"n":2},{"p":7,"h":7,"m":4,"pe":0,"n":1},{"p":7,"h":7,"m":4,"pe":1,"n":1},{"p":7,"h":7,"m":5,"pe":1,"n":3},{"p":7,"h":7,"m":6,"pe":1,"n":7},{"p":7,"h":7,"m":7,"pe":1,"n":7},{"p":7,"h":7,"m":8,"pe":1,"n":6},{"p":7,"h":7,"m":9,"pe":1,"n":1},{"p":8,"h":1,"m":8,"pe":1,"n":1},{"p":8,"h":2,"m":1,"pe":0,"n":24},{"p":8,"h":2,"m":2,"pe":0,"n":33},{"p":8,"h":2,"m":3,"pe":0,"n":13},{"p":8,"h":2,"m":4,"pe":0,"n":1},{"p":8,"h":2,"m":5,"pe":1,"n":5},{"p":8,"h":2,"m":6,"pe":1,"n":3},{"p":8,"h":2,"m":7,"pe":1,"n":12},{"p":8,"h":2,"m":8,"pe":1,"n":6},{"p":8,"h":2,"m":9,"pe":1,"n":4},{"p":8,"h":6,"m":1,"pe":0,"n":6},{"p":8,"h":6,"m":2,"pe":0,"n":6},{"p":8,"h":6,"m":3,"pe":0,"n":5},{"p":8,"h":6,"m":4,"pe":0,"n":1},{"p":8,"h":7,"m":5,"pe":1,"n":2},{"p":8,"h":7,"m":6,"pe":1,"n":2},{"p":8,"h":7,"m":7,"pe":1,"n":2},{"p":8,"h":7,"m":8,"pe":1,"n":1},{"p":8,"h":7,"m":9,"pe":1,"n":1},{"p":9,"h":8,"m":1,"pe":0,"n":1},{"p":9,"h":8,"m":3,"pe":0,"n":1},{"p":9,"h":8,"m":4,"pe":0,"n":1},{"p":9,"h":8,"m":4,"pe":1,"n":1},{"p":9,"h":8,"m":5,"pe":1,"n":7},{"p":9,"h":8,"m":6,"pe":1,"n":2},{"p":9,"h":8,"m":7,"pe":1,"n":10},{"p":9,"h":8,"m":8,"pe":1,"n":3},{"p":9,"h":8,"m":9,"pe":1,"n":3},{"p":9,"h":6,"m":1,"pe":0,"n":4},{"p":9,"h":6,"m":2,"pe":0,"n":16},{"p":9,"h":6,"m":3,"pe":0,"n":4},{"p":10,"h":3,"m":1,"pe":0,"n":2},{"p":10,"h":6,"m":2,"pe":0,"n":8},{"p":10,"h":6,"m":5,"pe":1,"n":3},{"p":10,"h":6,"m":6,"pe":1,"n":4},{"p":10,"h":6,"m":7,"pe":1,"n":4},{"p":10,"h":6,"m":8,"pe":1,"n":5},{"p":10,"h":6,"m":9,"pe":1,"n":4},{"p":10,"h":4,"m":1,"pe":0,"n":1},{"p":10,"h":4,"m":2,"pe":0,"n":1},{"p":11,"h":8,"m":1,"pe":0,"n":1},{"p":11,"h":8,"m":4,"pe":1,"n":1},{"p":11,"h":8,"m":5,"pe":1,"n":2},{"p":11,"h":8,"m":6,"pe":1,"n":4},{"p":11,"h":8,"m":7,"pe":1,"n":8},{"p":11,"h":8,"m":8,"pe":1,"n":11},{"p":11,"h":8,"m":9,"pe":1,"n":1},{"p":11,"h":1,"m":1,"pe":0,"n":4},{"p":11,"h":1,"m":4,"pe":1,"n":1},{"p":11,"h":1,"m":5,"pe":1,"n":5},{"p":11,"h":1,"m":6,"pe":1,"n":5},{"p":11,"h":1,"m":7,"pe":1,"n":6},{"p":11,"h":1,"m":8,"pe":1,"n":2},{"p":11,"h":1,"m":9,"pe":1,"n":4},{"p":11,"h":3,"m":1,"pe":0,"n":3},{"p":11,"h":3,"m":2,"pe":0,"n":6},{"p":11,"h":3,"m":3,"pe":0,"n":6},{"p":11,"h":3,"m":4,"pe":0,"n":3},{"p":11,"h":3,"m":5,"pe":1,"n":4},{"p":11,"h":3,"m":6,"pe":1,"n":2},{"p":11,"h":3,"m":7,"pe":1,"n":5},{"p":11,"h":3,"m":8,"pe":1,"n":1},{"p":11,"h":0,"m":1,"pe":0,"n":9},{"p":11,"h":0,"m":2,"pe":0,"n":11},{"p":11,"h":0,"m":4,"pe":0,"n":1},{"p":11,"h":5,"m":1,"pe":0,"n":1},{"p":11,"h":6,"m":1,"pe":0,"n":10},{"p":11,"h":6,"m":2,"pe":0,"n":15},{"p":11,"h":6,"m":3,"pe":0,"n":6},{"p":11,"h":7,"m":1,"pe":0,"n":5},{"p":11,"h":7,"m":2,"pe":0,"n":7},{"p":11,"h":7,"m":3,"pe":0,"n":3},{"p":11,"h":7,"m":4,"pe":0,"n":1},{"p":11,"h":7,"m":4,"pe":1,"n":1},{"p":11,"h":7,"m":6,"pe":1,"n":1},{"p":12,"h":7,"m":5,"pe":1,"n":1},{"p":13,"h":8,"m":2,"pe":0,"n":3},{"p":13,"h":3,"m":1,"pe":0,"n":3},{"p":13,"h":3,"m":2,"pe":0,"n":6},{"p":13,"h":3,"m":3,"pe":0,"n":4},{"p":13,"h":0,"m":2,"pe":0,"n":2},{"p":13,"h":6,"m":1,"pe":0,"n":1},{"p":13,"h":6,"m":9,"pe":1,"n":1},{"p":13,"h":7,"m":5,"pe":1,"n":3},{"p":13,"h":7,"m":7,"pe":1,"n":6},{"p":14,"h":5,"m":1,"pe":0,"n":3},{"p":14,"h":5,"m":2,"pe":0,"n":3},{"p":14,"h":5,"m":5,"pe":1,"n":4},{"p":14,"h":5,"m":6,"pe":1,"n":3},{"p":14,"h":5,"m":7,"pe":1,"n":2},{"p":14,"h":5,"m":8,"pe":1,"n":1},{"p":14,"h":6,"m":1,"pe":0,"n":3},{"p":14,"h":6,"m":2,"pe":0,"n":7},{"p":14,"h":6,"m":3,"pe":0,"n":4},{"p":14,"h":6,"m":4,"pe":0,"n":1},{"p":14,"h":7,"m":7,"pe":1,"n":3},{"p":14,"h":7,"m":8,"pe":1,"n":2},{"p":15,"h":8,"m":9,"pe":1,"n":4},{"p":15,"h":7,"m":9,"pe":1,"n":1},{"p":16,"h":5,"m":1,"pe":0,"n":4},{"p":16,"h":5,"m":2,"pe":0,"n":7},{"p":16,"h":5,"m":3,"pe":0,"n":3},{"p":16,"h":5,"m":4,"pe":0,"n":1},{"p":16,"h":6,"m":1,"pe":0,"n":3},{"p":16,"h":6,"m":2,"pe":0,"n":2},{"p":16,"h":6,"m":3,"pe":0,"n":6},{"p":16,"h":6,"m":9,"pe":1,"n":1},{"p":16,"h":7,"m":5,"pe":1,"n":3},{"p":16,"h":7,"m":6,"pe":1,"n":2},{"p":16,"h":7,"m":7,"pe":1,"n":6},{"p":16,"h":7,"m":8,"pe":1,"n":2},{"p":16,"h":7,"m":9,"pe":1,"n":3},{"p":17,"h":6,"m":1,"pe":0,"n":1},{"p":18,"h":3,"m":9,"pe":1,"n":1},{"p":18,"h":5,"m":1,"pe":0,"n":4},{"p":18,"h":5,"m":2,"pe":0,"n":14},{"p":18,"h":5,"m":3,"pe":0,"n":7},{"p":18,"h":5,"m":4,"pe":0,"n":2},{"p":18,"h":5,"m":4,"pe":1,"n":1},{"p":18,"h":5,"m":5,"pe":1,"n":1},{"p":18,"h":5,"m":6,"pe":1,"n":2},{"p":18,"h":5,"m":7,"pe":1,"n":5},{"p":18,"h":5,"m":8,"pe":1,"n":1},{"p":18,"h":5,"m":9,"pe":1,"n":2},{"p":18,"h":6,"m":2,"pe":0,"n":1},{"p":18,"h":6,"m":9,"pe":1,"n":1},{"p":18,"h":7,"m":1,"pe":0,"n":5},{"p":18,"h":7,"m":2,"pe":0,"n":7},{"p":18,"h":7,"m":3,"pe":0,"n":4},{"p":18,"h":7,"m":4,"pe":0,"n":1},{"p":18,"h":7,"m":5,"pe":1,"n":4},{"p":18,"h":7,"m":6,"pe":1,"n":1},{"p":18,"h":7,"m":7,"pe":1,"n":6},{"p":18,"h":7,"m":8,"pe":1,"n":5},{"p":18,"h":7,"m":9,"pe":1,"n":2},{"p":19,"h":8,"m":9,"pe":1,"n":3},{"p":19,"h":7,"m":9,"pe":1,"n":3},{"p":20,"h":7,"m":9,"pe":1,"n":1},{"p":21,"h":1,"m":3,"pe":0,"n":1},{"p":21,"h":5,"m":1,"pe":0,"n":1},{"p":21,"h":5,"m":2,"pe":0,"n":3},{"p":21,"h":5,"m":3,"pe":0,"n":6},{"p":21,"h":6,"m":1,"pe":0,"n":2},{"p":21,"h":6,"m":2,"pe":0,"n":10},{"p":21,"h":6,"m":3,"pe":0,"n":6},{"p":21,"h":6,"m":4,"pe":0,"n":1},{"p":21,"h":7,"m":4,"pe":1,"n":2},{"p":21,"h":7,"m":5,"pe":1,"n":2},{"p":21,"h":7,"m":6,"pe":1,"n":3},{"p":21,"h":7,"m":7,"pe":1,"n":6},{"p":21,"h":7,"m":8,"pe":1,"n":2},{"p":22,"h":8,"m":4,"pe":1,"n":1},{"p":22,"h":8,"m":5,"pe":1,"n":4},{"p":22,"h":8,"m":6,"pe":1,"n":8},{"p":22,"h":8,"m":7,"pe":1,"n":5},{"p":22,"h":8,"m":8,"pe":1,"n":3},{"p":22,"h":7,"m":3,"pe":0,"n":1},{"p":22,"h":4,"m":1,"pe":0,"n":7},{"p":22,"h":4,"m":2,"pe":0,"n":5},{"p":22,"h":4,"m":3,"pe":0,"n":6},{"p":22,"h":4,"m":4,"pe":0,"n":1},{"p":23,"h":8,"m":1,"pe":0,"n":5},{"p":23,"h":5,"m":1,"pe":0,"n":1},{"p":23,"h":5,"m":2,"pe":0,"n":1},{"p":23,"h":5,"m":3,"pe":0,"n":3},{"p":23,"h":5,"m":4,"pe":0,"n":1},{"p":23,"h":6,"m":2,"pe":0,"n":7},{"p":23,"h":6,"m":3,"pe":0,"n":5},{"p":23,"h":6,"m":4,"pe":0,"n":2},{"p":23,"h":7,"m":1,"pe":0,"n":1},{"p":23,"h":7,"m":2,"pe":0,"n":1},{"p":23,"h":7,"m":3,"pe":0,"n":1},{"p":23,"h":7,"m":4,"pe":0,"n":1},{"p":23,"h":7,"m":5,"pe":1,"n":4},{"p":23,"h":7,"m":6,"pe":1,"n":3},{"p":23,"h":7,"m":7,"pe":1,"n":4},{"p":23,"h":7,"m":8,"pe":1,"n":6},{"p":23,"h":7,"m":9,"pe":1,"n":2},{"p":24,"h":8,"m":1,"pe":0,"n":2},{"p":24,"h":1,"m":1,"pe":0,"n":1},{"p":24,"h":3,"m":1,"pe":0,"n":1},{"p":24,"h":5,"m":3,"pe":0,"n":3},{"p":24,"h":2,"m":1,"pe":0,"n":1},{"p":24,"h":6,"m":2,"pe":0,"n":7},{"p":24,"h":6,"m":3,"pe":0,"n":9},{"p":24,"h":6,"m":4,"pe":0,"n":1},{"p":24,"h":6,"m":5,"pe":1,"n":1},{"p":24,"h":7,"m":5,"pe":1,"n":2},{"p":24,"h":7,"m":7,"pe":1,"n":4},{"p":24,"h":7,"m":8,"pe":1,"n":6},{"p":24,"h":7,"m":9,"pe":1,"n":1},{"p":25,"h":7,"m":8,"pe":1,"n":3},{"p":26,"h":8,"m":1,"pe":0,"n":3},{"p":26,"h":8,"m":5,"pe":1,"n":2},{"p":26,"h":8,"m":6,"pe":1,"n":1},{"p":26,"h":8,"m":7,"pe":1,"n":3},{"p":26,"h":8,"m":8,"pe":1,"n":1},{"p":26,"h":3,"m":1,"pe":0,"n":1},{"p":26,"h":3,"m":5,"pe":1,"n":1},{"p":26,"h":3,"m":6,"pe":1,"n":3},{"p":26,"h":3,"m":7,"pe":1,"n":2},{"p":26,"h":3,"m":8,"pe":1,"n":2},{"p":26,"h":0,"m":1,"pe":0,"n":2},{"p":26,"h":0,"m":2,"pe":0,"n":5},{"p":26,"h":0,"m":3,"pe":0,"n":1},{"p":26,"h":0,"m":4,"pe":0,"n":1},{"p":26,"h":6,"m":1,"pe":0,"n":1},{"p":26,"h":6,"m":2,"pe":0,"n":5},{"p":26,"h":6,"m":3,"pe":0,"n":6},{"p":26,"h":6,"m":4,"pe":0,"n":2},{"p":26,"h":7,"m":1,"pe":0,"n":2},{"p":26,"h":7,"m":2,"pe":0,"n":1},{"p":26,"h":7,"m":3,"pe":0,"n":1},{"p":26,"h":7,"m":5,"pe":1,"n":1},{"p":26,"h":7,"m":8,"pe":1,"n":1},{"p":26,"h":7,"m":9,"pe":1,"n":3}],"total":1338}, null);
+crearMatrizHorarios('ahmc', {"programas":["Asistente de Primera Infancia","Auxiliar Administracion en Salud","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar de Cocina","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Servicios Farmacéuticos","Bachillerato","Caja Registradora","Cocinero Principal","Cosmetología y Estética Integral","Diseño Gráfico","Excel (curso)","Facturacion Hospitalaria (curso)","Inglés Conversacional","Inglés Kids Conversacional","Investigador Criminalístico y Judicial","Inyectologia Personal de Salud (curso)","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Seguridad Ocupacional y Laboral","Seguridad y Salud Ocupacional","Sin programa","Sistemas Informáticos"],"horarios":["Lunes a jueves · 8-10 am","Lunes a jueves · 10-12 m","Lunes a jueves · sin hora","Mañana · sin detalle","Martes y jueves · 8-12 m","Lunes a jueves · 2-6 pm","Tarde · sin detalle","Viernes · mañana","Viernes · tarde","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana","Sin horario"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"periodos":["2025-1","2026-1","2026-2"],"celdas":[{"p":0,"h":12,"m":1,"pe":1,"n":1},{"p":0,"h":0,"m":8,"pe":2,"n":1},{"p":0,"h":10,"m":6,"pe":2,"n":2},{"p":0,"h":10,"m":7,"pe":2,"n":1},{"p":0,"h":10,"m":8,"pe":2,"n":1},{"p":0,"h":11,"m":1,"pe":1,"n":2},{"p":0,"h":11,"m":3,"pe":1,"n":6},{"p":0,"h":11,"m":4,"pe":1,"n":3},{"p":0,"h":11,"m":5,"pe":2,"n":1},{"p":1,"h":10,"m":5,"pe":2,"n":1},{"p":1,"h":10,"m":7,"pe":2,"n":1},{"p":1,"h":10,"m":8,"pe":2,"n":3},{"p":1,"h":10,"m":9,"pe":2,"n":1},{"p":1,"h":11,"m":5,"pe":2,"n":2},{"p":1,"h":11,"m":6,"pe":2,"n":1},{"p":2,"h":12,"m":1,"pe":1,"n":2},{"p":2,"h":12,"m":2,"pe":1,"n":4},{"p":2,"h":12,"m":3,"pe":1,"n":6},{"p":2,"h":12,"m":6,"pe":2,"n":1},{"p":2,"h":1,"m":2,"pe":1,"n":1},{"p":2,"h":9,"m":1,"pe":1,"n":3},{"p":2,"h":9,"m":2,"pe":1,"n":5},{"p":2,"h":9,"m":3,"pe":1,"n":3},{"p":2,"h":9,"m":4,"pe":1,"n":1},{"p":2,"h":9,"m":5,"pe":2,"n":1},{"p":2,"h":9,"m":6,"pe":2,"n":1},{"p":2,"h":10,"m":2,"pe":1,"n":1},{"p":2,"h":10,"m":3,"pe":1,"n":1},{"p":2,"h":10,"m":5,"pe":2,"n":1},{"p":2,"h":10,"m":7,"pe":2,"n":5},{"p":2,"h":10,"m":8,"pe":2,"n":2},{"p":2,"h":10,"m":9,"pe":2,"n":1},{"p":2,"h":7,"m":1,"pe":1,"n":3},{"p":2,"h":7,"m":2,"pe":1,"n":1},{"p":2,"h":7,"m":4,"pe":1,"n":1},{"p":3,"h":12,"m":1,"pe":1,"n":1},{"p":3,"h":11,"m":1,"pe":1,"n":2},{"p":3,"h":11,"m":2,"pe":1,"n":3},{"p":3,"h":11,"m":3,"pe":1,"n":6},{"p":3,"h":11,"m":4,"pe":1,"n":1},{"p":4,"h":1,"m":1,"pe":1,"n":1},{"p":4,"h":1,"m":2,"pe":1,"n":1},{"p":4,"h":9,"m":1,"pe":1,"n":4},{"p":4,"h":9,"m":2,"pe":1,"n":3},{"p":4,"h":9,"m":3,"pe":1,"n":2},{"p":4,"h":9,"m":6,"pe":2,"n":1},{"p":4,"h":10,"m":7,"pe":2,"n":1},{"p":4,"h":7,"m":1,"pe":1,"n":2},{"p":4,"h":7,"m":2,"pe":1,"n":4},{"p":4,"h":7,"m":3,"pe":1,"n":1},{"p":5,"h":10,"m":5,"pe":2,"n":1},{"p":5,"h":10,"m":6,"pe":2,"n":1},{"p":5,"h":10,"m":7,"pe":2,"n":1},{"p":5,"h":10,"m":8,"pe":2,"n":4},{"p":5,"h":10,"m":9,"pe":2,"n":1},{"p":5,"h":11,"m":5,"pe":2,"n":1},{"p":5,"h":11,"m":8,"pe":2,"n":2},{"p":6,"h":12,"m":1,"pe":1,"n":4},{"p":6,"h":12,"m":2,"pe":1,"n":3},{"p":6,"h":12,"m":3,"pe":1,"n":1},{"p":6,"h":12,"m":4,"pe":1,"n":3},{"p":6,"h":12,"m":5,"pe":2,"n":1},{"p":6,"h":13,"m":2,"pe":1,"n":1},{"p":6,"h":10,"m":1,"pe":1,"n":1},{"p":6,"h":10,"m":6,"pe":2,"n":1},{"p":6,"h":10,"m":7,"pe":2,"n":2},{"p":6,"h":11,"m":1,"pe":1,"n":1},{"p":6,"h":11,"m":3,"pe":1,"n":1},{"p":6,"h":11,"m":4,"pe":2,"n":1},{"p":7,"h":12,"m":1,"pe":1,"n":8},{"p":7,"h":12,"m":2,"pe":1,"n":7},{"p":7,"h":12,"m":3,"pe":1,"n":4},{"p":7,"h":12,"m":4,"pe":1,"n":2},{"p":7,"h":1,"m":1,"pe":1,"n":6},{"p":7,"h":1,"m":2,"pe":1,"n":11},{"p":7,"h":1,"m":3,"pe":1,"n":2},{"p":7,"h":1,"m":4,"pe":1,"n":3},{"p":7,"h":0,"m":5,"pe":2,"n":1},{"p":7,"h":0,"m":6,"pe":2,"n":1},{"p":7,"h":9,"m":1,"pe":1,"n":3},{"p":7,"h":9,"m":2,"pe":1,"n":1},{"p":7,"h":9,"m":3,"pe":1,"n":3},{"p":7,"h":10,"m":4,"pe":1,"n":2},{"p":7,"h":10,"m":4,"pe":2,"n":1},{"p":7,"h":10,"m":5,"pe":2,"n":3},{"p":7,"h":10,"m":6,"pe":2,"n":3},{"p":7,"h":10,"m":7,"pe":2,"n":4},{"p":7,"h":10,"m":8,"pe":2,"n":8},{"p":7,"h":10,"m":9,"pe":2,"n":2},{"p":7,"h":11,"m":5,"pe":2,"n":1},{"p":7,"h":11,"m":6,"pe":2,"n":1},{"p":7,"h":11,"m":7,"pe":2,"n":1},{"p":8,"h":12,"m":5,"pe":2,"n":1},{"p":8,"h":1,"m":1,"pe":1,"n":1},{"p":8,"h":1,"m":2,"pe":1,"n":2},{"p":8,"h":1,"m":3,"pe":1,"n":3},{"p":8,"h":9,"m":1,"pe":1,"n":1},{"p":8,"h":10,"m":5,"pe":2,"n":3},{"p":8,"h":10,"m":6,"pe":2,"n":2},{"p":8,"h":10,"m":7,"pe":2,"n":2},{"p":8,"h":10,"m":8,"pe":2,"n":1},{"p":8,"h":11,"m":1,"pe":1,"n":3},{"p":8,"h":11,"m":2,"pe":1,"n":4},{"p":8,"h":11,"m":3,"pe":1,"n":2},{"p":8,"h":11,"m":4,"pe":1,"n":1},{"p":8,"h":11,"m":6,"pe":2,"n":1},{"p":8,"h":11,"m":7,"pe":2,"n":1},{"p":8,"h":7,"m":1,"pe":1,"n":1},{"p":9,"h":10,"m":1,"pe":1,"n":9},{"p":9,"h":10,"m":2,"pe":1,"n":4},{"p":9,"h":10,"m":3,"pe":1,"n":6},{"p":9,"h":10,"m":4,"pe":1,"n":1},{"p":9,"h":10,"m":5,"pe":2,"n":1},{"p":9,"h":10,"m":6,"pe":2,"n":1},{"p":9,"h":11,"m":1,"pe":1,"n":1},{"p":10,"h":12,"m":3,"pe":1,"n":1},{"p":10,"h":10,"m":1,"pe":1,"n":1},{"p":10,"h":10,"m":2,"pe":1,"n":7},{"p":10,"h":10,"m":3,"pe":1,"n":1},{"p":10,"h":10,"m":6,"pe":2,"n":1},{"p":10,"h":11,"m":3,"pe":1,"n":5},{"p":10,"h":11,"m":4,"pe":1,"n":3},{"p":10,"h":11,"m":4,"pe":2,"n":1},{"p":10,"h":11,"m":5,"pe":2,"n":3},{"p":11,"h":11,"m":1,"pe":1,"n":3},{"p":11,"h":11,"m":2,"pe":1,"n":3},{"p":11,"h":11,"m":3,"pe":1,"n":2},{"p":11,"h":11,"m":4,"pe":1,"n":1},{"p":11,"h":7,"m":1,"pe":1,"n":1},{"p":12,"h":12,"m":1,"pe":1,"n":11},{"p":12,"h":12,"m":2,"pe":1,"n":8},{"p":12,"h":12,"m":3,"pe":1,"n":2},{"p":12,"h":12,"m":5,"pe":2,"n":1},{"p":12,"h":12,"m":6,"pe":2,"n":1},{"p":12,"h":1,"m":1,"pe":1,"n":20},{"p":12,"h":1,"m":2,"pe":1,"n":6},{"p":12,"h":1,"m":3,"pe":1,"n":1},{"p":12,"h":1,"m":7,"pe":2,"n":1},{"p":12,"h":5,"m":3,"pe":1,"n":1},{"p":12,"h":5,"m":4,"pe":1,"n":2},{"p":12,"h":5,"m":5,"pe":2,"n":1},{"p":12,"h":5,"m":6,"pe":2,"n":1},{"p":12,"h":5,"m":7,"pe":2,"n":2},{"p":12,"h":5,"m":8,"pe":2,"n":3},{"p":12,"h":5,"m":9,"pe":2,"n":1},{"p":12,"h":0,"m":2,"pe":1,"n":3},{"p":12,"h":0,"m":3,"pe":1,"n":3},{"p":12,"h":0,"m":4,"pe":1,"n":3},{"p":12,"h":0,"m":5,"pe":2,"n":1},{"p":12,"h":0,"m":7,"pe":2,"n":1},{"p":12,"h":9,"m":1,"pe":1,"n":5},{"p":12,"h":9,"m":2,"pe":1,"n":9},{"p":12,"h":9,"m":3,"pe":1,"n":4},{"p":12,"h":2,"m":1,"pe":1,"n":1},{"p":12,"h":10,"m":3,"pe":1,"n":1},{"p":12,"h":10,"m":5,"pe":2,"n":4},{"p":12,"h":10,"m":6,"pe":2,"n":6},{"p":12,"h":10,"m":7,"pe":2,"n":5},{"p":12,"h":10,"m":8,"pe":2,"n":5},{"p":12,"h":10,"m":9,"pe":2,"n":4},{"p":12,"h":11,"m":2,"pe":1,"n":1},{"p":12,"h":6,"m":3,"pe":1,"n":1},{"p":12,"h":7,"m":1,"pe":1,"n":2},{"p":12,"h":7,"m":2,"pe":1,"n":2},{"p":12,"h":7,"m":3,"pe":1,"n":1},{"p":12,"h":7,"m":4,"pe":1,"n":1},{"p":12,"h":7,"m":6,"pe":2,"n":1},{"p":13,"h":12,"m":1,"pe":1,"n":2},{"p":13,"h":12,"m":2,"pe":1,"n":5},{"p":13,"h":12,"m":3,"pe":1,"n":3},{"p":13,"h":12,"m":4,"pe":1,"n":1},{"p":13,"h":5,"m":1,"pe":1,"n":3},{"p":13,"h":5,"m":2,"pe":1,"n":1},{"p":13,"h":5,"m":4,"pe":1,"n":1},{"p":13,"h":10,"m":6,"pe":2,"n":1},{"p":13,"h":11,"m":7,"pe":2,"n":3},{"p":13,"h":11,"m":8,"pe":2,"n":4},{"p":13,"h":11,"m":9,"pe":2,"n":2},{"p":14,"h":10,"m":8,"pe":2,"n":2},{"p":14,"h":10,"m":9,"pe":2,"n":1},{"p":15,"h":12,"m":9,"pe":2,"n":1},{"p":16,"h":12,"m":1,"pe":1,"n":1},{"p":16,"h":5,"m":1,"pe":1,"n":1},{"p":16,"h":5,"m":2,"pe":1,"n":3},{"p":16,"h":9,"m":1,"pe":1,"n":1},{"p":16,"h":9,"m":2,"pe":1,"n":2},{"p":16,"h":10,"m":1,"pe":1,"n":2},{"p":16,"h":10,"m":2,"pe":1,"n":2},{"p":16,"h":10,"m":3,"pe":1,"n":3},{"p":16,"h":10,"m":4,"pe":1,"n":1},{"p":16,"h":10,"m":5,"pe":2,"n":1},{"p":16,"h":10,"m":6,"pe":2,"n":3},{"p":16,"h":10,"m":8,"pe":2,"n":1},{"p":16,"h":11,"m":1,"pe":1,"n":2},{"p":17,"h":11,"m":1,"pe":1,"n":7},{"p":17,"h":11,"m":2,"pe":1,"n":6},{"p":17,"h":11,"m":3,"pe":1,"n":2},{"p":17,"h":11,"m":4,"pe":1,"n":2},{"p":17,"h":11,"m":4,"pe":2,"n":1},{"p":17,"h":11,"m":9,"pe":2,"n":1},{"p":18,"h":12,"m":2,"pe":1,"n":5},{"p":18,"h":12,"m":4,"pe":1,"n":2},{"p":18,"h":12,"m":6,"pe":2,"n":3},{"p":18,"h":12,"m":7,"pe":2,"n":1},{"p":18,"h":11,"m":7,"pe":2,"n":1},{"p":19,"h":12,"m":9,"pe":2,"n":2},{"p":20,"h":12,"m":1,"pe":1,"n":1},{"p":20,"h":12,"m":2,"pe":1,"n":6},{"p":20,"h":12,"m":3,"pe":1,"n":3},{"p":20,"h":12,"m":4,"pe":1,"n":2},{"p":20,"h":10,"m":1,"pe":1,"n":1},{"p":20,"h":10,"m":7,"pe":2,"n":1},{"p":20,"h":7,"m":1,"pe":1,"n":2},{"p":21,"h":12,"m":1,"pe":1,"n":6},{"p":21,"h":12,"m":2,"pe":1,"n":4},{"p":21,"h":12,"m":5,"pe":2,"n":1},{"p":21,"h":12,"m":6,"pe":2,"n":1},{"p":21,"h":12,"m":7,"pe":2,"n":1},{"p":21,"h":12,"m":8,"pe":2,"n":2},{"p":21,"h":1,"m":3,"pe":1,"n":1},{"p":21,"h":5,"m":1,"pe":1,"n":1},{"p":21,"h":5,"m":5,"pe":2,"n":1},{"p":21,"h":5,"m":8,"pe":2,"n":1},{"p":21,"h":0,"m":3,"pe":1,"n":1},{"p":21,"h":4,"m":5,"pe":2,"n":3},{"p":21,"h":4,"m":7,"pe":2,"n":1},{"p":21,"h":4,"m":8,"pe":2,"n":1},{"p":21,"h":3,"m":3,"pe":1,"n":4},{"p":21,"h":3,"m":4,"pe":1,"n":2},{"p":21,"h":7,"m":1,"pe":1,"n":2},{"p":21,"h":7,"m":2,"pe":1,"n":5},{"p":21,"h":7,"m":3,"pe":1,"n":2},{"p":21,"h":7,"m":7,"pe":2,"n":1},{"p":21,"h":7,"m":8,"pe":2,"n":2},{"p":21,"h":7,"m":9,"pe":2,"n":2},{"p":21,"h":8,"m":8,"pe":2,"n":1},{"p":22,"h":12,"m":1,"pe":1,"n":3},{"p":22,"h":12,"m":2,"pe":1,"n":2},{"p":22,"h":12,"m":3,"pe":1,"n":2},{"p":22,"h":10,"m":4,"pe":1,"n":4},{"p":22,"h":10,"m":4,"pe":2,"n":2},{"p":22,"h":10,"m":5,"pe":2,"n":4},{"p":22,"h":10,"m":6,"pe":2,"n":2},{"p":22,"h":10,"m":7,"pe":2,"n":4},{"p":22,"h":10,"m":8,"pe":2,"n":4},{"p":22,"h":11,"m":1,"pe":1,"n":3},{"p":22,"h":11,"m":2,"pe":1,"n":2},{"p":22,"h":11,"m":3,"pe":1,"n":5},{"p":22,"h":11,"m":4,"pe":1,"n":5},{"p":22,"h":7,"m":1,"pe":1,"n":1},{"p":22,"h":7,"m":5,"pe":2,"n":2},{"p":23,"h":12,"m":1,"pe":1,"n":4},{"p":23,"h":12,"m":2,"pe":1,"n":1},{"p":23,"h":12,"m":3,"pe":1,"n":4},{"p":23,"h":12,"m":4,"pe":1,"n":1},{"p":23,"h":7,"m":1,"pe":1,"n":1},{"p":24,"h":12,"m":5,"pe":2,"n":1},{"p":24,"h":10,"m":6,"pe":2,"n":1},{"p":25,"h":13,"m":6,"pe":0,"n":1},{"p":25,"h":11,"m":2,"pe":1,"n":1},{"p":26,"h":1,"m":1,"pe":1,"n":1},{"p":26,"h":1,"m":2,"pe":1,"n":3},{"p":26,"h":10,"m":5,"pe":2,"n":1},{"p":26,"h":10,"m":6,"pe":2,"n":2},{"p":26,"h":10,"m":7,"pe":2,"n":1},{"p":26,"h":10,"m":8,"pe":2,"n":1},{"p":26,"h":10,"m":9,"pe":2,"n":1},{"p":26,"h":7,"m":1,"pe":1,"n":2},{"p":26,"h":7,"m":2,"pe":1,"n":1},{"p":26,"h":7,"m":3,"pe":1,"n":1},{"p":26,"h":7,"m":4,"pe":1,"n":3},{"p":26,"h":7,"m":6,"pe":2,"n":1}],"total":650}, null);
 
 </script>
 </body>
