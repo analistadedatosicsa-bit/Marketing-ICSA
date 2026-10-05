@@ -2931,7 +2931,7 @@ const ASIGNACION = {
             'Asistente de Primera Infancia', 'Auxiliar en Suministros y Almacén',
             'Peluquería y Estética Canina', 'Estilista Integral en Peluquería']
 };
-const DESDE_MES = 9;            // la asignación empieza a regir en septiembre
+let DESDE_MES = 9;              // mes que muestra el tablero: se pone al mes del último corte
 
 // Meta total del equipo, fijada a mano por mes. Si un mes no está aquí,
 // se usa la meta natural (matrículas del mismo mes de 2025 × 1,30).
@@ -2988,6 +2988,8 @@ function repartirMeta(programas, total) {
 }
 
 function tableroAsesores(d) {
+  // la asignación rige desde septiembre; el tablero sigue al mes del último corte
+  if (d.ultimo_mes && d.ultimo_mes >= 9) DESDE_MES = d.ultimo_mes;
   const m = d.meses[DESDE_MES - 1];
   if (!m) return '<div class="placeholder"><p>Aún no hay datos de ese mes.</p></div>';
   const dias = diasRestantes(DESDE_MES);
@@ -3139,6 +3141,12 @@ async function cargarAdmisiones() {
       if (sede === 'barranquilla') {
         const tb = document.getElementById('tablero-asesores');
         if (tb) tb.innerHTML = tableroAsesores(d);
+        // rótulos que dependen del corte
+        const mesTxt = (d.mes_nombre || '').toLowerCase();
+        const eb = document.querySelector('#acc-icsa .eyebrow');
+        if (eb && mesTxt) eb.textContent = 'Sede 01 de 03 · corte ' + mesTxt;
+        const tag = document.querySelector('.account-item[onclick*="asesores"] .item-tag');
+        if (tag && mesTxt) tag.textContent = mesTxt;
       }
     } catch (err) {
       slot.innerHTML = '<div class="placeholder"><p>No se pudieron cargar las admisiones de ' +
@@ -3198,6 +3206,7 @@ document.addEventListener('DOMContentLoaded', cargarAdmisiones);
  * Agregar una URL nueva a la lista basta; el orden no importa.
  */
 const ICSA_ENDPOINTS = [
+  'https://script.google.com/macros/s/AKfycbwarIZQfNhA21RBmYoFGbJHvtmxRnGcps74Yy8lJBF-Sl_ZY_tr6p3PbT7pCm6RqWzfFQ/exec',
   'https://script.google.com/macros/s/AKfycbycK5s7h188YkpmeYjOtrwX2K3ctcDH86JWu5T-yksOZfjQG51uab1MlvtbMZ6tfAfpmQ/exec',
   'https://script.google.com/macros/s/AKfycbw9N_Six14uQXAyaS8R0I8h0K_po7XrM5VBjftT6brWqoCjK0DPbL08PKRBMUHhwZKeEg/exec',
   'https://script.google.com/macros/s/AKfycbxZjko5JMJU8mIBQs8C2EvRf6ysggkAW-bwQQYCZkiCjU8w36GlG7YQqdJvELsEMYlViw/exec'
