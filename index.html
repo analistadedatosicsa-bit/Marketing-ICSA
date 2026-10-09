@@ -520,6 +520,43 @@
 
 
   :root{ --restr:#B490F5; }
+  /* --- campañas: gráfica meta vs. logradas y checklist --- */
+  .cp-chart{ position:relative; }
+  .cp-chart svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .cp-chart .eje{ font:11px 'IBM Plex Mono',monospace; fill:var(--pending); }
+  .cp-chart .cat{ font:13px 'Plus Jakarta Sans',sans-serif; fill:var(--ink); }
+  .cp-chart .val{ font:12px 'IBM Plex Mono',monospace; fill:var(--ink-soft); }
+  .cp-chart .grid{ stroke:var(--line); stroke-width:1; }
+  .cp-chart .hit{ fill:transparent; cursor:default; }
+  .cp-chart .hit:hover + .marca, .cp-chart .marca.on{ filter:brightness(1.25); }
+  .cp-ley{ display:flex; gap:18px; flex-wrap:wrap; font-size:12px; color:var(--ink-soft); margin:0 0 12px; }
+  .cp-ley i{ display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:7px; vertical-align:-2px; }
+  .cp-ley i.meta{ background:rgba(154,160,172,.28); box-shadow:inset 0 0 0 1.5px #9AA0AC; }
+  .cp-ley i.real{ background:var(--pine); }
+  .cp-tip{ position:absolute; pointer-events:none; background:var(--paper); border:1px solid var(--line);
+    border-radius:8px; padding:8px 11px; font-size:12px; color:var(--ink); box-shadow:0 6px 18px rgba(0,0,0,.35);
+    white-space:nowrap; transform:translate(-50%,-110%); }
+  .cp-tip b{ display:block; margin-bottom:3px; }
+  .cp-tip span{ display:block; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-size:11px; }
+  .chk-grupo{ margin-bottom:6px; }
+  .chk-grupo .sub-h{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .chk-cont{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--pending); letter-spacing:.04em; }
+  .chk-item{ display:flex; gap:12px; align-items:flex-start; padding:9px 4px; border-bottom:1px solid rgba(255,255,255,.05);
+    cursor:pointer; font-size:14px; line-height:1.5; color:var(--ink); }
+  .chk-item:last-child{ border-bottom:none; }
+  .chk-item input{ appearance:none; -webkit-appearance:none; flex:none; width:18px; height:18px; margin-top:2px;
+    border:1.5px solid var(--ink-soft); border-radius:5px; background:transparent; cursor:pointer; position:relative; }
+  .chk-item input:checked{ background:var(--good); border-color:var(--good); }
+  .chk-item input:checked::after{ content:''; position:absolute; left:5px; top:1px; width:5px; height:10px;
+    border:solid #1B1D22; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  .chk-item input:focus-visible{ outline:2px solid var(--pine); outline-offset:2px; }
+  .chk-item.hecho .chk-txt{ color:var(--pending); text-decoration:line-through; }
+  .chk-txt small{ display:block; color:var(--ink-soft); font-size:12px; text-decoration:none; }
+  .chk-barra{ height:6px; background:var(--line); border-radius:100px; overflow:hidden; margin:4px 0 16px; }
+  .chk-barra div{ height:100%; background:var(--good); border-radius:100px; transition:width .2s; }
+  .chk-reset{ background:none; border:1px solid var(--line); color:var(--ink-soft); cursor:pointer;
+    border-radius:6px; padding:4px 10px; font-size:12px; font-family:'Plus Jakarta Sans',sans-serif; }
+  .chk-reset:hover{ border-color:var(--pine); color:var(--ink); }
   /* --- matriz de admisiones por horario --- */
   /* Solo este bloque se ensancha; lo de admisiones de arriba queda igual. */
   .ah-wide{ width:min(1400px, calc(100vw - 372px)); min-width:100%; }
@@ -2588,8 +2625,20 @@
 
     <section class="block">
       <div class="block-head">
-        <span class="block-title">Metas por campaña</span>
+        <span class="block-title">Meta vs. matrículas logradas por sede</span>
         <span class="block-num">02</span>
+      </div>
+      <div class="card full">
+        <div class="cp-ley"><span><i class="meta"></i>Meta del periodo</span><span><i class="real"></i>Matrículas logradas</span></div>
+        <div class="cp-chart" id="cp-chart"></div>
+        <p class="sub-note">La misma gráfica del tablero ejecutivo del Excel: barras horizontales agrupadas, una pareja por sede. Pasa el cursor sobre una barra para ver el detalle.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Metas por campaña</span>
+        <span class="block-num">03</span>
       </div>
       <div class="card full">
         <div class="hint">La barra muestra cuánto pesa cada campaña dentro de la meta de su sede.</div>
@@ -2602,7 +2651,7 @@
     <section class="block">
       <div class="block-head">
         <span class="block-title">Lectura de las metas</span>
-        <span class="block-num">03</span>
+        <span class="block-num">04</span>
       </div>
       <div class="card-grid">
         <div class="card">
@@ -2629,6 +2678,18 @@
             <li><strong>El registro diario está vacío.</strong> Si se llena —fecha, sede, campaña, asesor y leads contactados—, se puede medir qué campaña convierte de verdad y no solo cuántas matrículas entran.</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Checklist de control</span>
+        <span class="block-num">05</span>
+      </div>
+      <div class="card full">
+        <div class="hint">Marca cada punto al cumplirlo. La rutina diaria vuelve a quedar en blanco cada día; los demás grupos se conservan hasta que los reinicies.</div>
+        <div id="cp-check"></div>
+        <p class="sub-note">Las marcas se guardan en este navegador: cada persona ve las suyas.</p>
       </div>
     </section>
   </div>
@@ -4017,6 +4078,111 @@ const CAMP = {
          `<td class="delta ${x == null ? '' : x > 2 ? 'neg' : x > 1.2 ? '' : 'pos'}">${x == null ? 'en vivo' : p1(x) + '×'}</td></tr>`;
   });
   $('cp-ritmo').innerHTML = h + '</tbody>';
+
+  /* ── gráfica: barras horizontales agrupadas, meta vs. logradas ── */
+  (function grafica(){
+    const box = $('cp-chart'); if (!box) return;
+    const W = 760, izq = 190, der = 54, arriba = 8, alto = 22, gapPar = 4, gapGrupo = 26;
+    const H = arriba + S.length * (alto * 2 + gapPar + gapGrupo) + 22;
+    const max = Math.max(...S.map(s => Math.max(s.meta, s.real)));
+    const paso = max > 100 ? 25 : 10, tope = Math.ceil(max / paso) * paso;
+    const x = v => izq + (W - izq - der) * v / tope;
+    let g = '';
+    for (let v = 0; v <= tope; v += paso)
+      g += `<line class="grid" x1="${x(v)}" x2="${x(v)}" y1="${arriba}" y2="${H - 22}"/>` +
+           `<text class="eje" x="${x(v)}" y="${H - 6}" text-anchor="middle">${v}</text>`;
+    const r = 4, barra = (y, v, cls) => {
+      const w = Math.max(0, x(v) - izq);
+      if (!w) return `<line x1="${izq}" x2="${izq}" y1="${y}" y2="${y + alto}" stroke="${cls === 'real' ? 'var(--pine)' : '#9AA0AC'}" stroke-width="2"/>`;
+      const rr = Math.min(r, w);
+      const d = `M${izq},${y} h${w - rr} a${rr},${rr} 0 0 1 ${rr},${rr} v${alto - 2 * rr} a${rr},${rr} 0 0 1 -${rr},${rr} h-${w - rr} z`;
+      return cls === 'real'
+        ? `<path class="marca" d="${d}" fill="var(--pine)"/>`
+        : `<path class="marca" d="${d}" fill="rgba(154,160,172,.28)" stroke="#9AA0AC" stroke-width="1.5"/>`;
+    };
+    let y = arriba;
+    S.forEach((s, i) => {
+      const yM = y, yR = y + alto + gapPar, cy = y + alto + gapPar / 2;
+      g += `<text class="cat" x="${izq - 14}" y="${cy + 4}" text-anchor="end">${e(s.nombre.replace('Sin Fronteras ', 'S/F '))}</text>`;
+      g += barra(yM, s.meta, 'meta') + `<text class="val" x="${x(s.meta) + 8}" y="${yM + alto / 2 + 4}">${n(s.meta)}</text>`;
+      g += barra(yR, s.real, 'real') + `<text class="val" x="${x(s.real) + 8}" y="${yR + alto / 2 + 4}">${n(s.real)}</text>`;
+      g += `<rect class="hit" data-i="${i}" x="0" y="${yM - 6}" width="${W}" height="${alto * 2 + gapPar + 12}"/>`;
+      y += alto * 2 + gapPar + gapGrupo;
+    });
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Meta y matrículas logradas por sede">${g}</svg>` +
+                    '<div class="cp-tip" hidden></div>';
+    const tip = box.querySelector('.cp-tip'), svg = box.querySelector('svg');
+    box.querySelectorAll('.hit').forEach(el => {
+      el.addEventListener('mousemove', ev => {
+        const s = S[+el.dataset.i], b = box.getBoundingClientRect();
+        tip.innerHTML = `<b>${e(s.nombre)}</b><span>meta ${n(s.meta)} · logradas ${n(s.real)}</span>` +
+                        `<span>cumplimiento ${p1(s.pct)}% · faltan ${n(s.brecha)}</span>`;
+        tip.style.left = (ev.clientX - b.left) + 'px'; tip.style.top = (ev.clientY - b.top) + 'px';
+        tip.hidden = false;
+      });
+      el.addEventListener('mouseleave', () => { tip.hidden = true; });
+    });
+  })();
+
+  /* ── checklist: guardado por navegador; la rutina diaria se reinicia cada día ── */
+  (function checklist(){
+    const box = $('cp-check'); if (!box) return;
+    const hoyTxt = new Date().toISOString().slice(0, 10);
+    const GRUPOS = [
+      { id: 'diaria', titulo: 'Rutina diaria de control', diaria: true, items: [
+        ['Apertura: revisar meta del día, citas y leads pendientes', 'Meta del día = ritmo requerido de cada sede'],
+        ['Mediodía: revisar contacto efectivo, objeciones y citas confirmadas', ''],
+        ['Cierre: validar matrículas pagadas o confirmadas y registrarlas', 'Por campaña, en el seguimiento de campañas'],
+        ['Llenar el registro diario: fecha, sede, campaña, asesor y leads contactados', ''],
+        ['Si una sede quedó bajo ritmo: reasignar leads, reforzar llamadas y activar remarketing', '']
+      ]},
+      { id: 'matriculaton', titulo: 'Matriculatón · 16 de octubre (meta 75)', items: [
+        ['Lista de interesados de las tres sedes depurada y asignada por asesor', ''],
+        ['Citas agendadas para el 16 antes del día 15', 'Barranquilla 30 · Riohacha 25 · Maicao 20'],
+        ['Piezas y mensajes del evento publicados en redes y WhatsApp', ''],
+        ['Caja, contratos y medios de pago listos para matricular el mismo día', ''],
+        ['Conteo de cierre del día por sede y por asesor', '']
+      ]},
+      { id: 'halloween', titulo: 'Halloween: matrícula y costos gratis (meta 75)', items: [
+        ['Condiciones de la promoción confirmadas por escrito con gerencia', ''],
+        ['Campaña de expectativa lanzada al menos una semana antes', ''],
+        ['Citas confirmadas el día anterior', 'Barranquilla 30 · Riohacha 25 · Maicao 20'],
+        ['Conteo de cierre y registro por campaña', '']
+      ]},
+      { id: 'gerencia', titulo: 'Pendientes de gerencia', items: [
+        ['Asignar las 4 matrículas «por asignar» de Barranquilla a una campaña', 'Las campañas suman 111 de 115'],
+        ['Revisar si la meta de Maicao (70) es alcanzable o reforzar su plan', 'Pide 3,9 diarias; viene de 1,1–1,5'],
+        ['Definir responsable por campaña en cada sede', 'La columna Responsable del Excel está vacía'],
+        ['Cargar al informe las matrículas reales por campaña cada semana', '']
+      ]}
+    ];
+    const clave = g => 'cp-check-' + g.id + (g.diaria ? '-' + hoyTxt : '');
+    const leer = g => { try { return JSON.parse(localStorage.getItem(clave(g)) || '[]'); } catch (x) { return []; } };
+    const guardar = (g, v) => { try { localStorage.setItem(clave(g), JSON.stringify(v)); } catch (x) {} };
+    function pintar(){
+      box.innerHTML = GRUPOS.map(g => {
+        const marc = leer(g), hechos = g.items.filter((_, i) => marc.includes(i)).length;
+        return `<div class="chk-grupo"><h4 class="sub-h"><span>${e(g.titulo)}</span>` +
+          `<span class="chk-cont">${hechos} de ${g.items.length}` +
+          (hechos ? ` · <button type="button" class="chk-reset" data-g="${g.id}">reiniciar</button>` : '') + `</span></h4>` +
+          `<div class="chk-barra"><div style="width:${Math.round(hechos / g.items.length * 100)}%"></div></div>` +
+          g.items.map((it, i) => {
+            const on = marc.includes(i);
+            return `<label class="chk-item${on ? ' hecho' : ''}"><input type="checkbox" data-g="${g.id}" data-i="${i}"${on ? ' checked' : ''}>` +
+                   `<span class="chk-txt">${e(it[0])}${it[1] ? `<small>${e(it[1])}</small>` : ''}</span></label>`;
+          }).join('') + '</div>';
+      }).join('');
+      box.querySelectorAll('input[type=checkbox]').forEach(cb => cb.addEventListener('change', () => {
+        const g = GRUPOS.find(x => x.id === cb.dataset.g), i = +cb.dataset.i;
+        let v = leer(g).filter(k => k !== i); if (cb.checked) v.push(i);
+        guardar(g, v); pintar();
+      }));
+      box.querySelectorAll('.chk-reset').forEach(b => b.addEventListener('click', ev => {
+        ev.preventDefault(); guardar(GRUPOS.find(x => x.id === b.dataset.g), []); pintar();
+      }));
+    }
+    pintar();
+  })();
 })();
 </script>
 </body>
