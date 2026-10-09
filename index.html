@@ -852,6 +852,12 @@
         <div class="item-left"><span class="dot" style="background:var(--ochre)"></span> Asesores BAQ</div>
         <span class="item-tag">septiembre</span>
       </div>
+    
+      <div class="accounts-label" style="margin-top:18px;">Comercial</div>
+      <div class="account-item" onclick="showAccount('campanas', this)">
+        <div class="item-left"><span class="dot" style="background:var(--pine)"></span> Campañas</div>
+        <span class="item-tag">octubre</span>
+      </div>
     </nav>
 
     <div class="legend">
@@ -2551,6 +2557,83 @@
     </section>
   </div>
   <!-- ============ TABLERO DE ASESORES ============ -->
+  <!-- ============ CAMPAÑAS OCTUBRE ============ -->
+  <div class="account-page" id="acc-campanas">
+    <div class="doc-header">
+      <div class="eyebrow">Comercial · las tres sedes</div>
+      <h1>Campañas de octubre</h1>
+      <div class="doc-sub">Metas por sede y por campaña para el cierre del 13 al 30 de octubre de 2026, con el ritmo diario que hace falta para llegar.</div>
+      <div class="status-row" id="cp-pills"></div>
+    </div>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Avance por sede</span>
+        <span class="block-num">01</span>
+      </div>
+      <div class="card full">
+        <div class="stat-row" id="cp-kpis" style="margin-bottom:20px;"></div>
+        <div class="table-scroll">
+        <table class="matriculas-table" id="cp-sedes"></table>
+        </div>
+        <div class="note">Cumplimiento = matrículas logradas ÷ meta. Ritmo requerido = lo que falta ÷ días que
+          quedan del periodo, contados desde hoy (o desde el 13 si aún no arranca). Estado, con la regla del
+          tablero comercial: <strong style="color:var(--ink)">100% o más</strong> meta cumplida,
+          <strong style="color:var(--ink)">70% a 99%</strong> en seguimiento y
+          <strong style="color:var(--ink)">menos de 70%</strong> plan de choque. Ojo: es un umbral distinto al
+          60% que usa el resto del informe. Las matrículas logradas están en cero porque el archivo solo trae
+          las metas; se irán llenando con los cortes de cada sede.</div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Metas por campaña</span>
+        <span class="block-num">02</span>
+      </div>
+      <div class="card full">
+        <div class="hint">La barra muestra cuánto pesa cada campaña dentro de la meta de su sede.</div>
+        <div class="table-scroll">
+        <table class="matriculas-table" id="cp-camp"></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Lectura de las metas</span>
+        <span class="block-num">03</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Más de la mitad depende de dos días</h3>
+          <ul>
+            <li>La Matriculatón del 16 y Halloween suman <strong>150 de las 285</strong> matrículas (53%).</li>
+            <li>Barranquilla 60 de 115, Riohacha 50 de 100 y Maicao 40 de 70.</li>
+            <li>Si uno solo de los dos eventos rinde a la mitad, cada sede queda entre 10 y 15 matrículas abajo: conviene llegar a cada fecha con citas ya agendadas.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Qué tan exigente es cada meta</h3>
+          <div class="table-scroll">
+          <table class="prog-table" id="cp-ritmo"></table>
+          </div>
+          <p class="sub-note">Ritmo de Riohacha y Maicao según los listados cargados en este informe (corte al 7 de octubre). Barranquilla se ve en vivo en su pestaña.</p>
+        </div>
+        <div class="card full">
+          <h3>Para revisar con gerencia</h3>
+          <ul>
+            <li><strong>Maicao es la meta más exigente.</strong> 70 matrículas en 18 días pide unas 3,9 diarias; en septiembre matriculó 44 en todo el mes (1,5 diarias) y en lo corrido de octubre va en 1,1. Pide entre 2,6 y 3,4 veces su ritmo reciente.</li>
+            <li><strong>Riohacha va más cerca.</strong> Lleva 4,7 diarias en octubre y la meta pide 5,6: con sostener el ritmo y empujar los dos eventos, es alcanzable.</li>
+            <li><strong>Barranquilla tiene 4 matrículas sin campaña.</strong> La meta declarada es 115, pero sus campañas suman 111; el archivo agregó una línea «Meta complementaria por asignar» para cuadrar. Falta decidir a qué campaña van.</li>
+            <li><strong>El registro diario está vacío.</strong> Si se llena —fecha, sede, campaña, asesor y leads contactados—, se puede medir qué campaña convierte de verdad y no solo cuántas matrículas entran.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- ============ FIN CAMPAÑAS ============ -->
+
   <div class="account-page" id="acc-asesores">
     <div id="tablero-asesores">
       <div class="placeholder"><p>Cargando el tablero del equipo…</p></div>
@@ -3196,7 +3279,7 @@ document.addEventListener('DOMContentLoaded', cargarAdmisiones);
   }
 </script>
 
-<footer>Informe de admisiones · Barranquilla en vivo desde Google Sheets · <span id="actualizado">consultando…</span> · Riohacha y Maicáo con corte manual al 16 de septiembre</footer>
+<footer>Informe de admisiones · Barranquilla en vivo desde Google Sheets · <span id="actualizado">consultando…</span> · Riohacha y Maicao con corte manual al 7 de octubre</footer>
 
 <script>
 /* ═══ REGISTRO DE ENDPOINTS ═══
@@ -3809,6 +3892,132 @@ crearMatrizHorarios('ah',   {"programas":["Asistente de Primera Infancia","Auxil
 crearMatrizHorarios('ahrh', {"programas":["Asistente de Primera Infancia","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Salud Oral","Auxiliar en Servicios Farmacéuticos","Bachillerato","Caja Registradora","Cocinero Principal","Cosmetología y Estética Integral","D","Diseño Gráfico","Estilista Integral en Peluquería","Excel Basico, Intermedio y Avanzado","Facturación Hospitalaria","Inglés Conversacional","Inglés Kids Conversacional","Investigador Criminalístico y Judicial","Inyectologia","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Seguridad Ocupacional y Laboral","Sin programa","Sistemas Informáticos"],"horarios":["Lunes a jueves · 8-10 am","Lunes a jueves · 10-12 m","Mañana · sin detalle","Lunes a jueves · 2-6 pm","Viernes · mañana","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"periodos":["2026-1","2026-2"],"celdas":[{"p":0,"h":1,"m":2,"pe":0,"n":1},{"p":0,"h":3,"m":1,"pe":0,"n":4},{"p":0,"h":3,"m":2,"pe":0,"n":3},{"p":0,"h":3,"m":3,"pe":0,"n":1},{"p":0,"h":6,"m":1,"pe":0,"n":6},{"p":0,"h":6,"m":2,"pe":0,"n":8},{"p":0,"h":6,"m":3,"pe":0,"n":7},{"p":0,"h":6,"m":5,"pe":1,"n":5},{"p":0,"h":6,"m":6,"pe":1,"n":5},{"p":0,"h":6,"m":7,"pe":1,"n":7},{"p":0,"h":6,"m":8,"pe":1,"n":2},{"p":0,"h":6,"m":9,"pe":1,"n":2},{"p":0,"h":6,"m":10,"pe":1,"n":1},{"p":0,"h":8,"m":1,"pe":0,"n":2},{"p":0,"h":8,"m":2,"pe":0,"n":2},{"p":0,"h":8,"m":3,"pe":0,"n":1},{"p":0,"h":8,"m":4,"pe":0,"n":4},{"p":1,"h":0,"m":1,"pe":0,"n":3},{"p":1,"h":0,"m":2,"pe":0,"n":8},{"p":1,"h":0,"m":3,"pe":0,"n":4},{"p":1,"h":0,"m":4,"pe":0,"n":1},{"p":1,"h":1,"m":1,"pe":0,"n":1},{"p":1,"h":1,"m":5,"pe":1,"n":2},{"p":1,"h":1,"m":6,"pe":1,"n":3},{"p":1,"h":1,"m":7,"pe":1,"n":2},{"p":1,"h":1,"m":8,"pe":1,"n":3},{"p":1,"h":3,"m":1,"pe":0,"n":1},{"p":1,"h":6,"m":1,"pe":0,"n":3},{"p":1,"h":6,"m":2,"pe":0,"n":8},{"p":1,"h":6,"m":3,"pe":0,"n":4},{"p":1,"h":6,"m":5,"pe":1,"n":2},{"p":1,"h":6,"m":6,"pe":1,"n":8},{"p":1,"h":6,"m":7,"pe":1,"n":9},{"p":1,"h":6,"m":8,"pe":1,"n":3},{"p":1,"h":6,"m":9,"pe":1,"n":1},{"p":1,"h":6,"m":10,"pe":1,"n":3},{"p":2,"h":0,"m":1,"pe":0,"n":4},{"p":2,"h":0,"m":2,"pe":0,"n":2},{"p":2,"h":0,"m":3,"pe":0,"n":4},{"p":2,"h":1,"m":5,"pe":1,"n":2},{"p":2,"h":1,"m":6,"pe":1,"n":1},{"p":2,"h":1,"m":7,"pe":1,"n":2},{"p":2,"h":1,"m":9,"pe":1,"n":2},{"p":2,"h":1,"m":10,"pe":1,"n":1},{"p":2,"h":6,"m":1,"pe":0,"n":1},{"p":2,"h":6,"m":2,"pe":0,"n":2},{"p":2,"h":6,"m":4,"pe":0,"n":1},{"p":2,"h":6,"m":5,"pe":1,"n":2},{"p":2,"h":6,"m":6,"pe":1,"n":7},{"p":2,"h":6,"m":7,"pe":1,"n":5},{"p":2,"h":6,"m":8,"pe":1,"n":7},{"p":2,"h":6,"m":9,"pe":1,"n":3},{"p":2,"h":6,"m":10,"pe":1,"n":1},{"p":2,"h":7,"m":1,"pe":0,"n":6},{"p":2,"h":7,"m":2,"pe":0,"n":5},{"p":2,"h":7,"m":3,"pe":0,"n":5},{"p":2,"h":7,"m":4,"pe":0,"n":2},{"p":2,"h":8,"m":3,"pe":0,"n":1},{"p":3,"h":0,"m":1,"pe":0,"n":1},{"p":3,"h":0,"m":2,"pe":0,"n":3},{"p":3,"h":0,"m":3,"pe":0,"n":2},{"p":3,"h":1,"m":5,"pe":1,"n":1},{"p":3,"h":1,"m":6,"pe":1,"n":2},{"p":3,"h":1,"m":7,"pe":1,"n":1},{"p":3,"h":1,"m":8,"pe":1,"n":2},{"p":3,"h":6,"m":1,"pe":0,"n":4},{"p":3,"h":6,"m":2,"pe":0,"n":7},{"p":3,"h":6,"m":3,"pe":0,"n":4},{"p":3,"h":6,"m":5,"pe":1,"n":2},{"p":3,"h":6,"m":6,"pe":1,"n":1},{"p":3,"h":6,"m":7,"pe":1,"n":4},{"p":3,"h":6,"m":8,"pe":1,"n":3},{"p":3,"h":6,"m":9,"pe":1,"n":3},{"p":3,"h":8,"m":1,"pe":0,"n":1},{"p":3,"h":8,"m":2,"pe":0,"n":1},{"p":4,"h":3,"m":1,"pe":0,"n":3},{"p":4,"h":3,"m":3,"pe":0,"n":4},{"p":4,"h":6,"m":1,"pe":0,"n":6},{"p":4,"h":6,"m":2,"pe":0,"n":6},{"p":4,"h":6,"m":4,"pe":0,"n":1},{"p":4,"h":6,"m":5,"pe":1,"n":3},{"p":4,"h":6,"m":6,"pe":1,"n":2},{"p":4,"h":6,"m":7,"pe":1,"n":2},{"p":4,"h":6,"m":8,"pe":1,"n":3},{"p":5,"h":0,"m":1,"pe":0,"n":12},{"p":5,"h":0,"m":2,"pe":0,"n":5},{"p":5,"h":0,"m":3,"pe":0,"n":4},{"p":5,"h":1,"m":1,"pe":0,"n":1},{"p":5,"h":1,"m":4,"pe":1,"n":1},{"p":5,"h":1,"m":5,"pe":1,"n":4},{"p":5,"h":1,"m":6,"pe":1,"n":5},{"p":5,"h":1,"m":7,"pe":1,"n":9},{"p":5,"h":1,"m":8,"pe":1,"n":6},{"p":5,"h":1,"m":9,"pe":1,"n":1},{"p":5,"h":3,"m":1,"pe":0,"n":8},{"p":5,"h":3,"m":2,"pe":0,"n":4},{"p":5,"h":3,"m":3,"pe":0,"n":4},{"p":5,"h":3,"m":4,"pe":0,"n":4},{"p":5,"h":5,"m":1,"pe":0,"n":1},{"p":5,"h":6,"m":1,"pe":0,"n":12},{"p":5,"h":6,"m":2,"pe":0,"n":15},{"p":5,"h":6,"m":3,"pe":0,"n":1},{"p":5,"h":6,"m":5,"pe":1,"n":5},{"p":5,"h":6,"m":6,"pe":1,"n":9},{"p":5,"h":6,"m":7,"pe":1,"n":9},{"p":5,"h":6,"m":8,"pe":1,"n":7},{"p":5,"h":6,"m":9,"pe":1,"n":1},{"p":5,"h":7,"m":2,"pe":0,"n":4},{"p":5,"h":7,"m":3,"pe":0,"n":10},{"p":5,"h":7,"m":4,"pe":0,"n":2},{"p":5,"h":7,"m":5,"pe":1,"n":1},{"p":5,"h":7,"m":7,"pe":1,"n":3},{"p":5,"h":7,"m":8,"pe":1,"n":2},{"p":5,"h":7,"m":9,"pe":1,"n":5},{"p":5,"h":7,"m":10,"pe":1,"n":1},{"p":5,"h":8,"m":1,"pe":0,"n":2},{"p":5,"h":8,"m":3,"pe":0,"n":3},{"p":5,"h":8,"m":4,"pe":0,"n":2},{"p":5,"h":8,"m":6,"pe":1,"n":1},{"p":5,"h":8,"m":7,"pe":1,"n":1},{"p":5,"h":8,"m":8,"pe":1,"n":4},{"p":5,"h":8,"m":9,"pe":1,"n":3},{"p":5,"h":8,"m":10,"pe":1,"n":1},{"p":6,"h":0,"m":1,"pe":0,"n":2},{"p":6,"h":6,"m":1,"pe":0,"n":3},{"p":6,"h":6,"m":2,"pe":0,"n":5},{"p":6,"h":6,"m":3,"pe":0,"n":2},{"p":6,"h":6,"m":5,"pe":1,"n":1},{"p":6,"h":6,"m":6,"pe":1,"n":1},{"p":6,"h":6,"m":7,"pe":1,"n":7},{"p":6,"h":6,"m":8,"pe":1,"n":2},{"p":6,"h":6,"m":9,"pe":1,"n":2},{"p":7,"h":3,"m":1,"pe":0,"n":3},{"p":7,"h":5,"m":1,"pe":0,"n":1},{"p":7,"h":5,"m":2,"pe":0,"n":4},{"p":7,"h":5,"m":3,"pe":0,"n":3},{"p":7,"h":5,"m":4,"pe":0,"n":1},{"p":7,"h":5,"m":5,"pe":1,"n":2},{"p":7,"h":5,"m":6,"pe":1,"n":2},{"p":7,"h":5,"m":7,"pe":1,"n":4},{"p":7,"h":5,"m":8,"pe":1,"n":6},{"p":7,"h":5,"m":10,"pe":1,"n":1},{"p":7,"h":6,"m":1,"pe":0,"n":8},{"p":7,"h":6,"m":2,"pe":0,"n":9},{"p":7,"h":6,"m":3,"pe":0,"n":2},{"p":7,"h":6,"m":4,"pe":0,"n":2},{"p":7,"h":6,"m":4,"pe":1,"n":1},{"p":7,"h":6,"m":5,"pe":1,"n":2},{"p":7,"h":6,"m":6,"pe":1,"n":6},{"p":7,"h":6,"m":7,"pe":1,"n":4},{"p":7,"h":6,"m":8,"pe":1,"n":3},{"p":7,"h":6,"m":9,"pe":1,"n":2},{"p":7,"h":6,"m":10,"pe":1,"n":1},{"p":7,"h":7,"m":1,"pe":0,"n":3},{"p":7,"h":7,"m":2,"pe":0,"n":3},{"p":7,"h":7,"m":3,"pe":0,"n":2},{"p":7,"h":7,"m":4,"pe":0,"n":1},{"p":7,"h":7,"m":5,"pe":1,"n":1},{"p":7,"h":7,"m":6,"pe":1,"n":1},{"p":7,"h":7,"m":7,"pe":1,"n":3},{"p":7,"h":7,"m":8,"pe":1,"n":3},{"p":7,"h":7,"m":10,"pe":1,"n":1},{"p":7,"h":8,"m":1,"pe":0,"n":1},{"p":7,"h":8,"m":2,"pe":0,"n":1},{"p":7,"h":8,"m":5,"pe":1,"n":2},{"p":7,"h":8,"m":6,"pe":1,"n":1},{"p":7,"h":8,"m":7,"pe":1,"n":2},{"p":7,"h":8,"m":9,"pe":1,"n":1},{"p":8,"h":1,"m":8,"pe":1,"n":1},{"p":8,"h":2,"m":1,"pe":0,"n":24},{"p":8,"h":2,"m":2,"pe":0,"n":33},{"p":8,"h":2,"m":3,"pe":0,"n":13},{"p":8,"h":2,"m":4,"pe":0,"n":1},{"p":8,"h":2,"m":5,"pe":1,"n":5},{"p":8,"h":2,"m":6,"pe":1,"n":3},{"p":8,"h":2,"m":7,"pe":1,"n":12},{"p":8,"h":2,"m":8,"pe":1,"n":6},{"p":8,"h":2,"m":9,"pe":1,"n":4},{"p":8,"h":6,"m":1,"pe":0,"n":6},{"p":8,"h":6,"m":2,"pe":0,"n":6},{"p":8,"h":6,"m":3,"pe":0,"n":5},{"p":8,"h":6,"m":4,"pe":0,"n":1},{"p":8,"h":6,"m":5,"pe":1,"n":2},{"p":8,"h":6,"m":6,"pe":1,"n":2},{"p":8,"h":6,"m":7,"pe":1,"n":2},{"p":8,"h":6,"m":8,"pe":1,"n":1},{"p":8,"h":6,"m":9,"pe":1,"n":1},{"p":9,"h":6,"m":1,"pe":0,"n":4},{"p":9,"h":6,"m":2,"pe":0,"n":16},{"p":9,"h":6,"m":3,"pe":0,"n":4},{"p":9,"h":8,"m":1,"pe":0,"n":1},{"p":9,"h":8,"m":3,"pe":0,"n":1},{"p":9,"h":8,"m":4,"pe":0,"n":1},{"p":9,"h":8,"m":4,"pe":1,"n":1},{"p":9,"h":8,"m":5,"pe":1,"n":7},{"p":9,"h":8,"m":6,"pe":1,"n":2},{"p":9,"h":8,"m":7,"pe":1,"n":10},{"p":9,"h":8,"m":8,"pe":1,"n":3},{"p":9,"h":8,"m":9,"pe":1,"n":4},{"p":9,"h":8,"m":10,"pe":1,"n":2},{"p":10,"h":3,"m":1,"pe":0,"n":2},{"p":10,"h":4,"m":1,"pe":0,"n":1},{"p":10,"h":4,"m":2,"pe":0,"n":1},{"p":10,"h":6,"m":2,"pe":0,"n":8},{"p":10,"h":6,"m":5,"pe":1,"n":3},{"p":10,"h":6,"m":6,"pe":1,"n":4},{"p":10,"h":6,"m":7,"pe":1,"n":4},{"p":10,"h":6,"m":8,"pe":1,"n":5},{"p":10,"h":6,"m":9,"pe":1,"n":4},{"p":10,"h":6,"m":10,"pe":1,"n":1},{"p":11,"h":0,"m":1,"pe":0,"n":9},{"p":11,"h":0,"m":2,"pe":0,"n":11},{"p":11,"h":0,"m":4,"pe":0,"n":1},{"p":11,"h":1,"m":1,"pe":0,"n":4},{"p":11,"h":1,"m":4,"pe":1,"n":1},{"p":11,"h":1,"m":5,"pe":1,"n":5},{"p":11,"h":1,"m":6,"pe":1,"n":5},{"p":11,"h":1,"m":7,"pe":1,"n":6},{"p":11,"h":1,"m":8,"pe":1,"n":2},{"p":11,"h":1,"m":9,"pe":1,"n":5},{"p":11,"h":3,"m":1,"pe":0,"n":3},{"p":11,"h":3,"m":2,"pe":0,"n":6},{"p":11,"h":3,"m":3,"pe":0,"n":6},{"p":11,"h":3,"m":4,"pe":0,"n":3},{"p":11,"h":3,"m":5,"pe":1,"n":4},{"p":11,"h":3,"m":6,"pe":1,"n":2},{"p":11,"h":3,"m":7,"pe":1,"n":5},{"p":11,"h":3,"m":8,"pe":1,"n":1},{"p":11,"h":3,"m":9,"pe":1,"n":1},{"p":11,"h":5,"m":1,"pe":0,"n":1},{"p":11,"h":6,"m":1,"pe":0,"n":10},{"p":11,"h":6,"m":2,"pe":0,"n":15},{"p":11,"h":6,"m":3,"pe":0,"n":6},{"p":11,"h":6,"m":6,"pe":1,"n":1},{"p":11,"h":7,"m":1,"pe":0,"n":5},{"p":11,"h":7,"m":2,"pe":0,"n":7},{"p":11,"h":7,"m":3,"pe":0,"n":3},{"p":11,"h":7,"m":4,"pe":0,"n":1},{"p":11,"h":7,"m":4,"pe":1,"n":1},{"p":11,"h":8,"m":1,"pe":0,"n":1},{"p":11,"h":8,"m":4,"pe":1,"n":1},{"p":11,"h":8,"m":5,"pe":1,"n":2},{"p":11,"h":8,"m":6,"pe":1,"n":4},{"p":11,"h":8,"m":7,"pe":1,"n":8},{"p":11,"h":8,"m":8,"pe":1,"n":11},{"p":11,"h":8,"m":9,"pe":1,"n":3},{"p":11,"h":8,"m":10,"pe":1,"n":1},{"p":12,"h":7,"m":5,"pe":1,"n":1},{"p":13,"h":0,"m":2,"pe":0,"n":2},{"p":13,"h":3,"m":1,"pe":0,"n":3},{"p":13,"h":3,"m":2,"pe":0,"n":6},{"p":13,"h":3,"m":3,"pe":0,"n":4},{"p":13,"h":6,"m":1,"pe":0,"n":1},{"p":13,"h":6,"m":5,"pe":1,"n":3},{"p":13,"h":6,"m":7,"pe":1,"n":6},{"p":13,"h":6,"m":9,"pe":1,"n":1},{"p":13,"h":8,"m":2,"pe":0,"n":3},{"p":14,"h":5,"m":1,"pe":0,"n":3},{"p":14,"h":5,"m":2,"pe":0,"n":3},{"p":14,"h":5,"m":5,"pe":1,"n":4},{"p":14,"h":5,"m":6,"pe":1,"n":3},{"p":14,"h":5,"m":7,"pe":1,"n":2},{"p":14,"h":5,"m":8,"pe":1,"n":1},{"p":14,"h":5,"m":9,"pe":1,"n":2},{"p":14,"h":6,"m":1,"pe":0,"n":3},{"p":14,"h":6,"m":2,"pe":0,"n":7},{"p":14,"h":6,"m":3,"pe":0,"n":4},{"p":14,"h":6,"m":4,"pe":0,"n":1},{"p":14,"h":7,"m":7,"pe":1,"n":3},{"p":14,"h":7,"m":8,"pe":1,"n":2},{"p":15,"h":7,"m":9,"pe":1,"n":1},{"p":15,"h":8,"m":9,"pe":1,"n":4},{"p":16,"h":8,"m":9,"pe":1,"n":1},{"p":17,"h":5,"m":1,"pe":0,"n":4},{"p":17,"h":5,"m":2,"pe":0,"n":7},{"p":17,"h":5,"m":3,"pe":0,"n":3},{"p":17,"h":5,"m":4,"pe":0,"n":1},{"p":17,"h":6,"m":1,"pe":0,"n":3},{"p":17,"h":6,"m":2,"pe":0,"n":2},{"p":17,"h":6,"m":3,"pe":0,"n":6},{"p":17,"h":6,"m":5,"pe":1,"n":3},{"p":17,"h":6,"m":6,"pe":1,"n":2},{"p":17,"h":6,"m":7,"pe":1,"n":6},{"p":17,"h":6,"m":8,"pe":1,"n":2},{"p":17,"h":6,"m":9,"pe":1,"n":5},{"p":17,"h":6,"m":10,"pe":1,"n":1},{"p":18,"h":6,"m":1,"pe":0,"n":1},{"p":19,"h":3,"m":9,"pe":1,"n":1},{"p":19,"h":5,"m":1,"pe":0,"n":4},{"p":19,"h":5,"m":2,"pe":0,"n":14},{"p":19,"h":5,"m":3,"pe":0,"n":7},{"p":19,"h":5,"m":4,"pe":0,"n":2},{"p":19,"h":5,"m":4,"pe":1,"n":1},{"p":19,"h":5,"m":5,"pe":1,"n":1},{"p":19,"h":5,"m":6,"pe":1,"n":2},{"p":19,"h":5,"m":7,"pe":1,"n":5},{"p":19,"h":5,"m":8,"pe":1,"n":1},{"p":19,"h":5,"m":9,"pe":1,"n":2},{"p":19,"h":6,"m":2,"pe":0,"n":1},{"p":19,"h":6,"m":5,"pe":1,"n":4},{"p":19,"h":6,"m":6,"pe":1,"n":1},{"p":19,"h":6,"m":7,"pe":1,"n":6},{"p":19,"h":6,"m":8,"pe":1,"n":5},{"p":19,"h":6,"m":9,"pe":1,"n":5},{"p":19,"h":6,"m":10,"pe":1,"n":1},{"p":19,"h":7,"m":1,"pe":0,"n":5},{"p":19,"h":7,"m":2,"pe":0,"n":7},{"p":19,"h":7,"m":3,"pe":0,"n":4},{"p":19,"h":7,"m":4,"pe":0,"n":1},{"p":20,"h":7,"m":9,"pe":1,"n":11},{"p":20,"h":7,"m":10,"pe":1,"n":9},{"p":20,"h":8,"m":9,"pe":1,"n":20},{"p":20,"h":8,"m":10,"pe":1,"n":4},{"p":21,"h":1,"m":3,"pe":0,"n":1},{"p":21,"h":5,"m":1,"pe":0,"n":1},{"p":21,"h":5,"m":2,"pe":0,"n":3},{"p":21,"h":5,"m":3,"pe":0,"n":6},{"p":21,"h":6,"m":1,"pe":0,"n":2},{"p":21,"h":6,"m":2,"pe":0,"n":10},{"p":21,"h":6,"m":3,"pe":0,"n":6},{"p":21,"h":6,"m":4,"pe":0,"n":1},{"p":21,"h":6,"m":4,"pe":1,"n":2},{"p":21,"h":6,"m":5,"pe":1,"n":2},{"p":21,"h":6,"m":6,"pe":1,"n":3},{"p":21,"h":6,"m":7,"pe":1,"n":6},{"p":21,"h":6,"m":8,"pe":1,"n":2},{"p":21,"h":6,"m":10,"pe":1,"n":1},{"p":22,"h":4,"m":1,"pe":0,"n":7},{"p":22,"h":4,"m":2,"pe":0,"n":5},{"p":22,"h":4,"m":3,"pe":0,"n":6},{"p":22,"h":4,"m":4,"pe":0,"n":1},{"p":22,"h":7,"m":3,"pe":0,"n":1},{"p":22,"h":8,"m":4,"pe":1,"n":1},{"p":22,"h":8,"m":5,"pe":1,"n":4},{"p":22,"h":8,"m":6,"pe":1,"n":8},{"p":22,"h":8,"m":7,"pe":1,"n":5},{"p":22,"h":8,"m":8,"pe":1,"n":3},{"p":22,"h":8,"m":9,"pe":1,"n":2},{"p":23,"h":5,"m":1,"pe":0,"n":1},{"p":23,"h":5,"m":2,"pe":0,"n":1},{"p":23,"h":5,"m":3,"pe":0,"n":3},{"p":23,"h":5,"m":4,"pe":0,"n":1},{"p":23,"h":6,"m":2,"pe":0,"n":7},{"p":23,"h":6,"m":3,"pe":0,"n":5},{"p":23,"h":6,"m":4,"pe":0,"n":2},{"p":23,"h":7,"m":1,"pe":0,"n":1},{"p":23,"h":7,"m":2,"pe":0,"n":1},{"p":23,"h":7,"m":3,"pe":0,"n":1},{"p":23,"h":7,"m":4,"pe":0,"n":1},{"p":23,"h":7,"m":5,"pe":1,"n":4},{"p":23,"h":7,"m":6,"pe":1,"n":3},{"p":23,"h":7,"m":7,"pe":1,"n":4},{"p":23,"h":7,"m":8,"pe":1,"n":6},{"p":23,"h":7,"m":9,"pe":1,"n":4},{"p":23,"h":7,"m":10,"pe":1,"n":1},{"p":23,"h":8,"m":1,"pe":0,"n":5},{"p":24,"h":1,"m":1,"pe":0,"n":1},{"p":24,"h":2,"m":1,"pe":0,"n":1},{"p":24,"h":3,"m":1,"pe":0,"n":1},{"p":24,"h":5,"m":3,"pe":0,"n":3},{"p":24,"h":6,"m":2,"pe":0,"n":7},{"p":24,"h":6,"m":3,"pe":0,"n":9},{"p":24,"h":6,"m":4,"pe":0,"n":1},{"p":24,"h":6,"m":5,"pe":1,"n":1},{"p":24,"h":7,"m":5,"pe":1,"n":2},{"p":24,"h":7,"m":7,"pe":1,"n":4},{"p":24,"h":7,"m":8,"pe":1,"n":6},{"p":24,"h":7,"m":9,"pe":1,"n":1},{"p":24,"h":7,"m":10,"pe":1,"n":1},{"p":24,"h":8,"m":1,"pe":0,"n":2},{"p":25,"h":6,"m":8,"pe":1,"n":3},{"p":26,"h":0,"m":1,"pe":0,"n":2},{"p":26,"h":0,"m":2,"pe":0,"n":5},{"p":26,"h":0,"m":3,"pe":0,"n":1},{"p":26,"h":0,"m":4,"pe":0,"n":1},{"p":26,"h":3,"m":1,"pe":0,"n":1},{"p":26,"h":3,"m":5,"pe":1,"n":1},{"p":26,"h":3,"m":6,"pe":1,"n":3},{"p":26,"h":3,"m":7,"pe":1,"n":2},{"p":26,"h":3,"m":8,"pe":1,"n":2},{"p":26,"h":6,"m":1,"pe":0,"n":1},{"p":26,"h":6,"m":2,"pe":0,"n":5},{"p":26,"h":6,"m":3,"pe":0,"n":6},{"p":26,"h":6,"m":4,"pe":0,"n":2},{"p":26,"h":6,"m":8,"pe":1,"n":1},{"p":26,"h":6,"m":9,"pe":1,"n":1},{"p":26,"h":7,"m":1,"pe":0,"n":2},{"p":26,"h":7,"m":2,"pe":0,"n":1},{"p":26,"h":7,"m":3,"pe":0,"n":1},{"p":26,"h":7,"m":5,"pe":1,"n":1},{"p":26,"h":7,"m":9,"pe":1,"n":3},{"p":26,"h":8,"m":1,"pe":0,"n":3},{"p":26,"h":8,"m":5,"pe":1,"n":2},{"p":26,"h":8,"m":6,"pe":1,"n":1},{"p":26,"h":8,"m":7,"pe":1,"n":3},{"p":26,"h":8,"m":8,"pe":1,"n":1}],"total":1416}, null);
 crearMatrizHorarios('ahmc', {"programas":["Asistente de Primera Infancia","Auxiliar Administracion en Salud","Auxiliar Administrativo","Auxiliar Administrativo en Salud","Auxiliar Contable y Financiero","Auxiliar en Clínica Veterinaria","Auxiliar en Enfermería","Auxiliar en Servicios Farmacéuticos","Bachillerato","Caja Registradora","Cocinero Principal","Cosmetología y Estética Integral","Diseño Gráfico","Excel (curso)","Facturacion Hospitalaria (curso)","Inglés Conversacional","Inglés Kids Conversacional","Investigador Criminalístico y Judicial","Inyectologia Personal de Salud (curso)","Mecánico de Vehículos Automotores","Panadería y Repostería","Patronaje, Cortador y Confección de Moda","Seguridad Ocupacional y Laboral","Seguridad y Salud Ocupacional","Sin programa","Sistemas Informáticos"],"horarios":["Lunes a jueves · 8-10 am","Lunes a jueves · 10-12 m","Lunes a jueves · sin hora","Mañana · sin detalle","Martes y jueves · 8-12 m","Lunes a jueves · 2-6 pm","Tarde · sin detalle","Viernes · mañana","Viernes · tarde","Lunes a jueves · nocturna","Sábado · mañana","Sábado · tarde","Dominical · mañana","Sin horario"],"meses":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"periodos":["2025-1","2026-1","2026-2"],"celdas":[{"p":0,"h":0,"m":8,"pe":2,"n":1},{"p":0,"h":10,"m":6,"pe":2,"n":2},{"p":0,"h":10,"m":7,"pe":2,"n":1},{"p":0,"h":10,"m":8,"pe":2,"n":1},{"p":0,"h":11,"m":1,"pe":1,"n":2},{"p":0,"h":11,"m":3,"pe":1,"n":6},{"p":0,"h":11,"m":4,"pe":1,"n":3},{"p":0,"h":11,"m":5,"pe":2,"n":1},{"p":0,"h":12,"m":1,"pe":1,"n":1},{"p":1,"h":10,"m":5,"pe":2,"n":1},{"p":1,"h":10,"m":7,"pe":2,"n":1},{"p":1,"h":10,"m":8,"pe":2,"n":3},{"p":1,"h":10,"m":9,"pe":2,"n":1},{"p":1,"h":10,"m":10,"pe":2,"n":1},{"p":1,"h":11,"m":5,"pe":2,"n":2},{"p":1,"h":11,"m":6,"pe":2,"n":1},{"p":2,"h":1,"m":2,"pe":1,"n":1},{"p":2,"h":7,"m":1,"pe":1,"n":3},{"p":2,"h":7,"m":2,"pe":1,"n":1},{"p":2,"h":7,"m":4,"pe":1,"n":1},{"p":2,"h":9,"m":1,"pe":1,"n":3},{"p":2,"h":9,"m":2,"pe":1,"n":5},{"p":2,"h":9,"m":3,"pe":1,"n":3},{"p":2,"h":9,"m":4,"pe":1,"n":1},{"p":2,"h":9,"m":6,"pe":2,"n":1},{"p":2,"h":10,"m":2,"pe":1,"n":1},{"p":2,"h":10,"m":3,"pe":1,"n":1},{"p":2,"h":10,"m":5,"pe":2,"n":1},{"p":2,"h":10,"m":7,"pe":2,"n":5},{"p":2,"h":10,"m":8,"pe":2,"n":2},{"p":2,"h":10,"m":9,"pe":2,"n":1},{"p":2,"h":10,"m":10,"pe":2,"n":1},{"p":2,"h":12,"m":1,"pe":1,"n":2},{"p":2,"h":12,"m":2,"pe":1,"n":4},{"p":2,"h":12,"m":3,"pe":1,"n":6},{"p":2,"h":12,"m":6,"pe":2,"n":1},{"p":3,"h":11,"m":1,"pe":1,"n":2},{"p":3,"h":11,"m":2,"pe":1,"n":3},{"p":3,"h":11,"m":3,"pe":1,"n":6},{"p":3,"h":11,"m":4,"pe":1,"n":1},{"p":3,"h":12,"m":1,"pe":1,"n":1},{"p":4,"h":1,"m":1,"pe":1,"n":1},{"p":4,"h":1,"m":2,"pe":1,"n":1},{"p":4,"h":7,"m":1,"pe":1,"n":2},{"p":4,"h":7,"m":2,"pe":1,"n":4},{"p":4,"h":7,"m":3,"pe":1,"n":1},{"p":4,"h":9,"m":1,"pe":1,"n":4},{"p":4,"h":9,"m":2,"pe":1,"n":3},{"p":4,"h":9,"m":3,"pe":1,"n":2},{"p":4,"h":9,"m":6,"pe":2,"n":1},{"p":4,"h":10,"m":7,"pe":2,"n":1},{"p":4,"h":10,"m":9,"pe":2,"n":2},{"p":5,"h":10,"m":1,"pe":1,"n":1},{"p":5,"h":10,"m":6,"pe":2,"n":1},{"p":5,"h":10,"m":7,"pe":2,"n":2},{"p":5,"h":11,"m":1,"pe":1,"n":1},{"p":5,"h":11,"m":3,"pe":1,"n":1},{"p":5,"h":11,"m":4,"pe":2,"n":1},{"p":5,"h":12,"m":1,"pe":1,"n":4},{"p":5,"h":12,"m":2,"pe":1,"n":3},{"p":5,"h":12,"m":3,"pe":1,"n":1},{"p":5,"h":12,"m":4,"pe":1,"n":3},{"p":5,"h":12,"m":5,"pe":2,"n":1},{"p":5,"h":13,"m":2,"pe":1,"n":1},{"p":6,"h":0,"m":5,"pe":2,"n":1},{"p":6,"h":0,"m":6,"pe":2,"n":1},{"p":6,"h":1,"m":1,"pe":1,"n":6},{"p":6,"h":1,"m":2,"pe":1,"n":11},{"p":6,"h":1,"m":3,"pe":1,"n":2},{"p":6,"h":1,"m":4,"pe":1,"n":3},{"p":6,"h":9,"m":1,"pe":1,"n":3},{"p":6,"h":9,"m":2,"pe":1,"n":1},{"p":6,"h":9,"m":3,"pe":1,"n":3},{"p":6,"h":10,"m":4,"pe":1,"n":2},{"p":6,"h":10,"m":4,"pe":2,"n":1},{"p":6,"h":10,"m":5,"pe":2,"n":3},{"p":6,"h":10,"m":6,"pe":0,"n":1},{"p":6,"h":10,"m":6,"pe":2,"n":3},{"p":6,"h":10,"m":7,"pe":2,"n":4},{"p":6,"h":10,"m":8,"pe":2,"n":8},{"p":6,"h":10,"m":9,"pe":2,"n":5},{"p":6,"h":11,"m":5,"pe":2,"n":1},{"p":6,"h":11,"m":6,"pe":2,"n":1},{"p":6,"h":11,"m":7,"pe":2,"n":1},{"p":6,"h":12,"m":1,"pe":1,"n":8},{"p":6,"h":12,"m":2,"pe":1,"n":7},{"p":6,"h":12,"m":3,"pe":1,"n":4},{"p":6,"h":12,"m":4,"pe":1,"n":2},{"p":6,"h":12,"m":9,"pe":2,"n":1},{"p":7,"h":1,"m":1,"pe":1,"n":1},{"p":7,"h":1,"m":2,"pe":1,"n":2},{"p":7,"h":1,"m":3,"pe":1,"n":3},{"p":7,"h":8,"m":1,"pe":1,"n":1},{"p":7,"h":9,"m":1,"pe":1,"n":1},{"p":7,"h":10,"m":5,"pe":2,"n":3},{"p":7,"h":10,"m":6,"pe":2,"n":2},{"p":7,"h":10,"m":7,"pe":2,"n":2},{"p":7,"h":10,"m":8,"pe":2,"n":1},{"p":7,"h":10,"m":9,"pe":2,"n":1},{"p":7,"h":11,"m":1,"pe":1,"n":3},{"p":7,"h":11,"m":2,"pe":1,"n":4},{"p":7,"h":11,"m":3,"pe":1,"n":2},{"p":7,"h":11,"m":4,"pe":1,"n":1},{"p":7,"h":11,"m":6,"pe":2,"n":1},{"p":7,"h":11,"m":7,"pe":2,"n":1},{"p":7,"h":12,"m":5,"pe":2,"n":1},{"p":8,"h":10,"m":1,"pe":1,"n":9},{"p":8,"h":10,"m":2,"pe":1,"n":4},{"p":8,"h":10,"m":3,"pe":1,"n":6},{"p":8,"h":10,"m":4,"pe":1,"n":1},{"p":8,"h":10,"m":5,"pe":2,"n":1},{"p":8,"h":10,"m":6,"pe":2,"n":1},{"p":8,"h":11,"m":1,"pe":1,"n":1},{"p":9,"h":10,"m":1,"pe":1,"n":1},{"p":9,"h":10,"m":2,"pe":1,"n":7},{"p":9,"h":10,"m":3,"pe":1,"n":1},{"p":9,"h":10,"m":6,"pe":2,"n":1},{"p":9,"h":11,"m":3,"pe":1,"n":5},{"p":9,"h":11,"m":4,"pe":1,"n":3},{"p":9,"h":11,"m":4,"pe":2,"n":1},{"p":9,"h":11,"m":5,"pe":2,"n":3},{"p":9,"h":12,"m":3,"pe":1,"n":1},{"p":10,"h":7,"m":1,"pe":1,"n":1},{"p":10,"h":10,"m":5,"pe":2,"n":1},{"p":10,"h":10,"m":6,"pe":2,"n":1},{"p":10,"h":10,"m":7,"pe":2,"n":1},{"p":10,"h":10,"m":8,"pe":2,"n":6},{"p":10,"h":10,"m":9,"pe":2,"n":1},{"p":10,"h":11,"m":1,"pe":1,"n":3},{"p":10,"h":11,"m":2,"pe":1,"n":3},{"p":10,"h":11,"m":3,"pe":1,"n":2},{"p":10,"h":11,"m":4,"pe":1,"n":1},{"p":10,"h":11,"m":5,"pe":2,"n":1},{"p":11,"h":0,"m":2,"pe":1,"n":3},{"p":11,"h":0,"m":3,"pe":1,"n":3},{"p":11,"h":0,"m":4,"pe":1,"n":3},{"p":11,"h":0,"m":5,"pe":2,"n":1},{"p":11,"h":0,"m":7,"pe":2,"n":1},{"p":11,"h":0,"m":9,"pe":2,"n":1},{"p":11,"h":1,"m":1,"pe":1,"n":20},{"p":11,"h":1,"m":2,"pe":1,"n":6},{"p":11,"h":1,"m":3,"pe":1,"n":1},{"p":11,"h":1,"m":7,"pe":2,"n":1},{"p":11,"h":2,"m":1,"pe":1,"n":1},{"p":11,"h":5,"m":3,"pe":1,"n":1},{"p":11,"h":5,"m":4,"pe":1,"n":2},{"p":11,"h":5,"m":5,"pe":2,"n":1},{"p":11,"h":5,"m":6,"pe":2,"n":1},{"p":11,"h":5,"m":7,"pe":2,"n":2},{"p":11,"h":5,"m":8,"pe":2,"n":3},{"p":11,"h":5,"m":9,"pe":2,"n":1},{"p":11,"h":6,"m":3,"pe":1,"n":1},{"p":11,"h":7,"m":1,"pe":1,"n":2},{"p":11,"h":7,"m":2,"pe":1,"n":2},{"p":11,"h":7,"m":3,"pe":1,"n":1},{"p":11,"h":7,"m":4,"pe":1,"n":1},{"p":11,"h":7,"m":6,"pe":2,"n":1},{"p":11,"h":9,"m":1,"pe":1,"n":5},{"p":11,"h":9,"m":2,"pe":1,"n":9},{"p":11,"h":9,"m":3,"pe":1,"n":4},{"p":11,"h":10,"m":3,"pe":1,"n":1},{"p":11,"h":10,"m":5,"pe":2,"n":4},{"p":11,"h":10,"m":6,"pe":2,"n":6},{"p":11,"h":10,"m":7,"pe":2,"n":5},{"p":11,"h":10,"m":8,"pe":2,"n":5},{"p":11,"h":10,"m":9,"pe":2,"n":3},{"p":11,"h":11,"m":2,"pe":1,"n":1},{"p":11,"h":12,"m":1,"pe":1,"n":11},{"p":11,"h":12,"m":2,"pe":1,"n":8},{"p":11,"h":12,"m":3,"pe":1,"n":2},{"p":11,"h":12,"m":5,"pe":2,"n":1},{"p":11,"h":12,"m":6,"pe":2,"n":1},{"p":11,"h":12,"m":9,"pe":2,"n":1},{"p":12,"h":5,"m":1,"pe":1,"n":3},{"p":12,"h":5,"m":2,"pe":1,"n":1},{"p":12,"h":5,"m":4,"pe":1,"n":1},{"p":12,"h":10,"m":6,"pe":2,"n":1},{"p":12,"h":11,"m":7,"pe":2,"n":3},{"p":12,"h":11,"m":8,"pe":2,"n":4},{"p":12,"h":11,"m":9,"pe":2,"n":3},{"p":12,"h":12,"m":1,"pe":1,"n":2},{"p":12,"h":12,"m":2,"pe":1,"n":5},{"p":12,"h":12,"m":3,"pe":1,"n":3},{"p":12,"h":12,"m":4,"pe":1,"n":1},{"p":13,"h":10,"m":8,"pe":2,"n":2},{"p":13,"h":10,"m":9,"pe":2,"n":4},{"p":14,"h":12,"m":9,"pe":2,"n":3},{"p":14,"h":12,"m":10,"pe":2,"n":1},{"p":15,"h":5,"m":1,"pe":1,"n":1},{"p":15,"h":5,"m":2,"pe":1,"n":3},{"p":15,"h":9,"m":1,"pe":1,"n":1},{"p":15,"h":9,"m":2,"pe":1,"n":2},{"p":15,"h":10,"m":1,"pe":1,"n":2},{"p":15,"h":10,"m":2,"pe":1,"n":2},{"p":15,"h":10,"m":3,"pe":1,"n":3},{"p":15,"h":10,"m":4,"pe":1,"n":1},{"p":15,"h":10,"m":5,"pe":2,"n":1},{"p":15,"h":10,"m":6,"pe":2,"n":3},{"p":15,"h":10,"m":8,"pe":2,"n":1},{"p":15,"h":10,"m":10,"pe":2,"n":1},{"p":15,"h":11,"m":1,"pe":1,"n":2},{"p":15,"h":12,"m":1,"pe":1,"n":1},{"p":16,"h":11,"m":1,"pe":1,"n":7},{"p":16,"h":11,"m":2,"pe":1,"n":6},{"p":16,"h":11,"m":3,"pe":1,"n":2},{"p":16,"h":11,"m":4,"pe":1,"n":2},{"p":16,"h":11,"m":4,"pe":2,"n":1},{"p":16,"h":11,"m":9,"pe":2,"n":1},{"p":17,"h":11,"m":7,"pe":2,"n":1},{"p":17,"h":12,"m":2,"pe":1,"n":5},{"p":17,"h":12,"m":4,"pe":1,"n":2},{"p":17,"h":12,"m":6,"pe":2,"n":3},{"p":17,"h":12,"m":7,"pe":2,"n":1},{"p":18,"h":12,"m":9,"pe":2,"n":2},{"p":18,"h":12,"m":10,"pe":2,"n":1},{"p":19,"h":7,"m":1,"pe":1,"n":2},{"p":19,"h":9,"m":5,"pe":2,"n":1},{"p":19,"h":10,"m":1,"pe":1,"n":1},{"p":19,"h":10,"m":7,"pe":2,"n":1},{"p":19,"h":12,"m":1,"pe":1,"n":1},{"p":19,"h":12,"m":2,"pe":1,"n":6},{"p":19,"h":12,"m":3,"pe":1,"n":3},{"p":19,"h":12,"m":4,"pe":1,"n":2},{"p":20,"h":0,"m":3,"pe":1,"n":1},{"p":20,"h":0,"m":9,"pe":2,"n":4},{"p":20,"h":0,"m":10,"pe":2,"n":1},{"p":20,"h":1,"m":3,"pe":1,"n":1},{"p":20,"h":3,"m":3,"pe":1,"n":4},{"p":20,"h":3,"m":4,"pe":1,"n":2},{"p":20,"h":4,"m":5,"pe":2,"n":3},{"p":20,"h":4,"m":7,"pe":2,"n":1},{"p":20,"h":4,"m":8,"pe":2,"n":1},{"p":20,"h":5,"m":1,"pe":1,"n":1},{"p":20,"h":5,"m":5,"pe":2,"n":1},{"p":20,"h":5,"m":8,"pe":2,"n":1},{"p":20,"h":7,"m":1,"pe":1,"n":2},{"p":20,"h":7,"m":2,"pe":1,"n":5},{"p":20,"h":7,"m":3,"pe":1,"n":2},{"p":20,"h":7,"m":7,"pe":2,"n":1},{"p":20,"h":7,"m":8,"pe":2,"n":2},{"p":20,"h":7,"m":9,"pe":2,"n":6},{"p":20,"h":8,"m":8,"pe":2,"n":1},{"p":20,"h":12,"m":1,"pe":1,"n":6},{"p":20,"h":12,"m":2,"pe":1,"n":4},{"p":20,"h":12,"m":5,"pe":2,"n":1},{"p":20,"h":12,"m":6,"pe":2,"n":1},{"p":20,"h":12,"m":7,"pe":2,"n":1},{"p":20,"h":12,"m":8,"pe":2,"n":2},{"p":20,"h":12,"m":9,"pe":2,"n":2},{"p":20,"h":12,"m":10,"pe":2,"n":1},{"p":20,"h":13,"m":10,"pe":2,"n":1},{"p":21,"h":7,"m":1,"pe":1,"n":1},{"p":21,"h":7,"m":5,"pe":2,"n":2},{"p":21,"h":10,"m":4,"pe":1,"n":4},{"p":21,"h":10,"m":4,"pe":2,"n":2},{"p":21,"h":10,"m":5,"pe":2,"n":4},{"p":21,"h":10,"m":6,"pe":2,"n":2},{"p":21,"h":10,"m":7,"pe":2,"n":4},{"p":21,"h":10,"m":8,"pe":2,"n":5},{"p":21,"h":11,"m":1,"pe":1,"n":3},{"p":21,"h":11,"m":2,"pe":1,"n":2},{"p":21,"h":11,"m":3,"pe":1,"n":5},{"p":21,"h":11,"m":4,"pe":1,"n":5},{"p":21,"h":12,"m":1,"pe":1,"n":3},{"p":21,"h":12,"m":2,"pe":1,"n":2},{"p":21,"h":12,"m":3,"pe":1,"n":2},{"p":22,"h":7,"m":1,"pe":1,"n":1},{"p":22,"h":12,"m":1,"pe":1,"n":4},{"p":22,"h":12,"m":2,"pe":1,"n":1},{"p":22,"h":12,"m":3,"pe":1,"n":4},{"p":22,"h":12,"m":4,"pe":1,"n":1},{"p":23,"h":10,"m":6,"pe":2,"n":1},{"p":23,"h":12,"m":5,"pe":2,"n":1},{"p":24,"h":11,"m":2,"pe":1,"n":1},{"p":25,"h":1,"m":1,"pe":1,"n":1},{"p":25,"h":1,"m":2,"pe":1,"n":3},{"p":25,"h":7,"m":1,"pe":1,"n":2},{"p":25,"h":7,"m":2,"pe":1,"n":1},{"p":25,"h":7,"m":3,"pe":1,"n":1},{"p":25,"h":7,"m":4,"pe":1,"n":3},{"p":25,"h":7,"m":6,"pe":2,"n":1},{"p":25,"h":10,"m":5,"pe":2,"n":1},{"p":25,"h":10,"m":6,"pe":2,"n":2},{"p":25,"h":10,"m":7,"pe":2,"n":1},{"p":25,"h":10,"m":8,"pe":2,"n":1},{"p":25,"h":10,"m":9,"pe":2,"n":1}],"total":683}, null);
 
+</script>
+<script>
+/* ═══ CAMPAÑAS DE OCTUBRE · metas por sede y por campaña ═══
+   Datos del archivo «Tablero Comercial Octubre 2026». Para registrar avances,
+   cambia el número "real" de cada campaña; todo lo demás se recalcula. */
+const CAMP = {
+  inicio: [2026, 10, 13], fin: [2026, 10, 30],
+  sedes: [
+    { id: 'baq', nombre: 'ICSA Barranquilla', meta: 115, campanas: [
+      { c: 'Campaña Cajacopi', meta: 10, real: 0 },
+      { c: 'Bachillerato + técnico', meta: 5, real: 0 },
+      { c: 'Sistecrédito', meta: 6, real: 0 },
+      { c: 'Matrícula virtual: 10% de descuento', meta: 20, real: 0 },
+      { c: 'Matriculatón — 16 de octubre', meta: 30, real: 0 },
+      { c: 'Descuento del 25% en programas y horarios priorizados', meta: 10, real: 0,
+        obs: 'Primera infancia, mecánica, dominical, seguridad ocupacional noche y auxiliar administrativo noche' },
+      { c: 'Halloween: matrícula y costos gratis', meta: 30, real: 0 },
+      { c: 'Meta complementaria por asignar', meta: 4, real: 0,
+        obs: 'Cuadra la meta declarada de 115: las campañas suman 111' }
+    ]},
+    { id: 'rh', nombre: 'Sin Fronteras Riohacha', meta: 100, ritmoSep: 112 / 30, ritmoOct: 33 / 7, campanas: [
+      { c: 'Campaña Bananera', meta: 10, real: 0 },
+      { c: 'Bachillerato + técnico', meta: 5, real: 0 },
+      { c: 'Campaña Addis', meta: 5, real: 0 },
+      { c: 'Matrícula virtual: 10% de descuento', meta: 20, real: 0 },
+      { c: 'Matriculatón — 16 de octubre', meta: 25, real: 0 },
+      { c: '20% de descuento en primera cuota, programas y horarios priorizados', meta: 10, real: 0,
+        obs: 'Auxiliar administrativo, caja registradora, auxiliar contable, cosmetología, enfermería y farmacia' },
+      { c: 'Halloween: matrícula y costos gratis', meta: 25, real: 0 }
+    ]},
+    { id: 'mc', nombre: 'Sin Fronteras Maicao', meta: 70, ritmoSep: 44 / 30, ritmoOct: 8 / 7, campanas: [
+      { c: 'Matrícula virtual: 10% de descuento', meta: 15, real: 0 },
+      { c: 'Bachillerato + técnico', meta: 5, real: 0 },
+      { c: 'Matriculatón — 16 de octubre', meta: 20, real: 0 },
+      { c: '20% de descuento en horario nocturno y dominical', meta: 10, real: 0 },
+      { c: 'Halloween: matrícula y costos gratis', meta: 20, real: 0 }
+    ]}
+  ]
+};
+
+(function () {
+  const $ = id => document.getElementById(id);
+  if (!$('cp-sedes')) return;
+  const n = v => Number(v).toLocaleString('es-CO');
+  const p1 = v => v.toFixed(1).replace('.', ',');
+  const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  // días: desde hoy (o desde el inicio si aún no arranca) hasta el fin, ambos incluidos
+  const dia = a => new Date(a[0], a[1] - 1, a[2]);
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  const ini = dia(CAMP.inicio), fin = dia(CAMP.fin), DIA = 86400000;
+  const total = Math.round((fin - ini) / DIA) + 1;
+  const desde = hoy > ini ? hoy : ini;
+  const quedan = Math.max(0, Math.round((fin - desde) / DIA) + 1);
+  const antes = hoy < ini ? Math.round((ini - hoy) / DIA) : 0;
+
+  const fill = pct => pct >= 100 ? 'good' : pct >= 70 ? 'warn' : 'bad';
+  const estado = pct => antes ? ['Por iniciar',''] :
+    pct >= 100 ? ['Meta cumplida','pos'] : pct >= 70 ? ['En seguimiento',''] : ['Plan de choque','neg'];
+  const barra = (pct, cls) => `<td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-${cls}" ` +
+                              `style="width:${Math.min(100, Math.round(pct))}%"></div></div><span class="pct">${p1(pct)}%</span></td>`;
+
+  const S = CAMP.sedes.map(s => {
+    const real = s.campanas.reduce((a, c) => a + c.real, 0);
+    const metaC = s.campanas.reduce((a, c) => a + c.meta, 0);
+    const brecha = Math.max(0, s.meta - real);
+    return Object.assign({}, s, { real, metaC, brecha, pct: real / s.meta * 100,
+                                  ritmo: quedan ? brecha / quedan : null });
+  });
+  const T = { meta: S.reduce((a, s) => a + s.meta, 0), real: S.reduce((a, s) => a + s.real, 0) };
+  T.brecha = Math.max(0, T.meta - T.real); T.pct = T.real / T.meta * 100;
+
+  // píldoras de calendario
+  $('cp-pills').innerHTML =
+    `<span class="pill src">📅 13 al 30 de octubre · ${total} días</span>` +
+    (antes ? `<span class="pill stamp">⏳ arranca en ${antes} día${antes === 1 ? '' : 's'}</span>`
+           : quedan ? `<span class="pill stamp">⏳ quedan ${quedan} día${quedan === 1 ? '' : 's'}</span>`
+                    : `<span class="pill stamp">periodo cerrado</span>`);
+
+  // KPIs
+  $('cp-kpis').innerHTML =
+    `<div class="stat"><div class="num">${n(T.meta)}</div><div class="label">meta total de las tres sedes</div></div>` +
+    `<div class="stat"><div class="num">${n(T.real)}</div><div class="label">matrículas logradas en el periodo</div></div>` +
+    `<div class="stat"><div class="num" style="color:var(--${antes ? 'ink-soft' : fill(T.pct)})">${p1(T.pct)}%</div><div class="label">cumplimiento global</div></div>` +
+    `<div class="stat"><div class="num">${quedan ? p1(T.brecha / quedan) : '—'}</div><div class="label">matrículas por día que hacen falta</div></div>`;
+
+  // tabla por sede
+  let h = '<thead><tr><th>Sede</th><th>Meta</th><th>Logradas</th><th>Cumplimiento</th><th>Brecha</th>' +
+          '<th>Ritmo/día</th><th>Estado</th></tr></thead><tbody>';
+  S.forEach(s => {
+    const [est, cls] = estado(s.pct);
+    h += `<tr><td class="prog-name">${e(s.nombre)}</td><td>${n(s.meta)}</td><td>${n(s.real)}</td>` +
+         barra(s.pct, fill(s.pct)) + `<td class="delta ${s.brecha ? 'neg' : 'pos'}">${s.brecha ? '−' + n(s.brecha) : '✓'}</td>` +
+         `<td>${s.ritmo == null ? '—' : p1(s.ritmo)}</td><td class="delta ${cls}">${est}</td></tr>`;
+  });
+  const [estT, clsT] = estado(T.pct);
+  h += `<tr class="total-row"><td>Total</td><td>${n(T.meta)}</td><td>${n(T.real)}</td>` + barra(T.pct, fill(T.pct)) +
+       `<td class="delta ${T.brecha ? 'neg' : 'pos'}">${T.brecha ? '−' + n(T.brecha) : '✓'}</td>` +
+       `<td>${quedan ? p1(T.brecha / quedan) : '—'}</td><td class="delta ${clsT}">${estT}</td></tr></tbody>`;
+  $('cp-sedes').innerHTML = h;
+
+  // tabla de campañas, agrupada por sede
+  h = '<thead><tr><th>Campaña</th><th>Meta</th><th>Peso en la sede</th><th>Logradas</th><th>Cumplimiento</th><th>Brecha</th></tr></thead><tbody>';
+  S.forEach(s => {
+    h += `<tr class="group-row"><td colspan="6">${e(s.nombre)} · meta ${n(s.meta)}</td></tr>`;
+    s.campanas.slice().sort((a, b) => b.meta - a.meta).forEach(c => {
+      const peso = c.meta / s.meta * 100, pct = c.real / c.meta * 100, br = Math.max(0, c.meta - c.real);
+      h += `<tr><td class="prog-name">${e(c.c)}${c.obs ? `<span class="row-sub">${e(c.obs)}</span>` : ''}</td>` +
+           `<td>${n(c.meta)}</td>` +
+           `<td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:${Math.round(peso)}%;background:var(--pine)"></div></div><span class="pct">${p1(peso)}%</span></td>` +
+           `<td>${n(c.real)}</td>` + barra(pct, fill(pct)) +
+           `<td class="delta ${br ? 'neg' : 'pos'}">${br ? '−' + n(br) : '✓'}</td></tr>`;
+    });
+  });
+  $('cp-camp').innerHTML = h + '</tbody>';
+
+  // exigencia: ritmo pedido frente al ritmo reciente
+  h = '<thead><tr><th>Sede</th><th>Pide/día</th><th>Sep/día</th><th>Oct/día</th><th>Veces su ritmo</th></tr></thead><tbody>';
+  S.forEach(s => {
+    const pide = s.meta / total;
+    const x = s.ritmoOct ? pide / s.ritmoOct : null;
+    h += `<tr><td class="prog-name">${e(s.nombre.replace('Sin Fronteras ', ''))}</td><td>${p1(pide)}</td>` +
+         `<td>${s.ritmoSep ? p1(s.ritmoSep) : '—'}</td><td>${s.ritmoOct ? p1(s.ritmoOct) : '—'}</td>` +
+         `<td class="delta ${x == null ? '' : x > 2 ? 'neg' : x > 1.2 ? '' : 'pos'}">${x == null ? 'en vivo' : p1(x) + '×'}</td></tr>`;
+  });
+  $('cp-ritmo').innerHTML = h + '</tbody>';
+})();
 </script>
 </body>
 </html>
