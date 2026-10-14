@@ -529,6 +529,17 @@
   .leer{ display:flex; gap:10px; align-items:flex-start; background:rgba(79,195,247,.07); border:1px solid rgba(79,195,247,.25);
     border-radius:10px; padding:11px 14px; margin:0 0 18px; font-size:13px; line-height:1.55; color:var(--ink-soft); }
   .leer strong{ color:var(--ink); }
+  .matriculas-table:has(.mix-col){ min-width:0; }
+  .matriculas-table:has(.mix-col) tr.total-row td:first-child{ white-space:nowrap; }
+  .matriculas-table:has(.mix-col) td, .matriculas-table:has(.mix-col) th{ padding-left:6px; padding-right:6px; }
+  .matriculas-table:has(.mix-col) th{ font-size:10px; letter-spacing:.04em; }
+  .matriculas-table:has(.mix-col) td.bar-cell .bar-track{ width:48px; margin-right:6px; }
+  .matriculas-table:has(.mix-col) .delta{ font-size:12px; }
+  .mix-col{ color:var(--ink-soft); font-size:13px; }
+  .mix-col.ec{ color:var(--pending); font-style:normal; }
+  .total-row .mix-col{ color:var(--ink); }
+  i.kk{ display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:0; }
+  .matriculas-table.ancha{ min-width:980px; }
   .row-mix{ display:block; margin:3px 0 0 14px; font-size:11px; line-height:1.4; color:var(--ink-soft); white-space:normal; font-weight:400; }
   .det-mix{ font-family:'Plus Jakarta Sans',sans-serif; font-size:12.5px; color:var(--ink-soft); margin:-4px 0 12px; line-height:1.6; }
   .det-mix b{ color:var(--ink); }
@@ -1022,14 +1033,14 @@
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
-          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-1" data-target="rh-det-1">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Enero<span class="row-mix">201 técnicos · 30 bachillerato · 1 ed. continuada aparte</span></td>
-              <td>368</td><td>478</td><td>231</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:48%"></div></div><span class="pct">48,3%</span></td><td class="delta neg">−247</td><td class="delta neg">−137</td><td class="delta neg">−37,2%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Enero</td>
+              <td>368</td><td>478</td><td>231</td><td class="mix-col">201</td><td class="mix-col">30</td><td class="mix-col ec">1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:48%"></div></div><span class="pct">48,3%</span></td><td class="delta neg">−247</td><td class="delta neg">−137</td><td class="delta neg">−37,2%</td>
             </tr>
             <tr class="detail-row" id="rh-det-1" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Enero · por programa <span class="detail-count">24</span></div>
@@ -1120,11 +1131,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-2" data-target="rh-det-2">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Febrero<span class="row-mix">267 técnicos · 39 bachillerato</span></td>
-              <td>391</td><td>508</td><td>306</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:60%"></div></div><span class="pct">60,2%</span></td><td class="delta neg">−202</td><td class="delta neg">−85</td><td class="delta neg">−21,7%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Febrero</td>
+              <td>391</td><td>508</td><td>306</td><td class="mix-col">267</td><td class="mix-col">39</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:60%"></div></div><span class="pct">60,2%</span></td><td class="delta neg">−202</td><td class="delta neg">−85</td><td class="delta neg">−21,7%</td>
             </tr>
             <tr class="detail-row" id="rh-det-2" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Febrero · por programa <span class="detail-count">24</span></div>
@@ -1193,11 +1204,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-3" data-target="rh-det-3">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Marzo<span class="row-mix">165 técnicos · 18 bachillerato</span></td>
-              <td>174</td><td>226</td><td>183</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:81%"></div></div><span class="pct">81,0%</span></td><td class="delta neg">−43</td><td class="delta pos">+9</td><td class="delta pos">+5,2%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Marzo</td>
+              <td>174</td><td>226</td><td>183</td><td class="mix-col">165</td><td class="mix-col">18</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:81%"></div></div><span class="pct">81,0%</span></td><td class="delta neg">−43</td><td class="delta pos">+9</td><td class="delta pos">+5,2%</td>
             </tr>
             <tr class="detail-row" id="rh-det-3" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Marzo · por programa <span class="detail-count">23</span></div>
@@ -1263,11 +1274,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-4" data-target="rh-det-4">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril<span class="row-mix">52 técnicos · 2 bachillerato</span></td>
-              <td>81</td><td>105</td><td>54</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:51%"></div></div><span class="pct">51,4%</span></td><td class="delta neg">−51</td><td class="delta neg">−27</td><td class="delta neg">−33,3%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril</td>
+              <td>81</td><td>105</td><td>54</td><td class="mix-col">52</td><td class="mix-col">2</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:51%"></div></div><span class="pct">51,4%</span></td><td class="delta neg">−51</td><td class="delta neg">−27</td><td class="delta neg">−33,3%</td>
             </tr>
             <tr class="detail-row" id="rh-det-4" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Abril · por programa <span class="detail-count">23</span></div>
@@ -1328,21 +1339,21 @@
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-1</td><td>1.014</td><td>1.317</td><td>774</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:59%"></div></div><span class="pct">58,8%</span></td><td class="delta neg">−543</td><td class="delta neg">−240</td><td class="delta neg">−23,7%</td></tr>
+            <tr class="total-row"><td>Total 2026-1</td><td>1.014</td><td>1.317</td><td>774</td><td class="mix-col">685</td><td class="mix-col">89</td><td class="mix-col ec">1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:59%"></div></div><span class="pct">58,8%</span></td><td class="delta neg">−543</td><td class="delta neg">−240</td><td class="delta neg">−23,7%</td></tr>
           </tbody>
         </table>
         </div>
         <h4 class="sub-h">Semestre 2026-2 · mayo a septiembre</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
-          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-5" data-target="rh-det-5">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Mayo<span class="row-mix">91 técnicos · 7 bachillerato</span></td>
-              <td>130</td><td>169</td><td>98</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:58%"></div></div><span class="pct">58,0%</span></td><td class="delta neg">−71</td><td class="delta neg">−32</td><td class="delta neg">−24,6%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Mayo</td>
+              <td>130</td><td>169</td><td>98</td><td class="mix-col">91</td><td class="mix-col">7</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:58%"></div></div><span class="pct">58,0%</span></td><td class="delta neg">−71</td><td class="delta neg">−32</td><td class="delta neg">−24,6%</td>
             </tr>
             <tr class="detail-row" id="rh-det-5" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Mayo · por programa <span class="detail-count">24</span></div>
@@ -1407,11 +1418,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-6" data-target="rh-det-6">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Junio<span class="row-mix">99 técnicos · 5 bachillerato</span></td>
-              <td>148</td><td>192</td><td>104</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:54%"></div></div><span class="pct">54,2%</span></td><td class="delta neg">−88</td><td class="delta neg">−44</td><td class="delta neg">−29,7%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Junio</td>
+              <td>148</td><td>192</td><td>104</td><td class="mix-col">99</td><td class="mix-col">5</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:54%"></div></div><span class="pct">54,2%</span></td><td class="delta neg">−88</td><td class="delta neg">−44</td><td class="delta neg">−29,7%</td>
             </tr>
             <tr class="detail-row" id="rh-det-6" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Junio · por programa <span class="detail-count">24</span></div>
@@ -1475,11 +1486,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-7" data-target="rh-det-7">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Julio<span class="row-mix">159 técnicos · 14 bachillerato</span></td>
-              <td>207</td><td>269</td><td>173</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:64%"></div></div><span class="pct">64,3%</span></td><td class="delta neg">−96</td><td class="delta neg">−34</td><td class="delta neg">−16,4%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Julio</td>
+              <td>207</td><td>269</td><td>173</td><td class="mix-col">159</td><td class="mix-col">14</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:64%"></div></div><span class="pct">64,3%</span></td><td class="delta neg">−96</td><td class="delta neg">−34</td><td class="delta neg">−16,4%</td>
             </tr>
             <tr class="detail-row" id="rh-det-7" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Julio · por programa <span class="detail-count">22</span></div>
@@ -1544,11 +1555,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-8" data-target="rh-det-8">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto<span class="row-mix">113 técnicos · 8 bachillerato</span></td>
-              <td>139</td><td>181</td><td>121</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,9%</span></td><td class="delta neg">−60</td><td class="delta neg">−18</td><td class="delta neg">−12,9%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto</td>
+              <td>139</td><td>181</td><td>121</td><td class="mix-col">113</td><td class="mix-col">8</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,9%</span></td><td class="delta neg">−60</td><td class="delta neg">−18</td><td class="delta neg">−12,9%</td>
             </tr>
             <tr class="detail-row" id="rh-det-8" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Agosto · por programa <span class="detail-count">23</span></div>
@@ -1617,11 +1628,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-9" data-target="rh-det-9">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre<span class="row-mix">70 técnicos · 5 bachillerato · 37 ed. continuada aparte</span></td>
-              <td>53</td><td>69</td><td>75</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">108,7%</span></td><td class="delta pos">+6</td><td class="delta pos">+22</td><td class="delta pos">+41,5%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td>
+              <td>53</td><td>69</td><td>75</td><td class="mix-col">70</td><td class="mix-col">5</td><td class="mix-col ec">37</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">108,7%</span></td><td class="delta pos">+6</td><td class="delta pos">+22</td><td class="delta pos">+41,5%</td>
             </tr>
             <tr class="detail-row" id="rh-det-9" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Septiembre · por programa <span class="detail-count">21</span></div>
@@ -1696,21 +1707,21 @@
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-2</td><td>677</td><td>880</td><td>571</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">64,9%</span></td><td class="delta neg">−309</td><td class="delta neg">−106</td><td class="delta neg">−15,7%</td></tr>
+            <tr class="total-row"><td>Total 2026-2</td><td>677</td><td>880</td><td>571</td><td class="mix-col">532</td><td class="mix-col">39</td><td class="mix-col ec">37</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:65%"></div></div><span class="pct">64,9%</span></td><td class="delta neg">−309</td><td class="delta neg">−106</td><td class="delta neg">−15,7%</td></tr>
           </tbody>
         </table>
         </div>
         <h4 class="sub-h">Semestre 2026-3 · octubre a diciembre</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
-          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-det-10" data-target="rh-det-10">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Octubre<span class="row-mix">25 técnicos · 0 bachillerato · 15 ed. continuada aparte</span></td>
-              <td>49</td><td>64</td><td>25</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:39%"></div></div><span class="pct">39,1%</span></td><td class="delta neg">−39</td><td class="delta neg">−24</td><td class="delta neg">−49,0%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Octubre</td>
+              <td>49</td><td>64</td><td>25</td><td class="mix-col">25</td><td class="mix-col">0</td><td class="mix-col ec">15</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:39%"></div></div><span class="pct">39,1%</span></td><td class="delta neg">−39</td><td class="delta neg">−24</td><td class="delta neg">−49,0%</td>
             </tr>
             <tr class="detail-row" id="rh-det-10" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Octubre · por programa <span class="detail-count">21</span></div>
@@ -1783,13 +1794,13 @@
             </tr>
             <tr class="month-row is-pending">
               <td class="mes-cell"><span class="chev chev-off" aria-hidden="true"></span>Noviembre</td>
-              <td>30</td><td>39</td><td>—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
+              <td>30</td><td>39</td><td>—</td><td class="mix-col">—</td><td class="mix-col">—</td><td class="mix-col ec">—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
             </tr>
             <tr class="month-row is-pending">
               <td class="mes-cell"><span class="chev chev-off" aria-hidden="true"></span>Diciembre</td>
-              <td>48</td><td>62</td><td>—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
+              <td>48</td><td>62</td><td>—</td><td class="mix-col">—</td><td class="mix-col">—</td><td class="mix-col ec">—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
             </tr>
-            <tr class="total-row"><td>Total 2026-3</td><td>127</td><td>165</td><td>25</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:15%"></div></div><span class="pct">15,2%</span></td><td class="delta neg">−140</td><td class="delta neg">−102</td><td class="delta neg">−80,3%</td></tr>
+            <tr class="total-row"><td>Total 2026-3</td><td>127</td><td>165</td><td>25</td><td class="mix-col">25</td><td class="mix-col">0</td><td class="mix-col ec">15</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:15%"></div></div><span class="pct">15,2%</span></td><td class="delta neg">−140</td><td class="delta neg">−102</td><td class="delta neg">−80,3%</td></tr>
           </tbody>
         </table>
         </div>
@@ -1909,14 +1920,14 @@
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
-          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-1" data-target="mc-det-1">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Enero<span class="row-mix">141 técnicos · 10 bachillerato</span></td>
-              <td>8</td><td>—</td><td>151</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+143</td><td class="delta">—</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Enero</td>
+              <td>8</td><td>—</td><td>151</td><td class="mix-col">141</td><td class="mix-col">10</td><td class="mix-col ec">0</td><td class="bar-cell"><span class="pct pending">sin base</span></td><td class="delta">—</td><td class="delta pos">+143</td><td class="delta">—</td>
             </tr>
             <tr class="detail-row" id="mc-det-1" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Enero · por programa <span class="detail-count">20</span></div>
@@ -1975,11 +1986,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-2" data-target="mc-det-2">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Febrero<span class="row-mix">140 técnicos · 4 bachillerato</span></td>
-              <td>224</td><td>291</td><td>144</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:49%"></div></div><span class="pct">49,5%</span></td><td class="delta neg">−147</td><td class="delta neg">−80</td><td class="delta neg">−35,7%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Febrero</td>
+              <td>224</td><td>291</td><td>144</td><td class="mix-col">140</td><td class="mix-col">4</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:49%"></div></div><span class="pct">49,5%</span></td><td class="delta neg">−147</td><td class="delta neg">−80</td><td class="delta neg">−35,7%</td>
             </tr>
             <tr class="detail-row" id="mc-det-2" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Febrero · por programa <span class="detail-count">24</span></div>
@@ -2042,11 +2053,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-3" data-target="mc-det-3">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Marzo<span class="row-mix">95 técnicos · 6 bachillerato</span></td>
-              <td>175</td><td>228</td><td>101</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">44,3%</span></td><td class="delta neg">−127</td><td class="delta neg">−74</td><td class="delta neg">−42,3%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Marzo</td>
+              <td>175</td><td>228</td><td>101</td><td class="mix-col">95</td><td class="mix-col">6</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:44%"></div></div><span class="pct">44,3%</span></td><td class="delta neg">−127</td><td class="delta neg">−74</td><td class="delta neg">−42,3%</td>
             </tr>
             <tr class="detail-row" id="mc-det-3" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Marzo · por programa <span class="detail-count">22</span></div>
@@ -2108,11 +2119,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-4" data-target="mc-det-4">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril<span class="row-mix">57 técnicos · 1 bachillerato</span></td>
-              <td>115</td><td>150</td><td>58</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:39%"></div></div><span class="pct">38,7%</span></td><td class="delta neg">−92</td><td class="delta neg">−57</td><td class="delta neg">−49,6%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril</td>
+              <td>115</td><td>150</td><td>58</td><td class="mix-col">57</td><td class="mix-col">1</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:39%"></div></div><span class="pct">38,7%</span></td><td class="delta neg">−92</td><td class="delta neg">−57</td><td class="delta neg">−49,6%</td>
             </tr>
             <tr class="detail-row" id="mc-det-4" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Abril · por programa <span class="detail-count">21</span></div>
@@ -2169,21 +2180,21 @@
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-1</td><td>522</td><td>669</td><td>454</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">67,9%</span></td><td class="delta neg">−215</td><td class="delta neg">−68</td><td class="delta neg">−13,0%</td></tr>
+            <tr class="total-row"><td>Total 2026-1</td><td>522</td><td>669</td><td>454</td><td class="mix-col">433</td><td class="mix-col">21</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:68%"></div></div><span class="pct">67,9%</span></td><td class="delta neg">−215</td><td class="delta neg">−68</td><td class="delta neg">−13,0%</td></tr>
           </tbody>
         </table>
         </div>
         <h4 class="sub-h">Semestre 2026-2 · mayo a septiembre</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
-          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-5" data-target="mc-det-5">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Mayo<span class="row-mix">42 técnicos · 1 bachillerato</span></td>
-              <td>97</td><td>126</td><td>43</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:34%"></div></div><span class="pct">34,1%</span></td><td class="delta neg">−83</td><td class="delta neg">−54</td><td class="delta neg">−55,7%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Mayo</td>
+              <td>97</td><td>126</td><td>43</td><td class="mix-col">42</td><td class="mix-col">1</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:34%"></div></div><span class="pct">34,1%</span></td><td class="delta neg">−83</td><td class="delta neg">−54</td><td class="delta neg">−55,7%</td>
             </tr>
             <tr class="detail-row" id="mc-det-5" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Mayo · por programa <span class="detail-count">23</span></div>
@@ -2246,11 +2257,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-6" data-target="mc-det-6">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Junio<span class="row-mix">41 técnicos · 1 bachillerato</span></td>
-              <td>90</td><td>117</td><td>42</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:36%"></div></div><span class="pct">35,9%</span></td><td class="delta neg">−75</td><td class="delta neg">−48</td><td class="delta neg">−53,3%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Junio</td>
+              <td>90</td><td>117</td><td>42</td><td class="mix-col">41</td><td class="mix-col">1</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:36%"></div></div><span class="pct">35,9%</span></td><td class="delta neg">−75</td><td class="delta neg">−48</td><td class="delta neg">−53,3%</td>
             </tr>
             <tr class="detail-row" id="mc-det-6" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Junio · por programa <span class="detail-count">21</span></div>
@@ -2309,11 +2320,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-7" data-target="mc-det-7">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Julio<span class="row-mix">42 técnicos · 0 bachillerato</span></td>
-              <td>147</td><td>191</td><td>42</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:22%"></div></div><span class="pct">22,0%</span></td><td class="delta neg">−149</td><td class="delta neg">−105</td><td class="delta neg">−71,4%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Julio</td>
+              <td>147</td><td>191</td><td>42</td><td class="mix-col">42</td><td class="mix-col">0</td><td class="mix-col ec">0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:22%"></div></div><span class="pct">22,0%</span></td><td class="delta neg">−149</td><td class="delta neg">−105</td><td class="delta neg">−71,4%</td>
             </tr>
             <tr class="detail-row" id="mc-det-7" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Julio · por programa <span class="detail-count">20</span></div>
@@ -2371,11 +2382,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-8" data-target="mc-det-8">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto<span class="row-mix">48 técnicos · 0 bachillerato · 2 ed. continuada aparte</span></td>
-              <td>93</td><td>121</td><td>48</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">39,7%</span></td><td class="delta neg">−73</td><td class="delta neg">−45</td><td class="delta neg">−48,4%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto</td>
+              <td>93</td><td>121</td><td>48</td><td class="mix-col">48</td><td class="mix-col">0</td><td class="mix-col ec">2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">39,7%</span></td><td class="delta neg">−73</td><td class="delta neg">−45</td><td class="delta neg">−48,4%</td>
             </tr>
             <tr class="detail-row" id="mc-det-8" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Agosto · por programa <span class="detail-count">18</span></div>
@@ -2443,11 +2454,11 @@
               </td>
             </tr>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-9" data-target="mc-det-9">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre<span class="row-mix">35 técnicos · 0 bachillerato · 9 ed. continuada aparte</span></td>
-              <td>92</td><td>120</td><td>35</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:29%"></div></div><span class="pct">29,2%</span></td><td class="delta neg">−85</td><td class="delta neg">−57</td><td class="delta neg">−62,0%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td>
+              <td>92</td><td>120</td><td>35</td><td class="mix-col">35</td><td class="mix-col">0</td><td class="mix-col ec">9</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:29%"></div></div><span class="pct">29,2%</span></td><td class="delta neg">−85</td><td class="delta neg">−57</td><td class="delta neg">−62,0%</td>
             </tr>
             <tr class="detail-row" id="mc-det-9" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Septiembre · por programa <span class="detail-count">21</span></div>
@@ -2520,21 +2531,21 @@
                 </div>
               </td>
             </tr>
-            <tr class="total-row"><td>Total 2026-2</td><td>519</td><td>675</td><td>210</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:31%"></div></div><span class="pct">31,1%</span></td><td class="delta neg">−465</td><td class="delta neg">−309</td><td class="delta neg">−59,5%</td></tr>
+            <tr class="total-row"><td>Total 2026-2</td><td>519</td><td>675</td><td>210</td><td class="mix-col">208</td><td class="mix-col">2</td><td class="mix-col ec">11</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:31%"></div></div><span class="pct">31,1%</span></td><td class="delta neg">−465</td><td class="delta neg">−309</td><td class="delta neg">−59,5%</td></tr>
           </tbody>
         </table>
         </div>
         <h4 class="sub-h">Semestre 2026-3 · octubre a diciembre</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
-          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+          <thead><tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th><th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
           <tbody>
             <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-det-10" data-target="mc-det-10">
-              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Octubre<span class="row-mix">9 técnicos · 0 bachillerato · 4 ed. continuada aparte</span></td>
-              <td>42</td><td>55</td><td>9</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:16%"></div></div><span class="pct">16,4%</span></td><td class="delta neg">−46</td><td class="delta neg">−33</td><td class="delta neg">−78,6%</td>
+              <td class="mes-cell"><span class="chev" aria-hidden="true"></span>Octubre</td>
+              <td>42</td><td>55</td><td>9</td><td class="mix-col">9</td><td class="mix-col">0</td><td class="mix-col ec">4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:16%"></div></div><span class="pct">16,4%</span></td><td class="delta neg">−46</td><td class="delta neg">−33</td><td class="delta neg">−78,6%</td>
             </tr>
             <tr class="detail-row" id="mc-det-10" hidden>
-              <td colspan="8" class="detail-cell">
+              <td colspan="11" class="detail-cell">
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Octubre · por programa <span class="detail-count">16</span></div>
@@ -2602,13 +2613,13 @@
             </tr>
             <tr class="month-row is-pending">
               <td class="mes-cell"><span class="chev chev-off" aria-hidden="true"></span>Noviembre</td>
-              <td>33</td><td>43</td><td>—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
+              <td>33</td><td>43</td><td>—</td><td class="mix-col">—</td><td class="mix-col">—</td><td class="mix-col ec">—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
             </tr>
             <tr class="month-row is-pending">
               <td class="mes-cell"><span class="chev chev-off" aria-hidden="true"></span>Diciembre</td>
-              <td>40</td><td>52</td><td>—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
+              <td>40</td><td>52</td><td>—</td><td class="mix-col">—</td><td class="mix-col">—</td><td class="mix-col ec">—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
             </tr>
-            <tr class="total-row"><td>Total 2026-3</td><td>115</td><td>150</td><td>9</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:6%"></div></div><span class="pct">6,0%</span></td><td class="delta neg">−141</td><td class="delta neg">−106</td><td class="delta neg">−92,2%</td></tr>
+            <tr class="total-row"><td>Total 2026-3</td><td>115</td><td>150</td><td>9</td><td class="mix-col">9</td><td class="mix-col">0</td><td class="mix-col ec">4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:6%"></div></div><span class="pct">6,0%</span></td><td class="delta neg">−141</td><td class="delta neg">−106</td><td class="delta neg">−92,2%</td></tr>
           </tbody>
         </table>
         </div>
@@ -2961,6 +2972,16 @@ const CL = v => (v > 0 ? 'pos' : v < 0 ? 'neg' : '');
 const FL = c => (c >= 100 ? 'fill-good' : c >= 60 ? 'fill-warn' : 'fill-bad');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+const HEADM = () => '<tr><th>Mes</th><th>2025</th><th>Meta 2026</th><th>2026</th>' +
+  '<th><i class="k-tec kk"></i>Técnicos</th><th><i class="k-bach kk"></i>Bachillerato</th><th><i class="k-ec kk"></i>Ed. cont.</th>' +
+  '<th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr>';
+/* inserta las tres columnas de composición después de la columna 2026 */
+function conMix(html, t, b, e) {
+  let pos = -1;
+  for (let k = 0; k < 3; k++) pos = html.indexOf('</td>', pos + 1);
+  pos += 5;
+  return html.slice(0, pos) + `<td class="mix-col">${t}</td><td class="mix-col">${b}</td><td class="mix-col ec">${e}</td>` + html.slice(pos);
+}
 const HEAD = t => `<tr><th>${t}</th><th>2025</th><th>Meta 2026</th><th>2026</th>` +
   `<th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr>`;
 
@@ -3200,15 +3221,16 @@ function seccion(sede, d) {
 
   d.semestres.forEach(s => {
     h += `<h4 class="sub-h">${esc(s.titulo)} · ${esc(s.rango)}</h4>` +
-         `<div class="table-scroll"><table class="matriculas-table"><thead>${HEAD('Mes')}</thead><tbody>`;
+         `<div class="table-scroll"><table class="matriculas-table"><thead>${HEADM()}</thead><tbody>`;
+    const sm = [0, 0, 0];
     s.meses.forEach(n => {
       const m = d.meses[n - 1], rid = `${sede}-det-${n}`;
       if (s.cerrados.indexOf(n) !== -1) {
         h += `<tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="${rid}" data-target="${rid}">` +
-             `<td class="mes-cell"><span class="chev" aria-hidden="true"></span>${m.mes}<span class="row-mix">${N(m.y26 - (bachDe(m).y26 || 0))} técnicos · ` +
-             `${N(bachDe(m).y26 || 0)} bachillerato` +
-             (ecMes(n) && (ecMes(n).y25 || ecMes(n).y26) ? ` · ${N(ecMes(n).y26)} ed. continuada aparte` : '') + `</span></td>${celdas(m)}</tr>` +
-             `<tr class="detail-row" id="${rid}" hidden><td colspan="8" class="detail-cell"><div class="detail-split">`;
+             `<td class="mes-cell"><span class="chev" aria-hidden="true"></span>${m.mes}</td>` +
+             conMix(celdas(m), N(m.y26 - (bachDe(m).y26 || 0)), N(bachDe(m).y26 || 0), N(ecMes(n) ? ecMes(n).y26 : 0)) + '</tr>' +
+             `<tr class="detail-row" id="${rid}" hidden><td colspan="11" class="detail-cell"><div class="detail-split">`;
+        sm[0] += m.y26 - (bachDe(m).y26 || 0); sm[1] += bachDe(m).y26 || 0; sm[2] += ecMes(n) ? ecMes(n).y26 : 0;
         // por programa, con bachillerato desplegable
         h += '<div class="detail-pane">' +
              `<div class="detail-title">${m.mes} · por programa <span class="detail-count">${m.programas.length}</span></div>` +
@@ -3238,14 +3260,15 @@ function seccion(sede, d) {
       } else {
         h += '<tr class="month-row is-pending">' +
              `<td class="mes-cell"><span class="chev chev-off" aria-hidden="true"></span>${m.mes}</td>` +
-             celdasPendiente(m) + '</tr>';
+             conMix(celdasPendiente(m), '—', '—', '—') + '</tr>';
       }
     });
     if (s.cerrados.length) {
       const lbl = 'Total ' + s.id + (s.cerrados.length < s.meses.length ? ' (meses cerrados)' : '');
-      h += `<tr class="total-row"><td>${lbl}</td>${celdas(s.tot)}</tr>`;
+      h += `<tr class="total-row"><td>${lbl}</td>${conMix(celdas(s.tot), N(sm[0]), N(sm[1]), N(sm[2]))}</tr>`;
     } else {
       h += `<tr class="total-row"><td>Total ${s.id}</td><td>${N(s.y25_full)}</td><td>${N(s.meta_full)}</td><td>—</td>` +
+           '<td class="mix-col">—</td><td class="mix-col">—</td><td class="mix-col ec">—</td>' +
            '<td class="bar-cell"><span class="pct pending">pendiente</span></td>' +
            '<td class="delta">—</td><td class="delta">—</td><td class="delta">—</td></tr>';
     }
