@@ -519,6 +519,22 @@
 
 
 
+  /* --- composición de la matrícula: técnicos, bachillerato, educación continuada --- */
+  .mix{ margin-top:7px; font-size:11.5px; line-height:1.55; color:var(--ink-soft); max-width:22ch; }
+  .mix b{ color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
+  .mix i{ font-style:normal; display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:0; }
+  .k-tec{ background:var(--pine); } .k-bach{ background:var(--ochre); }
+  .k-ec{ background:transparent; box-shadow:inset 0 0 0 1.5px var(--ink-soft); }
+  .stat.ec .num{ color:var(--ink-soft) !important; }
+  .leer{ display:flex; gap:10px; align-items:flex-start; background:rgba(79,195,247,.07); border:1px solid rgba(79,195,247,.25);
+    border-radius:10px; padding:11px 14px; margin:0 0 18px; font-size:13px; line-height:1.55; color:var(--ink-soft); }
+  .leer strong{ color:var(--ink); }
+  .det-mix{ font-family:'Plus Jakarta Sans',sans-serif; font-size:12.5px; color:var(--ink-soft); margin:-4px 0 12px; line-height:1.6; }
+  .det-mix b{ color:var(--ink); }
+  tr.ec-grupo td{ border-top:1px dashed rgba(255,255,255,.18); }
+  tr.ec-grupo .prog-name{ color:var(--ink-soft); }
+  .pct.aparte{ color:var(--ink-soft); font-style:normal; }
+  .sub-detail-cell.ec{ border-left-color:var(--ink-soft); background:rgba(255,255,255,.03); }
   :root{ --restr:#B490F5; }
   /* --- campañas: gráfica meta vs. logradas y checklist --- */
   .cp-chart{ position:relative; }
@@ -995,11 +1011,13 @@
       <div class="card full">
         <h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>
         <div class="stat-row" style="margin-bottom:20px;">
-          <div class="stat"><div class="num">1.314</div><div class="label">matrículas 2026 (ene–oct)</div></div>
-          <div class="stat"><div class="num">1.712</div><div class="label">matrículas 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num" style="color:var(--bad)">−398</div><div class="label">diferencia acumulada vs. 2025</div></div>
+          <div class="stat"><div class="num">1.314</div><div class="label">matrículas 2026 (ene–oct)</div><div class="mix"><i class="k-tec"></i>Técnicos <b>1.186</b><br><i class="k-bach"></i>Bachillerato <b>128</b></div></div>
+          <div class="stat"><div class="num">1.712</div><div class="label">matrículas 2025 (mismo periodo)</div><div class="mix"><i class="k-tec"></i>Técnicos <b>1.582</b><br><i class="k-bach"></i>Bachillerato <b>130</b></div></div>
+          <div class="stat"><div class="num" style="color:var(--bad)">−398</div><div class="label">diferencia acumulada vs. 2025</div><div class="mix"><i class="k-tec"></i>Técnicos <b>−396</b><br><i class="k-bach"></i>Bachillerato <b>−2</b></div></div>
+          <div class="stat ec"><div class="num">109</div><div class="label">educación continuada 2026 · no suma</div><div class="mix">En 2025, mismo periodo: <b>53</b><br>Diferencia: <b>+56</b></div></div>
         </div>
-        <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>
+        <div class="leer"><span>ℹ</span><span><strong>Cómo leer este informe.</strong> La <strong>matrícula del mes</strong> es la suma de <strong>técnicos</strong> y <strong>bachillerato</strong>: eso es lo que se compara contra la meta. La <strong>educación continuada</strong> (cursos cortos como inyectología, Excel o facturación) se muestra aparte, con borde punteado, y <strong>no suma</strong> a la matrícula ni a la meta. Verde = en meta o por encima · amarillo = entre 60% y 99% · rojo = por debajo del 60%.</span></div>
+        <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo y la de Educación continuada por curso.</div>
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
@@ -1014,6 +1032,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Enero · por programa <span class="detail-count">23</span></div>
+                <div class="det-mix"><b>226</b> matrículas en enero 2026 = <b>196</b> técnicos + <b>30</b> bachillerato · educación continuada aparte: <b>6</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1063,6 +1082,25 @@
                     <tr><td class="prog-name">Mecánica Diesel</td><td>4</td><td>5</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−5</td><td class="delta neg">−4</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Cocinero Principal</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>1</td><td>1</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">300,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-1" data-target="rh-ecg-1">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">7 cursos · no suma</span></td><td>25</td><td>—</td><td>6</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−19</td><td class="delta neg">−76,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-1" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Curso corto de Inglés Conversacional</td><td>8</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−8</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Curso corto de Estilista Integral en Peluquería</td><td>6</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−6</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Curso corto de Seguridad Ocupacional y Laboral</td><td>6</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−6</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Caja Registradora</td><td>0</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+5</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Curso corto de Mecánica Diesel</td><td>3</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−3</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Curso corto de Mecánico de Vehículos Automotores</td><td>2</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Curso corto de Inglés Kids Conversacional</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1090,6 +1128,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Febrero · por programa <span class="detail-count">23</span></div>
+                <div class="det-mix"><b>290</b> matrículas en febrero 2026 = <b>251</b> técnicos + <b>39</b> bachillerato · educación continuada aparte: <b>16</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1136,6 +1175,19 @@
                     <tr><td class="prog-name">Panadería y Repostería</td><td>7</td><td>9</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:56%"></div></div><span class="pct">55,6%</span></td><td class="delta neg">−4</td><td class="delta neg">−2</td><td class="delta neg">−28,6%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>4</td><td>5</td><td>6</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">120,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+2</td><td class="delta pos">+50,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>4</td><td>5</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+25,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-2" data-target="rh-ecg-2">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>5</td><td>—</td><td>16</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+11</td><td class="delta pos">+220,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-2" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>5</td><td>—</td><td>16</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+11</td><td class="delta pos">+220,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1162,6 +1214,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Marzo · por programa <span class="detail-count">22</span></div>
+                <div class="det-mix"><b>178</b> matrículas en marzo 2026 = <b>160</b> técnicos + <b>18</b> bachillerato · educación continuada aparte: <b>5</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1205,6 +1258,19 @@
                     <tr><td class="prog-name">Auxiliar de Cocina</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>2</td><td>3</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-warn" style="width:67%"></div></div><span class="pct">66,7%</span></td><td class="delta neg">−1</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Confección y Alta Costura</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-3" data-target="rh-ecg-3">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>3</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta pos">+66,7%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-3" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>3</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta pos">+66,7%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1231,6 +1297,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Abril · por programa <span class="detail-count">22</span></div>
+                <div class="det-mix"><b>52</b> matrículas en abril 2026 = <b>50</b> técnicos + <b>2</b> bachillerato · educación continuada aparte: <b>2</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1270,6 +1337,19 @@
                     <tr><td class="prog-name">Auxiliar de Cocina</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Inglés Conversacional</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-4" data-target="rh-ecg-4">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>2</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta ">0</td><td class="delta ">0,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-4" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>2</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1305,6 +1385,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Mayo · por programa <span class="detail-count">23</span></div>
+                <div class="det-mix"><b>91</b> matrículas en mayo 2026 = <b>84</b> técnicos + <b>7</b> bachillerato · educación continuada aparte: <b>7</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1347,6 +1428,19 @@
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>3</td><td>4</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:50%"></div></div><span class="pct">50,0%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−33,3%</td></tr>
                     <tr><td class="prog-name">Mecánica Diesel</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">D</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-5" data-target="rh-ecg-5">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>0</td><td>—</td><td>7</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+7</td><td class="delta">—</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-5" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>0</td><td>—</td><td>7</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+7</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1373,6 +1467,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Junio · por programa <span class="detail-count">23</span></div>
+                <div class="det-mix"><b>102</b> matrículas en junio 2026 = <b>97</b> técnicos + <b>5</b> bachillerato · educación continuada aparte: <b>2</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1414,6 +1509,19 @@
                     <tr><td class="prog-name">Mecánica Diesel</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Sin programa</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-6" data-target="rh-ecg-6">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>1</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-6" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1440,6 +1548,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Julio · por programa <span class="detail-count">21</span></div>
+                <div class="det-mix"><b>163</b> matrículas en julio 2026 = <b>149</b> técnicos + <b>14</b> bachillerato · educación continuada aparte: <b>10</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1482,6 +1591,19 @@
                     <tr><td class="prog-name">Panadería y Repostería</td><td>4</td><td>5</td><td>5</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+25,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Patronaje, Cortador y Confección de Moda</td><td>0</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+4</td><td class="delta pos">+4</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-7" data-target="rh-ecg-7">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>9</td><td>—</td><td>10</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+11,1%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-7" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>9</td><td>—</td><td>10</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+11,1%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1508,6 +1630,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Agosto · por programa <span class="detail-count">22</span></div>
+                <div class="det-mix"><b>118</b> matrículas en agosto 2026 = <b>110</b> técnicos + <b>8</b> bachillerato · educación continuada aparte: <b>3</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1553,6 +1676,19 @@
                     <tr><td class="prog-name">Inglés Conversacional</td><td>4</td><td>5</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:40%"></div></div><span class="pct">40,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Sin programa</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Confección y Alta Costura</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-8" data-target="rh-ecg-8">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>5</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−2</td><td class="delta neg">−40,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-8" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>5</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−2</td><td class="delta neg">−40,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1580,6 +1716,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Septiembre · por programa <span class="detail-count">20</span></div>
+                <div class="det-mix"><b>71</b> matrículas en septiembre 2026 = <b>66</b> técnicos + <b>5</b> bachillerato · educación continuada aparte: <b>41</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1618,6 +1755,22 @@
                     <tr><td class="prog-name">Panadería y Repostería</td><td>1</td><td>1</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-9" data-target="rh-ecg-9">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">4 cursos · no suma</span></td><td>1</td><td>—</td><td>41</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+40</td><td class="delta pos">+4000,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-9" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Inyectología</td><td>0</td><td>—</td><td>31</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+31</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Excel</td><td>0</td><td>—</td><td>5</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+5</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+3</td><td class="delta pos">+300,0%</td></tr>
+                            <tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1653,6 +1806,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Octubre · por programa <span class="detail-count">20</span></div>
+                <div class="det-mix"><b>23</b> matrículas en octubre 2026 = <b>23</b> técnicos + <b>0</b> bachillerato · educación continuada aparte: <b>17</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1689,6 +1843,20 @@
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-10" data-target="rh-ecg-10">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">2 cursos · no suma</span></td><td>2</td><td>—</td><td>17</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+15</td><td class="delta pos">+750,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="rh-ecg-10" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Inyectología</td><td>0</td><td>—</td><td>15</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+15</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Caja Registradora</td><td>2</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1726,6 +1894,9 @@
           <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">56,5%</span></div>
           <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−475</span></div>
           <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">1.011</span></div>
+          <div class="year-cell"><span class="year-label"><i class="k-tec" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Técnicos 2026 (ene–oct)</span><span class="year-val">1.186</span></div>
+          <div class="year-cell"><span class="year-label"><i class="k-bach" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Bachillerato 2026 (ene–oct)</span><span class="year-val">128</span></div>
+          <div class="year-cell"><span class="year-label"><i class="k-ec" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Educación continuada 2026 · aparte</span><span class="year-val" style="color:var(--ink-soft)">109</span></div>
         </div>
         <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Octubre va en curso, con corte al 13 de octubre; noviembre y diciembre quedan pendientes hasta que cierre cada mes.</div>
       </div>
@@ -1751,61 +1922,6 @@
       </div>
     </section>
 
-    <!-- EC-INI -->
-    <section class="block">
-      <div class="block-head">
-        <span class="block-title">Educación continuada — Riohacha</span>
-        <span class="block-num">EC</span>
-      </div>
-      <div class="card full">
-        <h3>Cursos cortos · aparte de la matrícula del mes</h3>
-        <div class="stat-row compact" style="margin-bottom:18px;">
-          <div class="stat"><div class="num" style="color:var(--pine)">109</div><div class="label">inscritos 2026 (ene–oct)</div></div>
-          <div class="stat"><div class="num">53</div><div class="label">inscritos 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num">5</div><div class="label">cursos con inscritos en 2026</div></div>
-        </div>
-        <div class="hint">Haz clic en un mes para ver los cursos que se vendieron.</div>
-        <h4 class="sub-h" style="border-top:none;padding-top:0;margin-top:0">Por mes</h4>
-        <div class="table-scroll"><table class="matriculas-table"><thead><tr><th>Mes</th><th>2025</th><th>2026</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead><tbody>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-1" data-target="rh-ec-1"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Enero</td><td>25</td><td>6</td><td class="delta neg">−19</td><td class="delta neg">−76,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-1" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Enero · por curso <span class="detail-count">7</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Curso corto de Inglés Conversacional</td><td>8</td><td>0</td><td class="delta neg">−8</td></tr><tr><td class="prog-name">Curso corto de Estilista Integral en Peluquería</td><td>6</td><td>0</td><td class="delta neg">−6</td></tr><tr><td class="prog-name">Curso corto de Seguridad Ocupacional y Laboral</td><td>6</td><td>0</td><td class="delta neg">−6</td></tr><tr><td class="prog-name">Caja Registradora</td><td>0</td><td>5</td><td class="delta pos">+5</td></tr><tr><td class="prog-name">Curso corto de Mecánica Diesel</td><td>3</td><td>0</td><td class="delta neg">−3</td></tr><tr><td class="prog-name">Curso corto de Mecánico de Vehículos Automotores</td><td>2</td><td>0</td><td class="delta neg">−2</td></tr><tr><td class="prog-name">Curso corto de Inglés Kids Conversacional</td><td>0</td><td>1</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-2" data-target="rh-ec-2"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Febrero</td><td>5</td><td>16</td><td class="delta pos">+11</td><td class="delta pos">+220,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-2" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Febrero · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>5</td><td>16</td><td class="delta pos">+11</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-3" data-target="rh-ec-3"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Marzo</td><td>3</td><td>5</td><td class="delta pos">+2</td><td class="delta pos">+66,7%</td></tr>
-          <tr class="detail-row" id="rh-ec-3" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Marzo · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>3</td><td>5</td><td class="delta pos">+2</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-4" data-target="rh-ec-4"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril</td><td>2</td><td>2</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-4" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Abril · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>2</td><td>2</td><td class="delta ">0</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-5" data-target="rh-ec-5"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Mayo</td><td>0</td><td>7</td><td class="delta pos">+7</td><td class="delta">—</td></tr>
-          <tr class="detail-row" id="rh-ec-5" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Mayo · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>0</td><td>7</td><td class="delta pos">+7</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-6" data-target="rh-ec-6"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Junio</td><td>1</td><td>2</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-6" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Junio · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>1</td><td>2</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-7" data-target="rh-ec-7"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Julio</td><td>9</td><td>10</td><td class="delta pos">+1</td><td class="delta pos">+11,1%</td></tr>
-          <tr class="detail-row" id="rh-ec-7" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Julio · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>9</td><td>10</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-8" data-target="rh-ec-8"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto</td><td>5</td><td>3</td><td class="delta neg">−2</td><td class="delta neg">−40,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-8" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Agosto · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>5</td><td>3</td><td class="delta neg">−2</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-9" data-target="rh-ec-9"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td><td>1</td><td>41</td><td class="delta pos">+40</td><td class="delta pos">+4000,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-9" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Septiembre · por curso <span class="detail-count">4</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Inyectología</td><td>0</td><td>31</td><td class="delta pos">+31</td></tr><tr><td class="prog-name">Excel</td><td>0</td><td>5</td><td class="delta pos">+5</td></tr><tr><td class="prog-name">Caja Registradora</td><td>1</td><td>4</td><td class="delta pos">+3</td></tr><tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>1</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ec-10" data-target="rh-ec-10"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Octubre</td><td>2</td><td>17</td><td class="delta pos">+15</td><td class="delta pos">+750,0%</td></tr>
-          <tr class="detail-row" id="rh-ec-10" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Octubre · por curso <span class="detail-count">2</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Inyectología</td><td>0</td><td>15</td><td class="delta pos">+15</td></tr><tr><td class="prog-name">Caja Registradora</td><td>2</td><td>2</td><td class="delta ">0</td></tr></tbody></table></td></tr>
-          <tr class="total-row"><td>Total ene–oct</td><td>53</td><td>109</td><td class="delta pos">+56</td><td class="delta pos">+105,7%</td></tr>
-        </tbody></table></div>
-        <h4 class="sub-h">Acumulado por curso</h4>
-        <table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody>
-          <tr><td class="prog-name">Caja Registradora</td><td>28</td><td>56</td><td class="delta pos">+28</td></tr>
-          <tr><td class="prog-name">Inyectología</td><td>0</td><td>46</td><td class="delta pos">+46</td></tr>
-          <tr><td class="prog-name">Curso corto de Inglés Conversacional</td><td>8</td><td>0</td><td class="delta neg">−8</td></tr>
-          <tr><td class="prog-name">Curso corto de Estilista Integral en Peluquería</td><td>6</td><td>0</td><td class="delta neg">−6</td></tr>
-          <tr><td class="prog-name">Curso corto de Seguridad Ocupacional y Laboral</td><td>6</td><td>0</td><td class="delta neg">−6</td></tr>
-          <tr><td class="prog-name">Excel</td><td>0</td><td>5</td><td class="delta pos">+5</td></tr>
-          <tr><td class="prog-name">Curso corto de Mecánica Diesel</td><td>3</td><td>0</td><td class="delta neg">−3</td></tr>
-          <tr><td class="prog-name">Curso corto de Mecánico de Vehículos Automotores</td><td>2</td><td>0</td><td class="delta neg">−2</td></tr>
-          <tr><td class="prog-name">Curso corto de Inglés Kids Conversacional</td><td>0</td><td>1</td><td class="delta pos">+1</td></tr>
-          <tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>1</td><td class="delta pos">+1</td></tr>
-        </tbody></table>
-        <div class="note">Educación continuada son los cursos cortos (inyectología, facturación hospitalaria, Excel, caja registradora y los registrados como «curso»). No se cuentan en la matrícula del mes, ni en 2026 ni en 2025, así que las metas de arriba también se recalcularon sin ellos. Panadería y repostería sí cuenta como matrícula normal.</div>
-      </div>
-    </section>
-    <!-- EC-FIN -->
 
     <!-- ============ MATRIZ HORARIOS AHRH ============ -->
     <section class="block ah-wide">
@@ -1876,11 +1992,13 @@
       <div class="card full">
         <h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>
         <div class="stat-row" style="margin-bottom:20px;">
-          <div class="stat"><div class="num">650</div><div class="label">matrículas 2026 (ene–oct)</div></div>
-          <div class="stat"><div class="num">1.062</div><div class="label">matrículas 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num" style="color:var(--bad)">−412</div><div class="label">diferencia acumulada vs. 2025</div></div>
+          <div class="stat"><div class="num">650</div><div class="label">matrículas 2026 (ene–oct)</div><div class="mix"><i class="k-tec"></i>Técnicos <b>627</b><br><i class="k-bach"></i>Bachillerato <b>23</b></div></div>
+          <div class="stat"><div class="num">1.062</div><div class="label">matrículas 2025 (mismo periodo)</div><div class="mix"><i class="k-tec"></i>Técnicos <b>998</b><br><i class="k-bach"></i>Bachillerato <b>64</b></div></div>
+          <div class="stat"><div class="num" style="color:var(--bad)">−412</div><div class="label">diferencia acumulada vs. 2025</div><div class="mix"><i class="k-tec"></i>Técnicos <b>−371</b><br><i class="k-bach"></i>Bachillerato <b>−41</b></div></div>
+          <div class="stat ec"><div class="num">38</div><div class="label">educación continuada 2026 · no suma</div><div class="mix">En 2025, mismo periodo: <b>21</b><br>Diferencia: <b>+17</b></div></div>
         </div>
-        <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>
+        <div class="leer"><span>ℹ</span><span><strong>Cómo leer este informe.</strong> La <strong>matrícula del mes</strong> es la suma de <strong>técnicos</strong> y <strong>bachillerato</strong>: eso es lo que se compara contra la meta. La <strong>educación continuada</strong> (cursos cortos como inyectología, Excel o facturación) se muestra aparte, con borde punteado, y <strong>no suma</strong> a la matrícula ni a la meta. Verde = en meta o por encima · amarillo = entre 60% y 99% · rojo = por debajo del 60%.</span></div>
+        <div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. Dentro del detalle, la fila de Bachillerato se despliega por ciclo y la de Educación continuada por curso.</div>
         <h4 class="sub-h">Semestre 2026-1 · enero a abril</h4>
         <div class="table-scroll">
         <table class="matriculas-table">
@@ -1895,6 +2013,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Enero · por programa <span class="detail-count">19</span></div>
+                <div class="det-mix"><b>150</b> matrículas en enero 2026 = <b>140</b> técnicos + <b>10</b> bachillerato · educación continuada aparte: <b>1</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1932,6 +2051,19 @@
                     <tr><td class="prog-name">Auxiliar Administrativo en Salud</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+3</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>1</td><td>1</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">300,0%</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
                     <tr><td class="prog-name">Estilista Integral en Peluquería</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-1" data-target="mc-ecg-1">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-1" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -1957,6 +2089,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Febrero · por programa <span class="detail-count">23</span></div>
+                <div class="det-mix"><b>137</b> matrículas en febrero 2026 = <b>133</b> técnicos + <b>4</b> bachillerato · educación continuada aparte: <b>7</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -1998,6 +2131,19 @@
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Salud Oral</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Sin programa</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-2" data-target="mc-ecg-2">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>1</td><td>—</td><td>7</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+6</td><td class="delta pos">+600,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-2" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>—</td><td>7</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+6</td><td class="delta pos">+600,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2023,6 +2169,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Marzo · por programa <span class="detail-count">21</span></div>
+                <div class="det-mix"><b>94</b> matrículas en marzo 2026 = <b>88</b> técnicos + <b>6</b> bachillerato · educación continuada aparte: <b>7</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2063,6 +2210,19 @@
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>4</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">133,3%</span></td><td class="delta pos">+1</td><td class="delta pos">+2</td><td class="delta pos">+100,0%</td></tr>
                     <tr><td class="prog-name">Inglés Kids Conversacional</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+2</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-3" data-target="mc-ecg-3">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>6</td><td>—</td><td>7</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+16,7%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-3" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>6</td><td>—</td><td>7</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+16,7%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2088,6 +2248,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Abril · por programa <span class="detail-count">20</span></div>
+                <div class="det-mix"><b>54</b> matrículas en abril 2026 = <b>53</b> técnicos + <b>1</b> bachillerato · educación continuada aparte: <b>4</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2124,6 +2285,19 @@
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>2</td><td>3</td><td>3</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta pos">+1</td><td class="delta pos">+50,0%</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>2</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">200,0%</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
                     <tr><td class="prog-name">Cocinero Principal</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-4" data-target="mc-ecg-4">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>3</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-4" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>3</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2158,6 +2332,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Mayo · por programa <span class="detail-count">22</span></div>
+                <div class="det-mix"><b>40</b> matrículas en mayo 2026 = <b>39</b> técnicos + <b>1</b> bachillerato · educación continuada aparte: <b>3</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2199,6 +2374,19 @@
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Seguridad y Salud Ocupacional</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-5" data-target="mc-ecg-5">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>1</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-5" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2224,6 +2412,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Junio · por programa <span class="detail-count">20</span></div>
+                <div class="det-mix"><b>41</b> matrículas en junio 2026 = <b>40</b> técnicos + <b>1</b> bachillerato · educación continuada aparte: <b>1</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2260,6 +2449,19 @@
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Panadería y Repostería</td><td>1</td><td>1</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-good" style="width:100%"></div></div><span class="pct">100,0%</span></td><td class="delta ">0</td><td class="delta ">0</td><td class="delta ">0,0%</td></tr>
                     <tr><td class="prog-name">Seguridad y Salud Ocupacional</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-6" data-target="mc-ecg-6">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-6" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2286,6 +2488,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Julio · por programa <span class="detail-count">19</span></div>
+                <div class="det-mix"><b>42</b> matrículas en julio 2026 = <b>42</b> técnicos + <b>0</b> bachillerato · educación continuada aparte: <b>0</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2322,6 +2525,19 @@
                     <tr><td class="prog-name">Cocinero Principal</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-7" data-target="mc-ecg-7">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>2</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-7" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>2</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2347,6 +2563,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Agosto · por programa <span class="detail-count">17</span></div>
+                <div class="det-mix"><b>48</b> matrículas en agosto 2026 = <b>48</b> técnicos + <b>0</b> bachillerato · educación continuada aparte: <b>2</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2380,6 +2597,20 @@
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>3</td><td>4</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:25%"></div></div><span class="pct">25,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−66,7%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>2</td><td>3</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:33%"></div></div><span class="pct">33,3%</span></td><td class="delta neg">−2</td><td class="delta neg">−1</td><td class="delta neg">−50,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar en Clínica Veterinaria</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-8" data-target="mc-ecg-8">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">2 cursos · no suma</span></td><td>1</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-8" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Excel</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Caja Registradora</td><td>1</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2405,6 +2636,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Septiembre · por programa <span class="detail-count">20</span></div>
+                <div class="det-mix"><b>35</b> matrículas en septiembre 2026 = <b>35</b> técnicos + <b>0</b> bachillerato · educación continuada aparte: <b>9</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2441,6 +2673,22 @@
                     <tr><td class="prog-name">Seguridad Ocupacional y Laboral</td><td>2</td><td>3</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−3</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Auxiliar Administracion en Salud</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Mecánico de Vehículos Automotores</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-9" data-target="mc-ecg-9">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">4 cursos · no suma</span></td><td>5</td><td>—</td><td>9</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+4</td><td class="delta pos">+80,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-9" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>5</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−5</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Excel</td><td>0</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+4</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>—</td><td>3</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+3</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Inyectología</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2476,6 +2724,7 @@
                 <div class="detail-split">
                 <div class="detail-pane">
                 <div class="detail-title">Octubre · por programa <span class="detail-count">15</span></div>
+                <div class="det-mix"><b>9</b> matrículas en octubre 2026 = <b>9</b> técnicos + <b>0</b> bachillerato · educación continuada aparte: <b>4</b></div>
                 <table class="prog-table">
                   <thead><tr><th>Programa</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
@@ -2507,6 +2756,21 @@
                     <tr><td class="prog-name">Auxiliar en Servicios Farmacéuticos</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Diseño Gráfico</td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct tag-new">nuevo en 2026</span></td><td class="delta pos">+1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
                     <tr><td class="prog-name">Investigador Criminalístico y Judicial</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
+                    <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ecg-10" data-target="mc-ecg-10">
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">3 cursos · no suma</span></td><td>2</td><td>—</td><td>4</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta pos">+100,0%</td>
+                    </tr>
+                    <tr class="sub-detail-row" id="mc-ecg-10" hidden>
+                      <td colspan="8" class="sub-detail-cell ec">
+                        <table class="ciclo-table">
+                          <thead><tr><th>Curso</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
+                          <tbody>
+                            <tr><td class="prog-name">Caja Registradora</td><td>2</td><td>—</td><td>0</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
+                            <tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
+                            <tr><td class="prog-name">Inyectología</td><td>0</td><td>—</td><td>2</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+2</td><td class="delta">—</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </div>
@@ -2543,6 +2807,9 @@
           <div class="year-cell"><span class="year-label">Cumplimiento de meta anual</span><span class="year-val" style="color:var(--bad)">44,4%</span></div>
           <div class="year-cell"><span class="year-label">Diferencia vs. año 2025</span><span class="year-val" style="color:var(--bad)">−484</span></div>
           <div class="year-cell"><span class="year-label">Falta para la meta anual</span><span class="year-val" style="color:var(--warn)">815</span></div>
+          <div class="year-cell"><span class="year-label"><i class="k-tec" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Técnicos 2026 (ene–oct)</span><span class="year-val">627</span></div>
+          <div class="year-cell"><span class="year-label"><i class="k-bach" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Bachillerato 2026 (ene–oct)</span><span class="year-val">23</span></div>
+          <div class="year-cell"><span class="year-label"><i class="k-ec" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Educación continuada 2026 · aparte</span><span class="year-val" style="color:var(--ink-soft)">38</span></div>
         </div>
         <div class="note">Meta mensual = matrículas del mismo mes de 2025 × 1,30. Cumplimiento = matrículas 2026 ÷ meta. «Dif. meta» es lo que falta o sobra frente a la meta (2026 − meta) y «Dif. 2025» es la diferencia contra el año anterior. Periodos: 2026-1 enero–abril, 2026-2 mayo–septiembre, 2026-3 octubre–diciembre. Todos los ciclos de bachillerato se agrupan en un solo programa desplegable. Octubre va en curso, con corte al 10 de octubre; noviembre y diciembre quedan pendientes hasta que cierre cada mes. <strong style="color:var(--ink)">Enero</strong> aparece sin meta: el registro de 2025 de esta sede tiene muy pocas matrículas ese mes, así que no hay base con la cual comparar y se excluye del cálculo de la meta.</div>
       </div>
@@ -2568,55 +2835,6 @@
       </div>
     </section>
 
-    <!-- EC-INI -->
-    <section class="block">
-      <div class="block-head">
-        <span class="block-title">Educación continuada — Maicao</span>
-        <span class="block-num">EC</span>
-      </div>
-      <div class="card full">
-        <h3>Cursos cortos · aparte de la matrícula del mes</h3>
-        <div class="stat-row compact" style="margin-bottom:18px;">
-          <div class="stat"><div class="num" style="color:var(--pine)">38</div><div class="label">inscritos 2026 (ene–oct)</div></div>
-          <div class="stat"><div class="num">21</div><div class="label">inscritos 2025 (mismo periodo)</div></div>
-          <div class="stat"><div class="num">4</div><div class="label">cursos con inscritos en 2026</div></div>
-        </div>
-        <div class="hint">Haz clic en un mes para ver los cursos que se vendieron.</div>
-        <h4 class="sub-h" style="border-top:none;padding-top:0;margin-top:0">Por mes</h4>
-        <div class="table-scroll"><table class="matriculas-table"><thead><tr><th>Mes</th><th>2025</th><th>2026</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead><tbody>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-1" data-target="mc-ec-1"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Enero</td><td>0</td><td>1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-          <tr class="detail-row" id="mc-ec-1" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Enero · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>0</td><td>1</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-2" data-target="mc-ec-2"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Febrero</td><td>1</td><td>7</td><td class="delta pos">+6</td><td class="delta pos">+600,0%</td></tr>
-          <tr class="detail-row" id="mc-ec-2" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Febrero · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>1</td><td>7</td><td class="delta pos">+6</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-3" data-target="mc-ec-3"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Marzo</td><td>6</td><td>7</td><td class="delta pos">+1</td><td class="delta pos">+16,7%</td></tr>
-          <tr class="detail-row" id="mc-ec-3" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Marzo · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>6</td><td>7</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-4" data-target="mc-ec-4"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Abril</td><td>3</td><td>4</td><td class="delta pos">+1</td><td class="delta pos">+33,3%</td></tr>
-          <tr class="detail-row" id="mc-ec-4" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Abril · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>3</td><td>4</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-5" data-target="mc-ec-5"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Mayo</td><td>1</td><td>3</td><td class="delta pos">+2</td><td class="delta pos">+200,0%</td></tr>
-          <tr class="detail-row" id="mc-ec-5" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Mayo · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>1</td><td>3</td><td class="delta pos">+2</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-6" data-target="mc-ec-6"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Junio</td><td>0</td><td>1</td><td class="delta pos">+1</td><td class="delta">—</td></tr>
-          <tr class="detail-row" id="mc-ec-6" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Junio · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>0</td><td>1</td><td class="delta pos">+1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-7" data-target="mc-ec-7"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Julio</td><td>2</td><td>0</td><td class="delta neg">−2</td><td class="delta neg">−100,0%</td></tr>
-          <tr class="detail-row" id="mc-ec-7" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Julio · por curso <span class="detail-count">1</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>2</td><td>0</td><td class="delta neg">−2</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-8" data-target="mc-ec-8"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Agosto</td><td>1</td><td>2</td><td class="delta pos">+1</td><td class="delta pos">+100,0%</td></tr>
-          <tr class="detail-row" id="mc-ec-8" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Agosto · por curso <span class="detail-count">2</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Excel</td><td>0</td><td>2</td><td class="delta pos">+2</td></tr><tr><td class="prog-name">Caja Registradora</td><td>1</td><td>0</td><td class="delta neg">−1</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-9" data-target="mc-ec-9"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Septiembre</td><td>5</td><td>9</td><td class="delta pos">+4</td><td class="delta pos">+80,0%</td></tr>
-          <tr class="detail-row" id="mc-ec-9" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Septiembre · por curso <span class="detail-count">4</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>5</td><td>0</td><td class="delta neg">−5</td></tr><tr><td class="prog-name">Excel</td><td>0</td><td>4</td><td class="delta pos">+4</td></tr><tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>3</td><td class="delta pos">+3</td></tr><tr><td class="prog-name">Inyectología</td><td>0</td><td>2</td><td class="delta pos">+2</td></tr></tbody></table></td></tr>
-          <tr class="month-row" tabindex="0" role="button" aria-expanded="false" aria-controls="mc-ec-10" data-target="mc-ec-10"><td class="mes-cell"><span class="chev" aria-hidden="true"></span>Octubre</td><td>2</td><td>4</td><td class="delta pos">+2</td><td class="delta pos">+100,0%</td></tr>
-          <tr class="detail-row" id="mc-ec-10" hidden><td colspan="5" class="detail-cell"><div class="detail-title">Octubre · por curso <span class="detail-count">3</span></div><table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody><tr><td class="prog-name">Caja Registradora</td><td>2</td><td>0</td><td class="delta neg">−2</td></tr><tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>2</td><td class="delta pos">+2</td></tr><tr><td class="prog-name">Inyectología</td><td>0</td><td>2</td><td class="delta pos">+2</td></tr></tbody></table></td></tr>
-          <tr class="total-row"><td>Total ene–oct</td><td>21</td><td>38</td><td class="delta pos">+17</td><td class="delta pos">+81,0%</td></tr>
-        </tbody></table></div>
-        <h4 class="sub-h">Acumulado por curso</h4>
-        <table class="prog-table"><thead><tr><th>Curso</th><th>2025</th><th>2026</th><th>Dif. 2025</th></tr></thead><tbody>
-          <tr><td class="prog-name">Caja Registradora</td><td>21</td><td>23</td><td class="delta pos">+2</td></tr>
-          <tr><td class="prog-name">Excel</td><td>0</td><td>6</td><td class="delta pos">+6</td></tr>
-          <tr><td class="prog-name">Facturación Hospitalaria</td><td>0</td><td>5</td><td class="delta pos">+5</td></tr>
-          <tr><td class="prog-name">Inyectología</td><td>0</td><td>4</td><td class="delta pos">+4</td></tr>
-        </tbody></table>
-        <div class="note">Educación continuada son los cursos cortos (inyectología, facturación hospitalaria, Excel, caja registradora y los registrados como «curso»). No se cuentan en la matrícula del mes, ni en 2026 ni en 2025, así que las metas de arriba también se recalcularon sin ellos. Panadería y repostería sí cuenta como matrícula normal.</div>
-      </div>
-    </section>
-    <!-- EC-FIN -->
 
     <!-- ============ MATRIZ HORARIOS AHMC ============ -->
     <section class="block ah-wide">
@@ -3117,21 +3335,55 @@ function bloqueEducacionContinuada(d) {
     'asesor con programa; las metas por asesor sí se ajustaron.</div></div>';
 }
 
+/* composición de la matrícula para los insights: técnicos + bachillerato, y aparte educación continuada */
+function mixHTML(t, b, signo) {
+  const f = signo ? SG : N;
+  return `<div class="mix"><i class="k-tec"></i>Técnicos <b>${f(t)}</b><br><i class="k-bach"></i>Bachillerato <b>${f(b)}</b></div>`;
+}
+const LEER_HTML = '<div class="leer"><span>ℹ</span><span><strong>Cómo leer este informe.</strong> La <strong>matrícula del mes</strong> es la suma de ' +
+  '<strong>técnicos</strong> y <strong>bachillerato</strong>: eso es lo que se compara contra la meta. La <strong>educación continuada</strong> ' +
+  '(cursos cortos como inyectología, Excel o facturación) se muestra aparte, con borde punteado, y <strong>no suma</strong> a la matrícula ni a la meta. ' +
+  'Verde = en meta o por encima · amarillo = entre 60% y 99% · rojo = por debajo del 60%.</span></div>';
+function filaGrupoEC(sede, n, ecm) {
+  if (!ecm || !(ecm.y25 || ecm.y26)) return '';
+  const gid = `${sede}-ecg-${n}`, k = ecm.cursos.length;
+  const vs = (a, v) => a ? `<td class="delta ${CL(v - a)}">${SP(r1EC((v - a) / a * 100))}</td>` : '<td class="delta">—</td>';
+  const cs = ecm.cursos.slice().sort((a, b) => Math.max(b.y25, b.y26) - Math.max(a.y25, a.y26) || (a.prog < b.prog ? -1 : 1));
+  return `<tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="${gid}" data-target="${gid}">` +
+    `<td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada ` +
+    `<span class="row-tag">${k} curso${k === 1 ? '' : 's'} · no suma</span></td>` +
+    `<td>${N(ecm.y25)}</td><td>—</td><td>${N(ecm.y26)}</td><td class="bar-cell"><span class="pct aparte">aparte</span></td>` +
+    `<td class="delta">—</td><td class="delta ${CL(ecm.y26 - ecm.y25)}">${SG(ecm.y26 - ecm.y25)}</td>${vs(ecm.y25, ecm.y26)}</tr>` +
+    `<tr class="sub-detail-row" id="${gid}" hidden><td colspan="8" class="sub-detail-cell ec"><table class="ciclo-table"><thead>${HEAD('Curso')}</thead><tbody>` +
+    cs.map(c => `<tr><td class="prog-name">${esc(c.prog)}</td><td>${N(c.y25)}</td><td>—</td><td>${N(c.y26)}</td>` +
+      '<td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td>' +
+      `<td class="delta ${CL(c.y26 - c.y25)}">${SG(c.y26 - c.y25)}</td>${vs(c.y25, c.y26)}</tr>`).join('') +
+    '</tbody></table></td></tr>';
+}
+
 function seccion(sede, d) {
   const an = d.anual, MES = d.mes_nombre, m3 = MES.slice(0, 3).toLowerCase();
   const p25 = d.y25_periodo != null ? d.y25_periodo
             : d.meses.slice(0, d.ultimo_mes).reduce((x, m) => x + m.y25, 0);
   const dif = an.y26 - p25;
+  const LASTm = d.ultimo_mes || 12;
+  const bachDe = m => (m.programas || []).find(p => p.prog === 'Bachillerato') || { y25: 0, y26: 0 };
+  const b26 = d.meses.slice(0, LASTm).reduce((x, m) => x + (bachDe(m).y26 || 0), 0);
+  const b25 = d.meses.slice(0, LASTm).reduce((x, m) => x + (bachDe(m).y25 || 0), 0);
+  const ecMes = n => d.ec ? d.ec.meses.find(e => e.n === n) : null;
   let h = `<div class="block-head"><span class="block-title">Admisiones — ${esc(d.nombre)}</span>` +
           '<span class="block-num">05</span></div><div class="card full">' +
           '<h3>Matrículas por mes — 2026 vs. meta (+30%) vs. 2025</h3>' +
           '<div class="stat-row" style="margin-bottom:20px;">' +
-          `<div class="stat"><div class="num">${N(an.y26)}</div><div class="label">matrículas 2026 (ene–${m3})</div></div>` +
-          `<div class="stat"><div class="num">${N(p25)}</div><div class="label">matrículas 2025 (mismo periodo)</div></div>` +
+          `<div class="stat"><div class="num">${N(an.y26)}</div><div class="label">matrículas 2026 (ene–${m3})</div>${mixHTML(an.y26 - b26, b26)}</div>` +
+          `<div class="stat"><div class="num">${N(p25)}</div><div class="label">matrículas 2025 (mismo periodo)</div>${mixHTML(p25 - b25, b25)}</div>` +
           `<div class="stat"><div class="num" style="color:var(--${dif < 0 ? 'bad' : 'good'})">${SG(dif)}</div>` +
-          '<div class="label">diferencia acumulada vs. 2025</div></div></div>' +
+          `<div class="label">diferencia acumulada vs. 2025</div>${mixHTML((an.y26 - b26) - (p25 - b25), b26 - b25, true)}</div>` +
+          (d.ec ? `<div class="stat ec"><div class="num">${N(d.ec.y26)}</div><div class="label">educación continuada 2026 · no suma</div>` +
+                  `<div class="mix">En 2025, mismo periodo: <b>${N(d.ec.y25)}</b><br>Diferencia: <b>${SG(d.ec.y26 - d.ec.y25)}</b></div></div>` : '') +
+          '</div>' + LEER_HTML +
           '<div class="hint">Haz clic en cualquier mes para ver el detalle por programa y por asesor. ' +
-          'Dentro del detalle, la fila de Bachillerato se despliega por ciclo.</div>';
+          'Dentro del detalle, la fila de Bachillerato se despliega por ciclo y la de Educación continuada por curso.</div>';
 
   d.semestres.forEach(s => {
     h += `<h4 class="sub-h">${esc(s.titulo)} · ${esc(s.rango)}</h4>` +
@@ -3145,6 +3397,9 @@ function seccion(sede, d) {
         // por programa, con bachillerato desplegable
         h += '<div class="detail-pane">' +
              `<div class="detail-title">${m.mes} · por programa <span class="detail-count">${m.programas.length}</span></div>` +
+             `<div class="det-mix"><b>${N(m.y26)}</b> matrículas en ${m.mes.toLowerCase()} 2026 = <b>${N(m.y26 - (bachDe(m).y26 || 0))}</b> técnicos + ` +
+             `<b>${N(bachDe(m).y26 || 0)}</b> bachillerato` +
+             (ecMes(n) && (ecMes(n).y25 || ecMes(n).y26) ? ` · educación continuada aparte: <b>${N(ecMes(n).y26)}</b>` : '') + '</div>' +
              `<table class="prog-table"><thead>${HEAD('Programa')}</thead><tbody>`;
         m.programas.forEach(p => {
           if (p.prog === 'Bachillerato' && m.bachillerato.length) {
@@ -3158,6 +3413,7 @@ function seccion(sede, d) {
             h += `<tr><td class="prog-name">${esc(p.prog)}</td>${celdas(p)}</tr>`;
           }
         });
+        h += filaGrupoEC(sede, n, ecMes(n));
         h += '</tbody></table></div>';
         // por asesor
         const mx = m.meta_x_asesor
@@ -3191,8 +3447,11 @@ function seccion(sede, d) {
    [`2026 acumulado (ene–${m3})`, N(an.y26), null],
    ['Cumplimiento de meta anual', PC(an.cumpl), an.cumpl < 100 ? 'var(--bad)' : 'var(--good)'],
    ['Diferencia vs. año 2025', SG(an.diff), an.diff < 0 ? 'var(--bad)' : 'var(--good)'],
-   ['Falta para la meta anual', N(an.falta), 'var(--warn)']
-  ].forEach(([l, v, c]) => {
+   ['Falta para la meta anual', N(an.falta), 'var(--warn)'],
+   [`<i class="k-tec" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Técnicos 2026 (ene–${m3})`, N(an.y26 - b26), null],
+   [`<i class="k-bach" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Bachillerato 2026 (ene–${m3})`, N(b26), null]
+  ].concat(d.ec ? [[`<i class="k-ec" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px"></i>Educación continuada 2026 · aparte`, N(d.ec.y26), 'var(--ink-soft)']] : [])
+  .forEach(([l, v, c]) => {
     h += `<div class="year-cell"><span class="year-label">${l}</span>` +
          `<span class="year-val"${c ? ` style="color:${c}"` : ''}>${v}</span></div>`;
   });
@@ -3501,7 +3760,7 @@ async function cargarAdmisiones() {
       if (!d) throw new Error('La respuesta no trae datos de esta sede');
       if (d.error) throw new Error(d.error);
       quitarEducacionContinuada(d);
-      slot.innerHTML = seccion(sede, d) + bloqueEducacionContinuada(d);
+      slot.innerHTML = seccion(sede, d);
       conectarDesplegables(slot);
       if (sede === 'barranquilla') {
         const tb = document.getElementById('tablero-asesores');
