@@ -3687,6 +3687,11 @@ const ICSA_ENDPOINTS = [
 ];
 
 /* Pide por JSONP a cada URL hasta que una pase la prueba de forma. */
+/* Salones (aforo de aulas) tiene su propio Apps Script. */
+const SALONES_ENDPOINTS = [
+  'https://script.google.com/macros/s/AKfycbzmeLOmDhImwXX0xh-Bjkrj6IEoYAse35GCxYsLC9SGNz7wmU0RdYe2h0Jtyk7xQlM/exec'
+];
+
 function icsaBuscar(candidatas, valida, extra){
   return new Promise(resolve => {
     let i = 0;
@@ -4087,7 +4092,7 @@ function selloSalones(txt, estado){
    ninguno lo hace, se queda con los datos incrustados y lo dice en el sello. */
 async function cargarSalonesVivo(){
   selloSalones('⟳ actualizando…','stamp');
-  const r = await icsaBuscar(ICSA_ENDPOINTS, d => d && d.celdas && d.aulas && d.bloques);
+  const r = await icsaBuscar(SALONES_ENDPOINTS, d => d && d.celdas && d.aulas && d.bloques);
   if(!r){ selloSalones('⏺ datos del último corte manual','stamp'); return; }
   const d = r.datos;
   d.celdas.forEach(c=>{ if(!c.restr) c.restr=[]; if(!c.grupos) c.grupos=[]; });
