@@ -931,6 +931,10 @@
         <div class="item-left"><span class="dot" style="background:var(--pine)"></span> Campañas</div>
         <span class="item-tag">octubre</span>
       </div>
+      <div class="account-item" onclick="showAccount('tendencia', this)">
+        <div class="item-left"><span class="dot" style="background:var(--ochre)"></span> Tendencia nov–dic</div>
+        <span class="item-tag">BAQ</span>
+      </div>
     </nav>
 
     <div class="legend">
@@ -1842,7 +1846,7 @@
                     <tr><td class="prog-name">Diseño Gráfico</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Sistemas Informáticos</td><td>1</td><td>1</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−1</td><td class="delta neg">−1</td><td class="delta neg">−100,0%</td></tr>
                     <tr class="sub-row ec-grupo" tabindex="0" role="button" aria-expanded="false" aria-controls="rh-ecg-11" data-target="rh-ecg-11">
-                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 cursos · no suma</span></td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td>
+                      <td class="prog-name"><span class="chev chev-sm" aria-hidden="true"></span>Educación continuada <span class="row-tag">1 curso · no suma</span></td><td>0</td><td>—</td><td>1</td><td class="bar-cell"><span class="pct aparte">aparte</span></td><td class="delta">—</td><td class="delta pos">+1</td><td class="delta">—</td>
                     </tr>
                     <tr class="sub-detail-row" id="rh-ecg-11" hidden>
                       <td colspan="8" class="sub-detail-cell ec">
@@ -1863,8 +1867,8 @@
                   <thead><tr><th>Asesor</th><th>2025</th><th>Meta 2026</th><th>2026</th><th>Cumplimiento</th><th>Dif. meta</th><th>Dif. 2025</th><th>Vs. 2025</th></tr></thead>
                   <tbody>
                     <tr><td class="prog-name">Angel Correa</td><td>16</td><td>13</td><td>1</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:8%"></div></div><span class="pct">7,7%</span></td><td class="delta neg">−12</td><td class="delta neg">−15</td><td class="delta neg">−93,8%</td></tr>
-                    <tr><td class="prog-name">Daniela Muñoz</td><td>8</td><td>13</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−13</td><td class="delta neg">−8</td><td class="delta neg">−100,0%</td></tr>
                     <tr><td class="prog-name">Arturo Pimienta</td><td>6</td><td>13</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−13</td><td class="delta neg">−6</td><td class="delta neg">−100,0%</td></tr>
+                    <tr><td class="prog-name">Daniela Muñoz</td><td>8</td><td>13</td><td>0</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:0%"></div></div><span class="pct">0,0%</span></td><td class="delta neg">−13</td><td class="delta neg">−8</td><td class="delta neg">−100,0%</td></tr>
                   </tbody>
                 </table>
                 </div>
@@ -1875,7 +1879,7 @@
               <td class="mes-cell"><span class="chev chev-off" aria-hidden="true"></span>Diciembre</td>
               <td>48</td><td>62</td><td>—</td><td class="mix-col">—</td><td class="mix-col">—</td><td class="mix-col ec">—</td><td class="bar-cell"><span class="pct pending">pendiente</span></td><td class="delta">—</td><td class="delta">—</td><td class="delta">—</td>
             </tr>
-            <tr class="total-row"><td>Total 2026-3</td><td>127</td><td>165</td><td>57</td><td class="mix-col">55</td><td class="mix-col">2</td><td class="mix-col ec">24</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:35%"></div></div><span class="pct">34,5%</span></td><td class="delta neg">−108</td><td class="delta neg">−70</td><td class="delta neg">−55,1%</td></tr>
+            <tr class="total-row"><td>Total 2026-3</td><td>127</td><td>165</td><td>57</td><td class="mix-col">55</td><td class="mix-col">2</td><td class="mix-col ec">23</td><td class="bar-cell"><div class="bar-track"><div class="bar-fill fill-bad" style="width:35%"></div></div><span class="pct">34,5%</span></td><td class="delta neg">−108</td><td class="delta neg">−70</td><td class="delta neg">−55,1%</td></tr>
           </tbody>
         </table>
         </div>
@@ -2908,6 +2912,171 @@
     </section>
   </div>
   <!-- ============ FIN CAMPAÑAS ============ -->
+
+  <!-- ============ TENDENCIA NOV–DIC BAQ ============ -->
+  <style>
+  .td-ctrl{ display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; margin:0 0 14px; }
+  .td-seg{ display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .td-seg button{ font:600 12.5px 'Plus Jakarta Sans',sans-serif; color:var(--ink-soft); background:transparent;
+    border:0; padding:7px 13px; cursor:pointer; }
+  .td-seg button + button{ border-left:1px solid var(--line); }
+  .td-seg button.on{ background:var(--pine-dim); color:var(--pine); }
+  .td-seg button:focus-visible, .td-sel:focus-visible, .td-in:focus-visible{ outline:2px solid var(--pine); outline-offset:1px; }
+  .td-chk{ font-size:12.5px; color:var(--ink-soft); display:inline-flex; gap:6px; align-items:center; cursor:pointer; }
+  .td-sel, .td-in{ font:13px 'Plus Jakarta Sans',sans-serif; color:var(--ink); background:var(--paper); border:1px solid var(--line);
+    border-radius:7px; padding:6px 9px; }
+  .td-in{ min-width:180px; }
+  .td-ley{ display:flex; flex-wrap:wrap; gap:6px 16px; font-size:11.5px; color:var(--ink-soft); margin:10px 0 0; }
+  .td-ley i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px; }
+  .td-ley i.ln{ height:3px; width:14px; border-radius:2px; vertical-align:2px; }
+  .td-tabla tr.clic{ cursor:pointer; }
+  .td-tabla tr.clic:hover td{ background:rgba(255,255,255,.03); }
+  .td-tabla tr.sel td{ background:var(--pine-dim); }
+  .td-tabla th.ord{ cursor:pointer; user-select:none; }
+  .td-tabla th.ord:after{ content:' ↕'; color:var(--pending); }
+  .td-tabla td.l, .td-tabla th.l{ text-align:left; }
+  .td-tag{ display:inline-block; font:600 10.5px 'IBM Plex Mono',monospace; letter-spacing:.03em; padding:2px 6px;
+    border-radius:5px; margin:1px 4px 1px 0; white-space:nowrap; }
+  .td-tag.fes{ background:rgba(154,160,172,.18); color:var(--ink-soft); }
+  .td-tag.ev{ background:var(--bad-dim); color:var(--bad); }
+  .td-tag.pa{ background:var(--good-dim); color:var(--good); }
+  .td-tag.qu{ background:var(--ochre-dim); color:var(--ochre); }
+  .td-tabla tr.hoy td{ box-shadow:inset 0 1px 0 var(--pine), inset 0 -1px 0 var(--pine); }
+  .td-tabla tr.fut td{ color:var(--ink-soft); }
+  .td-tabla tr.dom td{ opacity:.55; }
+  .td-tabla td:first-child{ white-space:nowrap; }
+  .td-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:7px; vertical-align:0; }
+  .td-obs li{ margin-bottom:9px; line-height:1.55; }
+  .td-cont{ font:11px 'IBM Plex Mono',monospace; color:var(--pending); letter-spacing:.04em; }
+  .td-scroll{ max-height:520px; overflow:auto; }
+  .td-scroll thead th{ position:sticky; top:0; background:var(--paper-raised); z-index:1; }
+  </style>
+  <div class="account-page" id="acc-tendencia">
+    <div class="doc-header">
+      <div class="eyebrow">Comercial · Barranquilla</div>
+      <h1>Noviembre y diciembre, día a día</h1>
+      <div class="doc-sub">Cómo se matriculó cada día en noviembre y diciembre de 2025, qué descuentos y formas de pago se usaron, y cómo atacar esos mismos días en 2026.</div>
+      <div class="status-row" id="td-pills"></div>
+    </div>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">2025 como referencia y cómo va 2026</span>
+        <span class="block-num">01</span>
+      </div>
+      <div class="card full">
+        <div class="stat-row" id="td-kpis" style="margin-bottom:6px;"></div>
+        <div class="note">Conteo del registro de matrículas de Barranquilla con las mismas reglas del informe: no se cuentan las filas con MATRICULADO = NO, los duplicados (mismo documento, fecha y programa), caja registradora ni los cursos de educación continuada. Meta 2026 = el mismo mes de 2025 × 1,30. La pestaña de Barranquilla, que lee la hoja en vivo, es la cifra oficial; esta pestaña usa el archivo cargado y puede ir unos días atrás.</div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Matrículas por día</span>
+        <span class="block-num">02</span>
+      </div>
+      <div class="card full">
+        <div class="td-ctrl">
+          <div class="td-seg" data-k="mes"><button data-v="11" class="on">Noviembre</button><button data-v="12">Diciembre</button></div>
+          <div class="td-seg" data-k="alin"><button data-v="sem" class="on">Mismo día de la semana</button><button data-v="fecha">Misma fecha</button></div>
+          <label class="td-chk"><input type="checkbox" id="td-c24"> Ver también 2024</label>
+        </div>
+        <div class="cp-chart" id="td-dia"></div>
+        <div class="td-ley" id="td-ley-dia"></div>
+        <p class="sub-note">«Mismo día de la semana» pone debajo de cada fecha de 2026 el día de 2025 que cayó en el mismo día de la semana (364 días antes): así un sábado se compara con un sábado. Las marcas de color bajo cada barra muestran los descuentos o formas de pago anotados ese día. Pasa el cursor sobre un día para ver el detalle.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Acumulado del mes contra la meta</span>
+        <span class="block-num">03</span>
+      </div>
+      <div class="card full">
+        <div class="cp-chart" id="td-acum"></div>
+        <div class="td-ley" id="td-ley-acum"></div>
+        <p class="sub-note">La línea de meta reparte la meta del mes de 2026 con la misma forma que tuvo 2025, día por día de la semana. Si la línea de 2026 va por debajo, el mes va atrasado frente a lo que se necesita para llegar. Con «Mismo día de la semana», la curva de 2025 toma los días equivalentes (por ejemplo, del 2 de noviembre al 1 de diciembre de 2025), así que su total puede diferir un poco del mes calendario: noviembre de 2025 cerró en 53.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Qué días de la semana rinden</span>
+        <span class="block-num">04</span>
+      </div>
+      <div class="card full">
+        <div class="cp-chart" id="td-sem"></div>
+        <div class="td-ley" id="td-ley-sem"></div>
+        <div class="table-scroll" style="margin-top:14px">
+        <table class="matriculas-table td-tabla" id="td-sem-t"></table>
+        </div>
+        <p class="sub-note">«Promedio por día» = matrículas de ese día de la semana ÷ cuántas veces cayó ese día en el mes. Sirve para comparar sin que pese que un mes tenga cinco sábados y otro cuatro.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Descuentos y formas de pago</span>
+        <span class="block-num">05</span>
+      </div>
+      <div class="card full">
+        <div class="hint">Clasificado a partir de la columna de observaciones del registro. Haz clic en una fila para ver esas matrículas en el detalle de abajo.</div>
+        <div class="table-scroll">
+        <table class="matriculas-table td-tabla" id="td-desc"></table>
+        </div>
+        <p class="sub-note">Costos educativos habituales en nov–dic de 2025: $60.000 en técnicos y $200.000 en bachillerato. Con el descuento del 30% los costos educativos quedaron en $0 o $85.900.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Observaciones y cómo atacar 2026</span>
+        <span class="block-num">06</span>
+      </div>
+      <div class="card full">
+        <ul class="td-obs" id="td-obs"></ul>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Plan día a día 2026</span>
+        <span class="block-num">07</span>
+      </div>
+      <div class="card full">
+        <div class="td-ctrl">
+          <div class="td-seg" data-k="mes"><button data-v="11" class="on">Noviembre</button><button data-v="12">Diciembre</button></div>
+          <span class="td-cont" id="td-plan-res"></span>
+        </div>
+        <div class="table-scroll td-scroll">
+        <table class="matriculas-table td-tabla" id="td-plan"></table>
+        </div>
+        <p class="sub-note">Meta sugerida del día = meta del mes × (matrículas del día equivalente de 2025 ÷ total del mes equivalente de 2025). Las marcas señalan festivos, Black Friday, quincenas y la semana de pago de la prima, que en 2025 fueron los días de más movimiento en diciembre.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <span class="block-title">Detalle de matrículas</span>
+        <span class="block-num">08</span>
+      </div>
+      <div class="card full">
+        <div class="td-ctrl">
+          <select class="td-sel" id="td-f-mes" aria-label="Mes"></select>
+          <select class="td-sel" id="td-f-cat" aria-label="Descuento o forma de pago"></select>
+          <select class="td-sel" id="td-f-ase" aria-label="Asesor"></select>
+          <input class="td-in" id="td-f-q" type="search" placeholder="Buscar programa u observación" aria-label="Buscar">
+          <span class="td-cont" id="td-f-n"></span>
+        </div>
+        <div class="table-scroll td-scroll">
+        <table class="matriculas-table td-tabla" id="td-det"></table>
+        </div>
+        <p class="sub-note">Haz clic en el encabezado de una columna para ordenar. No se muestran nombres ni documentos de los estudiantes.</p>
+      </div>
+    </section>
+  </div>
+  <!-- ============ FIN TENDENCIA ============ -->
+
 
   <div class="account-page" id="acc-asesores">
     <div id="tablero-asesores">
@@ -4607,3 +4776,303 @@ const CAMP = {
 </script>
 </body>
 </html>
+<script>
+/* ═══ TENDENCIA NOV–DIC · BARRANQUILLA ═══
+ * Datos fijos del registro de matrículas de Barranquilla (archivo cargado).
+ * No usa ni toca el Apps Script de matrículas. */
+const TD = {"days":{"2024-11-02":{"n":1,"c":{"Sin observación":1}},"2024-11-06":{"n":3,"c":{"Sin observación":3}},"2024-11-08":{"n":1,"c":{"Sin observación":1}},"2024-11-13":{"n":1,"c":{"Sin observación":1}},"2024-11-14":{"n":1,"c":{"Sin observación":1}},"2024-11-19":{"n":2,"c":{"Sin observación":2}},"2024-11-20":{"n":2,"c":{"Sin observación":2}},"2024-11-21":{"n":3,"c":{"Sin observación":3}},"2024-11-22":{"n":2,"c":{"Sin observación":2}},"2024-11-23":{"n":2,"c":{"Sin observación":2}},"2024-11-25":{"n":5,"c":{"Sin observación":5}},"2024-11-26":{"n":6,"c":{"Sin observación":6}},"2024-11-27":{"n":3,"c":{"Sin observación":3}},"2024-11-28":{"n":4,"c":{"Sin observación":4}},"2024-11-29":{"n":5,"c":{"Sin observación":5}},"2024-11-30":{"n":5,"c":{"Sin observación":5}},"2024-12-02":{"n":1,"c":{"Sin observación":1}},"2024-12-03":{"n":1,"c":{"Sin observación":1}},"2024-12-04":{"n":2,"c":{"Sin observación":2}},"2024-12-05":{"n":2,"c":{"Sin observación":2}},"2024-12-06":{"n":6,"c":{"Sin observación":6}},"2024-12-10":{"n":6,"c":{"Sin observación":6}},"2024-12-11":{"n":6,"c":{"Sin observación":6}},"2024-12-12":{"n":6,"c":{"Sin observación":5,"Cajacopi":1}},"2024-12-13":{"n":11,"c":{"Sin observación":11}},"2024-12-14":{"n":1,"c":{"Sin observación":1}},"2024-12-16":{"n":10,"c":{"Sin observación":10}},"2024-12-17":{"n":7,"c":{"Sin observación":7}},"2024-12-18":{"n":7,"c":{"Sin observación":7}},"2024-12-19":{"n":2,"c":{"Sin observación":2}},"2024-12-20":{"n":7,"c":{"Sin observación":7}},"2024-12-21":{"n":1,"c":{"Sin observación":1}},"2024-12-23":{"n":8,"c":{"Sin observación":8}},"2024-12-24":{"n":1,"c":{"Sin observación":1}},"2024-12-26":{"n":8,"c":{"Sin observación":8}},"2024-12-27":{"n":8,"c":{"Sin observación":8}},"2024-12-28":{"n":3,"c":{"Sin observación":3}},"2024-12-30":{"n":9,"c":{"Sin observación":9}},"2024-12-31":{"n":3,"c":{"Sin observación":3}},"2025-12-17":{"n":6,"c":{"Sin observación":4,"Pago virtual":1,"Comfamiliar":1}},"2025-12-20":{"n":6,"c":{"Sin observación":4,"Dcto 10% semestre de contado":1,"Pago virtual":1}},"2025-11-01":{"n":6,"c":{"Pago virtual":1,"Sin observación":4,"Descuento 30%":1}},"2025-11-04":{"n":3,"c":{"Sin observación":1,"Pago virtual":1,"Descuento 30%":1}},"2025-11-06":{"n":2,"c":{"Descuento 30%":1,"Pago virtual":1}},"2025-11-07":{"n":3,"c":{"Pago virtual":3}},"2025-11-10":{"n":1,"c":{"Sin observación":1}},"2025-11-11":{"n":1,"c":{"Sin observación":1}},"2025-11-12":{"n":2,"c":{"Sin observación":2}},"2025-11-13":{"n":1,"c":{"Descuento 30%":1}},"2025-11-14":{"n":3,"c":{"Sin observación":1,"Pago virtual":1,"Descuento 30%":1}},"2025-11-15":{"n":7,"c":{"Pago virtual":1,"Descuento 30%":1,"Sin observación":5}},"2025-11-18":{"n":5,"c":{"Sin observación":4,"Cajacopi":1}},"2025-11-19":{"n":1,"c":{"Descuento 30%":1}},"2025-11-20":{"n":4,"c":{"Sin observación":3,"Descuento 30%":1}},"2025-11-21":{"n":1,"c":{"Sin observación":1}},"2025-11-22":{"n":2,"c":{"Sin observación":2}},"2025-11-24":{"n":1,"c":{"Sin observación":1}},"2025-11-25":{"n":1,"c":{"Pago virtual":1}},"2025-11-26":{"n":1,"c":{"Black Friday 10%":1}},"2025-11-28":{"n":4,"c":{"Black Friday 10%":2,"Cajacopi":1,"Sin observación":1}},"2025-11-29":{"n":4,"c":{"Sin observación":3,"Cajacopi":1}},"2025-12-01":{"n":4,"c":{"Sin observación":3,"Pago virtual":1}},"2025-12-02":{"n":2,"c":{"Sin observación":2}},"2025-12-03":{"n":3,"c":{"Sin observación":2,"Pago virtual":1}},"2025-12-04":{"n":2,"c":{"Comfamiliar":1,"Sin observación":1}},"2025-12-05":{"n":1,"c":{"Descuento 20%":1}},"2025-12-06":{"n":1,"c":{"Sin observación":1}},"2025-12-09":{"n":5,"c":{"Cajacopi":1,"Sin observación":3,"Descuento 10%":1}},"2025-12-10":{"n":6,"c":{"Sin observación":4,"Descuento 20%":1,"Pago virtual":1}},"2025-12-11":{"n":4,"c":{"Comfamiliar":1,"Pago virtual":1,"Sin observación":1,"Cajacopi":1}},"2025-12-12":{"n":4,"c":{"Sin observación":3,"Pago virtual":1}},"2025-12-13":{"n":2,"c":{"Sin observación":1,"Pago virtual":1}},"2025-12-15":{"n":5,"c":{"Sin observación":1,"Pago virtual":4}},"2025-12-16":{"n":7,"c":{"Sin observación":3,"Pago virtual":3,"Cesantías":1}},"2025-12-18":{"n":5,"c":{"Sistecrédito":1,"Sin observación":1,"Pago virtual":3}},"2025-12-19":{"n":2,"c":{"Sin observación":2}},"2025-12-22":{"n":2,"c":{"Sin observación":1,"Dcto 10% semestre de contado":1}},"2025-12-23":{"n":1,"c":{"Pago virtual":1}},"2025-12-24":{"n":2,"c":{"Sin observación":2}},"2025-12-26":{"n":6,"c":{"Sin observación":3,"Pago virtual":3}},"2025-12-27":{"n":3,"c":{"Pago virtual":1,"Sin observación":2}},"2025-12-29":{"n":1,"c":{"Pago virtual":1}},"2025-12-30":{"n":10,"c":{"Pago virtual":2,"Presencial":2,"Sin observación":5,"Cajacopi":1}},"2025-12-31":{"n":3,"c":{"Sin observación":3}},"2026-11-03":{"n":1,"c":{"Dcto 10% matrícula virtual":1}},"2026-11-04":{"n":1,"c":{"Dcto 10% matrícula virtual":1}},"2026-11-05":{"n":1,"c":{"Cesantías":1}},"2026-11-07":{"n":2,"c":{"Dcto 10% matrícula virtual":1,"Sin observación":1}},"2026-11-09":{"n":1,"c":{"Sin observación":1}}},"rows":[["2025-11-01","Auxiliar en Clínica Veterinaria","Dominical","Indira",60000,180500,"Sin observación","","Facebook"],["2025-11-01","Auxiliar en Enfermería","Lunes a Jueves 2 pm a 4 pm","Andres",60000,130000,"Sin observación","","Facebook"],["2025-11-01","Auxiliar en Servicios Farmacéuticos","Sábados 7 am a 12 m","Indira",60000,180500,"Sin observación","","Facebook"],["2025-11-01","Cocinero Principal","Martes y Jueves 8 am a 12 m","Keyla",60000,140000,"Pago virtual","Pago Virtual","Voz a Voz"],["2025-11-01","Inglés Conversacional","Lunes a Jueves 4 pm a 6 pm","Andres",85900,180500,"Descuento 30%","Dcto 30%","Facebook"],["2025-11-01","Mecánico de Vehículos Automotores","Viernes Mañana","Andres",60000,180500,"Sin observación","","Facebook"],["2025-11-04","Inglés Conversacional","Lunes a Jueves 6 am a 8 am","Indira",200000,180500,"Descuento 30%","Dcto 30%","Facebook"],["2025-11-04","Marketing Digital","Lunes a Jueves 8 am a 10 am","Indira",60000,40000,"Sin observación","","Facebook"],["2025-11-04","Patronaje, Cortador y Confecciones de Moda","Sábados 7 am a 12 m","Indira",60000,120500,"Pago virtual","Pago Virtual","Facebook"],["2025-11-06","Auxiliar en Clínica Veterinaria","Lunes a Jueves 6 am a 8 am","Keyla",0,168400,"Descuento 30%","Dcto 30%","Voz a Voz"],["2025-11-06","Patronaje, Cortador y Confecciones de Moda","Sábados 7 am a 12 m","Keyla",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-11-07","Bachillerato por Ciclo (10°)","Mañana","Keyla",150000,184400,"Pago virtual","Pago Virtual","Página Web"],["2025-11-07","Marketing Digital","Dominical","Keyla",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-11-07","Patronaje, Cortador y Confecciones de Moda","Sábados 7 am a 12 m","Indira",60000,120500,"Pago virtual","Pago Virtual","Facebook"],["2025-11-10","Marketing Digital","Lunes a Jueves 8 am a 10 am","Andres",60000,187100,"Sin observación","","Facebook"],["2025-11-11","Auxiliar Administrativo","Nocturno","Keyla",0,100000,"Sin observación","","Facebook"],["2025-11-12","Cosmetología y Estética Integral","Lunes a Jueves 2 pm a 4 pm","Andres",60000,190700,"Sin observación","","Facebook"],["2025-11-12","Seguridad Ocupacional y Laboral","Lunes a Jueves 8 am a 10 am","Andres",60000,164800,"Sin observación","","Facebook"],["2025-11-13","Cocinero Principal","Nocturno","Andres",0,168400,"Descuento 30%","Dcto 30%","Facebook"],["2025-11-14","Inglés Conversacional","Lunes a Jueves 6 am a 8 am","Keyla",85900,180500,"Descuento 30%","Dcto 30% Matricula","Facebook"],["2025-11-14","Inglés Conversacional","Lunes a Jueves 8 am a 10 am","Keyla",200000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-11-14","Seguridad Ocupacional y Laboral","Dominical","Andres",60000,164800,"Sin observación","","Facebook"],["2025-11-15","Bachillerato por Ciclo (10°)","Mañana","Keyla",200000,200000,"Pago virtual","Pago Virtual","Por Sí Mismo"],["2025-11-15","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",150000,184400,"Sin observación","","Facebook"],["2025-11-15","Cocinero Principal","Lunes a Jueves 6:30 pm a 8:30 pm","Indira",0,168400,"Descuento 30%","30% Dcto","Facebook"],["2025-11-15","Inv. Judicial y Criminalística","Sábados 1 pm a 6 pm","Andres",60000,180500,"Sin observación","","Facebook"],["2025-11-15","Marketing Digital","Lunes a Jueves 8 am a 10 am","Andres",60000,180500,"Sin observación","","Facebook"],["2025-11-15","Mecánico de Vehículos Automotores","Sábados 7 am a 12 m","Andres",60000,180500,"Sin observación","","Facebook"],["2025-11-15","Seguridad Ocupacional y Laboral","Sábados 7 am a 12 m","Indira",60000,164800,"Sin observación","","Facebook"],["2025-11-18","Auxiliar en Suministros y Almacen","Lunes a Jueves 2 pm a 4 pm","Andres",60000,164800,"Sin observación","","Facebook"],["2025-11-18","Bachillerato Ciclo Vi (11°)","Metro - Mañana","Keyla",200000,200000,"Sin observación","","Facebook"],["2025-11-18","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,0,"Sin observación","","Facebook"],["2025-11-18","Cocinero Principal","Dominical","Keyla",60000,0,"Cajacopi","Cajacopi","Facebook"],["2025-11-18","Cosmetología y Estética Integral","Sábados 1 pm a 6 pm","Keyla",60000,190700,"Sin observación","","Facebook"],["2025-11-19","Inglés Conversacional","Lunes a Jueves 4 pm a 6 pm","Andres",85900,180500,"Descuento 30%","Dcto 30%","Facebook"],["2025-11-20","Bachillerato por Ciclo (10°)","Mañana","Keyla",200000,200000,"Sin observación","","Voz a Voz"],["2025-11-20","Inglés Conversacional","Lunes a Jueves 4 pm a 6 pm","Keyla",85900,180500,"Descuento 30%","Dcto 30%","Página Web"],["2025-11-20","Inv. Judicial y Criminalística","Lunes a Jueves 2 pm a 4 pm","Andres",60000,180500,"Sin observación","","Facebook"],["2025-11-20","Mecánico de Vehículos Automotores","Sábados 7 am a 12 m","Indira",60000,180500,"Sin observación","","Voz a Voz"],["2025-11-21","Marketing Digital","Lunes a Jueves 8 am a 10 am","Keyla",60000,180500,"Sin observación","","Facebook"],["2025-11-22","Auxiliar en Servicios Farmacéuticos","Lunes a Jueves 6:30 pm a 8:30 pm","Keyla",60000,180500,"Sin observación","","Facebook"],["2025-11-22","Inglés Conversacional","Lunes a Jueves 8 am a 10 am","Andres",85900,180500,"Sin observación","","Facebook"],["2025-11-24","Bachillerato por Ciclo (10°)","Lunes a Viernes 7:30 am a 12:30 m","Indira",200000,200000,"Sin observación","","Facebook"],["2025-11-25","Cosmetología y Estética Integral","Sábados 7 am a 12 m","Keyla",60000,190700,"Pago virtual","Pago Virtual","Facebook"],["2025-11-26","Auxiliar Administrativo en Salud","Sábados 7 am a 12 m","Andres",60000,163500,"Black Friday 10%","Dcto 10% - Black Friday","Facebook"],["2025-11-28","Bachillerato por Ciclo (10°)","Tarde - Virtual","Andres",200000,180000,"Black Friday 10%","Dcto 10% - Black Friday","Facebook"],["2025-11-28","Bachillerato por Ciclo (8°)","Mañana","Keyla",200000,0,"Cajacopi","Proceso Cajacopi","Página Web"],["2025-11-28","Bachillerato por Ciclo (9°)","Metro - Tarde","Andres",200000,180000,"Black Friday 10%","Dcto 10% - Black Friday","Facebook"],["2025-11-28","Cosmetología y Estética Integral","Sábados 7 am a 12 m","Keyla",60000,190700,"Sin observación","","Facebook"],["2025-11-29","Auxiliar Contable y Financiero","Sábados Tarde","Alfonso",60000,0,"Cajacopi","Proceso Cajacopi","Facebook"],["2025-11-29","Auxiliar en Enfermería","Lunes a Jueves 8 am a 10 am","Andres",60000,40000,"Sin observación","","Facebook"],["2025-11-29","Auxiliar en Servicios Farmacéuticos","Sábados 1 pm a 6 pm","Andres",60000,180500,"Sin observación","","Facebook"],["2025-11-29","Inglés Conversacional","Lunes a Jueves 10 am a 12 m","Keyla",200000,180500,"Sin observación","","Facebook"],["2025-12-01","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,0,"Sin observación","","Facebook"],["2025-12-01","Cosmetología y Estética Integral","Lunes a Jueves 10 am a 12 m","Andres",60000,190700,"Sin observación","","Facebook"],["2025-12-01","Estilista Integral en Peluquería","Sábados 7 am a 12 m","Keyla",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-01","Peluquería y Estética Canina","Dominical","Indira",60000,140000,"Sin observación","","Facebook"],["2025-12-02","Bachillerato por Ciclo (10°)","Mañana","Indira",200000,0,"Sin observación","","Facebook"],["2025-12-02","Bachillerato por Ciclo (10°)","Mañana","Keyla",200000,200000,"Sin observación","","Facebook"],["2025-12-03","Cosmetología y Estética Integral","Sábados 1 pm a 6 pm","Alfonso",60000,190700,"Pago virtual","Pago Virtual","Facebook"],["2025-12-03","Estilista Integral en Peluquería","Lunes a Jueves 8 am a 10 am","Keyla",60000,180500,"Sin observación","","Facebook"],["2025-12-03","Mecánico de Vehículos Automotores","Nocturno","Andres",0,168400,"Sin observación","","Facebook"],["2025-12-04","Bachillerato por Ciclo (10°)","Metro - Mañana","Alfonso",200000,0,"Sin observación","","Facebook"],["2025-12-04","Bachillerato por Ciclo (8°)","Metro - Mañana","Andres",200000,200000,"Comfamiliar","Comfamiliar","Facebook"],["2025-12-05","Cosmetología y Estética Integral","Sábados 7 am a 12 m","Andres",60000,154700,"Descuento 20%","Dcto del 20%","Página Web"],["2025-12-06","Bachillerato por Ciclo (9°)","Metro - Mañana","Andres",200000,200000,"Sin observación","","Facebook"],["2025-12-09","Asistente de Primera Infancia","Sábados 7 am a 12 m","Andres",60000,180500,"Sin observación","","Facebook"],["2025-12-09","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,200000,"Sin observación","","Facebook"],["2025-12-09","Bachillerato por Ciclo (10°)","Metro - Mañana","Indira",200000,200000,"Sin observación","","Facebook"],["2025-12-09","Bachillerato por Ciclo (10°)","Metro - Mañana","Indira",200000,900000,"Descuento 10%","10% Dcto","Facebook"],["2025-12-09","Patronaje, Cortador y Confecciones de Moda","Sábados 1 pm a 6 pm","Andres",60000,0,"Cajacopi","Cajacopi","Facebook"],["2025-12-10","Auxiliar en Salud Oral","Lunes a Jueves 4 pm a 6 pm","Andres",60000,180500,"Sin observación","","Facebook"],["2025-12-10","Bachillerato por Ciclo (10°)","Metro - Mañana","Indira",200000,200000,"Sin observación","","Facebook"],["2025-12-10","Bachillerato por Ciclo (9°)","Metro - Mañana","Andres",200000,0,"Sin observación","","Facebook"],["2025-12-10","Cejas y Pestañas","Lunes a Jueves 10 am a 12 m","Andres",0,60000,"Sin observación","","Facebook"],["2025-12-10","Cosmetología y Estética Integral","Dominical","Keyla",60000,190700,"Pago virtual","Pago Virtual","Facebook"],["2025-12-10","Marketing Digital","Sábados 7 am a 12 m","Andres",60000,146500,"Descuento 20%","Dcto del 20%","Facebook"],["2025-12-11","Auxiliar en Enfermería","Lunes a Jueves 10 am a 12 m","Keyla",60000,180500,"Sin observación","","Facebook"],["2025-12-11","Bachillerato por Ciclo (10°)","Metro - Mañana","Keyla",200000,0,"Pago virtual","Pago Virtual","Facebook"],["2025-12-11","Bachillerato por Ciclo (10°)","Metro - Tarde","Andres",200000,0,"Comfamiliar","Comfamiliar","Facebook"],["2025-12-11","Patronaje, Cortador y Confecciones de Moda","Sábados 1 pm a 6 pm","Andres",60000,20000,"Cajacopi","Cajacopi","Facebook"],["2025-12-12","Auxiliar en Suministros y Almacen","Sábados 1 pm a 6 pm","Andres",60000,164800,"Sin observación","","Facebook"],["2025-12-12","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,200000,"Sin observación","","Facebook"],["2025-12-12","Bachillerato por Ciclo (10°)","Sábados 7 am a 12 m","Keyla",200000,200000,"Sin observación","","Voz a Voz"],["2025-12-12","Inv. Judicial y Criminalística","Sábados 1 pm a 6 pm","Indira",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-13","Auxiliar en Suministros y Almacen","Sábados 1 pm a 6 pm","Keyla",60000,164800,"Pago virtual","Pago Virtual","Facebook"],["2025-12-13","Patronaje, Cortador y Confecciones de Moda","Sábados 1 pm a 6 pm","Andres",60000,40000,"Sin observación","","Facebook"],["2025-12-15","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,200000,"Sin observación","","Facebook"],["2025-12-15","Bachillerato por Ciclo (9°)","Metro - Mañana","Indira",100000,0,"Pago virtual","Abono Virtual","Facebook"],["2025-12-15","Cosmetología y Estética Integral","Lunes a Jueves 10 am a 12 m","Indira",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-15","Mecánico de Vehículos Automotores","Lunes a Jueves 10 am a 12 m","Indira",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-15","Peluquería y Estética Canina","Dominical","Lissette",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-16","Auxiliar en Clínica Veterinaria","Lunes a Jueves 10 am a 12 m","Indira",60000,140000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-16","Bachillerato por Ciclo (9°)","Metro - Mañana","Lissette",200000,0,"Sin observación","","Facebook"],["2025-12-16","Panadería y Repostería","Sábados 7 am a 12 m","Indira",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-16","Panadería y Repostería","Sábados 7 am a 12 m","Indira",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-16","Refrigeración de Aires Acondicionados","Sábados 1 pm a 6 pm","Andres",60000,160000,"Sin observación","","Facebook"],["2025-12-16","Seguridad Ocupacional y Laboral","Rotativos","Andres",60000,164800,"Sin observación","","Facebook"],["2025-12-16","Seguridad Ocupacional y Laboral","Sábados 7 am a 12 m","Keyla",60000,0,"Cesantías","Cesantias","Instagram"],["2025-12-17","Bachillerato por Ciclo (10°)","Lunes a Viernes 7:30 am a 12:30 m","Indira",200000,200000,"Comfamiliar","Proceso Con Comfamiliar","Facebook"],["2025-12-17","Bachillerato por Ciclo (9°)","Metro - Mañana","Andres",200000,0,"Sin observación","","Facebook"],["2025-12-17","Cosmetología y Estética Integral","Nocturno","Deyanira",60000,180000,"Sin observación","","Facebook"],["2025-12-17","Estilista Integral en Peluquería","Martes y Jueves 8 am a 12 m","Andres",60000,180500,"Sin observación","","Facebook"],["2025-12-17","Marketing Digital","Lunes a Jueves 8 am a 10 am","Indira",60000,180500,"Sin observación","","Facebook"],["2025-12-17","Refrigeración de Aires Acondicionados","Dominical","Keyla",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-18","Auxiliar Administrativo","Sábados 7 am a 12 m","Indira",60000,164800,"Pago virtual","Pago Virtual","Facebook"],["2025-12-18","Auxiliar en Clínica Veterinaria","Lunes a Jueves 10 am a 12 m","Andres",60000,180500,"Sin observación","","Facebook"],["2025-12-18","Marketing Digital","Nocturno","Andres",60000,180500,"Sistecrédito","Sistecredito","Facebook"],["2025-12-18","Patronaje, Cortador y Confecciones de Moda","Sábados 7 am a 12 m","Indira",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-18","Patronaje, Cortador y Confecciones de Moda","Sábados 7 am a 12 m","Indira",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-19","Bachillerato por Ciclo (10°)","Metro - Mañana","Keyla",200000,200000,"Sin observación","","Facebook"],["2025-12-19","Bachillerato por Ciclo (8°)","Metro - Mañana","Keyla",200000,200000,"Sin observación","","Facebook"],["2025-12-20","Auxiliar Administrativo en Salud","Sábados 1 pm a 6 pm","Lissette",60000,40000,"Pago virtual","Virtual","Facebook"],["2025-12-20","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,0,"Sin observación","","Facebook"],["2025-12-20","Bachillerato por Ciclo (9°)","Metro - Mañana","Keyla",200000,200000,"Sin observación","","Facebook"],["2025-12-20","Inglés Conversacional","Lunes a Jueves 6:30 pm a 8:30 pm","Keyla",200000,817000,"Dcto 10% semestre de contado","Dcto 10% por Semestre de Contado","Voz a Voz"],["2025-12-20","Inglés Conversacional","Nocturno","Deyanira",150000,141891,"Sin observación","","Facebook"],["2025-12-20","Refrigeración de Aires Acondicionados","Sábados 7 am a 12 m","Andres",60000,160000,"Sin observación","","Facebook"],["2025-12-22","Auxiliar en Enfermería","Lunes a Jueves 8 am a 10 am","Andres",60000,40000,"Sin observación","","Facebook"],["2025-12-22","Bachillerato por Ciclo (10°)","Tarde - Virtual","Keyla",200000,900000,"Dcto 10% semestre de contado","Dcto 10% por Semestre de Contado","Facebook"],["2025-12-23","Refrigeración de Aires Acondicionados","Sábados 7 am a 12 m","Lissette",60000,40000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-24","Bachillerato Ciclo Vi (11°)","Metro - Mañana","Indira",200000,200000,"Sin observación","","Facebook"],["2025-12-24","Seguridad Ocupacional y Laboral","Lunes a Jueves 8 am a 10 am","Keyla",60000,164800,"Sin observación","","Facebook"],["2025-12-26","Inglés Conversacional","Lunes a Jueves 2 pm a 4 pm","Andres",200000,180500,"Sin observación","","Facebook"],["2025-12-26","Inglés Conversacional","Nocturno","Andres",200000,180500,"Sin observación","","Facebook"],["2025-12-26","Marketing Digital","Lunes a Jueves 2 pm a 4 pm","Lissette",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-26","Mecánico de Vehículos Automotores","Sábados 7 am a 12 m","Andres",60000,180500,"Sin observación","","Facebook"],["2025-12-26","Patronaje, Cortador y Confecciones de Moda","Sábados 1 pm a 6 pm","Keyla",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-26","Patronaje, Cortador y Confecciones de Moda","Sábados 7 am a 12 m","Indira",60000,180500,"Pago virtual","Pago Virtual","Voz a Voz"],["2025-12-27","Inglés Conversacional","Sábados 7 am a 12 m","Keyla",200000,180500,"Sin observación","","Facebook"],["2025-12-27","Patronaje, Cortador y Confecciones de Moda","Lunes y Miercoles 2 pm a 6 pm","Andres",60000,361000,"Sin observación","","Facebook"],["2025-12-27","Refrigeración de Aires Acondicionados","Sábados 1 pm a 6 pm","Lissette",60000,140000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-29","Cosmetología y Estética Integral","Sábados 7 am a 12 m","Keyla",60000,190700,"Pago virtual","Pago Virtual","Página Web"],["2025-12-30","Auxiliar Contable y Financiero","Sábados 7 am a 12 m","Andres",60000,164800,"Sin observación","","Facebook"],["2025-12-30","Auxiliar en Salud Oral","Lunes a Jueves 10 am a 12 m","Keyla",60000,180500,"Sin observación","","Página Web"],["2025-12-30","Cocinero Principal","Martes y Jueves 8 am a 12 m","Lissette",60000,1040000,"Presencial","Presencial","Facebook"],["2025-12-30","Cosmetología y Estética Integral","Sábados 1 pm a 6 pm","Andres",60000,140000,"Sin observación","","Facebook"],["2025-12-30","Marketing Digital","Dominical","Keyla",60000,60000,"Pago virtual","Pago Virtual","Facebook"],["2025-12-30","Marketing Digital","Nocturno","Andres",60000,180500,"Sin observación","","Facebook"],["2025-12-30","Panadería y Repostería","Dominical","Lissette",60000,110000,"Presencial","Presencial","Facebook"],["2025-12-30","Patronaje, Cortador y Confecciones de Moda","Sábados 1 pm a 6 pm","Lissette",60000,180500,"Pago virtual","Pago Virtual","Facebook"],["2025-12-30","Refrigeración de Aires Acondicionados","Sábados 7 am a 12 m","Andres",60000,160000,"Sin observación","","Facebook"],["2025-12-30","Seguridad Ocupacional y Laboral","Lunes a Jueves 8 am a 10 am","Keyla",60000,null,"Cajacopi","Cajacopi","Facebook"],["2025-12-31","Auxiliar en Enfermería","Sábados 7 am a 12 m","Andres",60000,60000,"Sin observación","","Facebook"],["2025-12-31","Bachillerato por Ciclo (10°)","Metro - Mañana","Andres",200000,200000,"Sin observación","","Facebook"],["2025-12-31","Bachillerato por Ciclo (9°)","Metro - Mañana","Andres",200000,200000,"Sin observación","","Facebook"],["2026-11-03","Mecánico de Vehículos Automotores","Dominical","Andres",0,100000,"Dcto 10% matrícula virtual","Dcto del 10% en la Primera Cuota - Matricula Virtual","Meta Ads"],["2026-11-04","Estilista Integral en Peluquería","Sábados Mañana","Andres",0,100000,"Dcto 10% matrícula virtual","Dcto 10% en la Primera Cuota - Matricula Virtual","Meta Ads"],["2026-11-05","Auxiliar en Clínica Veterinaria","Lunes a Jueves 8 am a 10 am","Andres",70000,0,"Cesantías","Proceso de Cesantias","Meta Ads"],["2026-11-07","Estilista Integral en Peluquería","Sábados Mañana","Luz Angela",70000,187400,"Sin observación","","Meta Ads"],["2026-11-07","Inglés Conversacional","Sábados Mañana","Luz Angela",210000,187400,"Dcto 10% matrícula virtual","Dcto del 10% ´Por Realizar la Matricula Virtual","Meta Ads"],["2026-11-09","Bachillerato por Ciclo (8°)","Metro - Mañana","Luz Angela",320000,640000,"Sin observación","Periodo \"2027-1\" No Esta en la Lista de la Hoja","Meta Ads"]],"corte":"2026-11-09","meta":{"11":69,"12":121},"base":{"11":53,"12":93},"festivos":["2025-11-03","2025-11-17","2025-12-08","2025-12-25","2026-11-02","2026-11-16","2026-12-08","2026-12-25","2024-11-04","2024-11-11","2024-12-08","2024-12-25"],"eventos":{"2025-11-28":"Black Friday","2026-11-27":"Black Friday"}};
+(function () {
+  const $ = id => document.getElementById(id);
+  if (!$('acc-tendencia')) return;
+  const n = v => Number(v).toLocaleString('es-CO');
+  const p1 = v => (Math.round(v * 10) / 10).toFixed(1).replace('.', ',');
+  const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const DIA = ['dom','lun','mar','mié','jue','vie','sáb'];
+  const MESC = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const MESL = {11:'noviembre', 12:'diciembre'};
+  const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const pd = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+  const mas = (d, k) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + k);
+  const cnt = k => (TD.days[k] || {}).n || 0;
+  const cats = k => (TD.days[k] || {}).c || {};
+  const corte = pd(TD.corte);
+  const fes = new Set(TD.festivos);
+  const COL = {
+    'Pago virtual':'#8C9EFF', 'Descuento 30%':'#F4C430', 'Descuento 20%':'#F2994A', 'Descuento 10%':'#E8B86D',
+    'Dcto 10% semestre de contado':'#C9A227', 'Dcto 10% matrícula virtual':'#F48FB1', 'Black Friday 10%':'#B490F5',
+    'Evento: costos gratis':'#EF6461', 'Cajacopi':'#6FCF97', 'Comfamiliar':'#4DB6AC', 'Sistecrédito':'#9CCC65',
+    'Cesantías':'#81C784', 'Presencial':'#9AA0AC', 'Sin observación':'#5B6068'
+  };
+  const st = { mes: 11, alin: 'sem', c24: false, fMes: 'todo', fCat: 'todas', fAse: 'todos', q: '', ord: [0, 1] };
+  const diasMes = (y, m) => { const o = []; for (let d = new Date(y, m - 1, 1); d.getMonth() === m - 1; d = mas(d, 1)) o.push(d); return o; };
+  const ref = (d, anios) => st.alin === 'sem' ? mas(d, -364 * anios) : new Date(d.getFullYear() - anios, d.getMonth(), d.getDate());
+  const fmt = d => `${DIA[d.getDay()]} ${d.getDate()} ${MESC[d.getMonth()]}`;
+  const marcas = d => {
+    const k = iso(d), t = [];
+    if (fes.has(k)) t.push(['fes', 'festivo']);
+    if (TD.eventos[k]) t.push(['ev', TD.eventos[k]]);
+    if (d.getDate() === 15 || d.getDate() === 30) t.push(['qu', 'quincena']);
+    if (d.getMonth() === 11 && d.getDate() >= 14 && d.getDate() <= 20) t.push(['pa', 'prima']);
+    return t;
+  };
+  const catTxt = c => Object.entries(c).filter(([k]) => k !== 'Sin observación')
+                       .map(([k, v]) => `${k} ×${v}`).join(' · ');
+
+  /* plan de 2026: la meta del mes repartida con la forma de 2025 (mismo día de la semana) */
+  function plan(m) {
+    const ds = diasMes(2026, m), r = ds.map(d => cnt(iso(mas(d, -364))));
+    const S = r.reduce((a, b) => a + b, 0) || 1, meta = TD.meta[m];
+    let acc = 0, real = 0;
+    return ds.map((d, i) => {
+      const p = meta * r[i] / S; acc += p;
+      const pasado = d <= corte, v = pasado ? cnt(iso(d)) : null;
+      if (pasado) real += v;
+      return { d, ref: mas(d, -364), r: r[i], p, acc, v, real: pasado ? real : null };
+    });
+  }
+  const habiles = (desde, hasta) => { let k = 0; for (let d = desde; d <= hasta; d = mas(d, 1)) if (d.getDay() !== 0 && !fes.has(iso(d))) k++; return k; };
+
+  /* ── pills y KPIs ── */
+  $('td-pills').innerHTML =
+    `<span class="pill src">📅 Registro de Barranquilla con corte al ${corte.getDate()} de ${MESL[corte.getMonth() + 1] || MESC[corte.getMonth()]} de 2026</span>` +
+    `<span class="pill stamp">Sin educación continuada</span>`;
+  (function kpis() {
+    const P = plan(11), hoy = P.filter(x => x.v !== null), lleva = hoy.length ? hoy[hoy.length - 1].real : 0;
+    const planHoy = hoy.length ? hoy[hoy.length - 1].acc : 0;
+    const finNov = new Date(2026, 10, 30), falta = Math.max(0, TD.meta[11] - lleva);
+    const hab = habiles(mas(corte, 1), finNov);
+    const k = (num, lab, mix, col) => `<div class="stat"><div class="num"${col ? ` style="color:var(--${col})"` : ''}>${num}</div><div class="label">${lab}</div>${mix ? `<div class="mix">${mix}</div>` : ''}</div>`;
+    $('td-kpis').innerHTML =
+      k(n(TD.base[11]), 'matrículas en noviembre de 2025', `Meta noviembre 2026: <b>${n(TD.meta[11])}</b>`) +
+      k(n(TD.base[12]), 'matrículas en diciembre de 2025', `Meta diciembre 2026: <b>${n(TD.meta[12])}</b>`) +
+      k(n(lleva), `noviembre de 2026 al ${corte.getDate()} de ${MESC[corte.getMonth()]}`, `El plan pedía <b>${n(Math.round(planHoy))}</b> a esta fecha`, lleva >= planHoy ? 'good' : 'bad') +
+      k(p1(hab ? falta / hab : 0), `matrículas por día hábil para llegar a ${n(TD.meta[11])}`, `Faltan <b>${n(falta)}</b> en ${hab} días (lun–sáb, sin festivos)`, 'warn');
+  })();
+
+  /* ── tooltip común ── */
+  function tipEn(box, hits, html) {
+    const tip = box.querySelector('.cp-tip');
+    box.querySelectorAll(hits).forEach(el => {
+      el.addEventListener('mousemove', ev => {
+        const b = box.getBoundingClientRect();
+        tip.innerHTML = html(el); tip.hidden = false;
+        const x = Math.min(Math.max(ev.clientX - b.left, 120), b.width - 120);
+        tip.style.left = x + 'px'; tip.style.top = (ev.clientY - b.top) + 'px';
+      });
+      el.addEventListener('mouseleave', () => { tip.hidden = true; });
+    });
+  }
+
+  /* ── 02 · barras por día ── */
+  function grafDia() {
+    const m = st.mes, ds = diasMes(2026, m);
+    const D = ds.map(d => {
+      const r25 = ref(d, 1), r24 = ref(d, 2);
+      return { d, r25, r24, a: cnt(iso(r25)), b: d <= corte ? cnt(iso(d)) : null, c: cnt(iso(r24)), cat: cats(iso(r25)) };
+    });
+    const W = 860, izq = 34, der = 10, arriba = 10, alto = 220, abajo = 64;
+    const max = Math.max(4, ...D.map(x => Math.max(x.a, x.b || 0, st.c24 ? x.c : 0)));
+    const paso = max > 12 ? 4 : 2, tope = Math.ceil(max / paso) * paso;
+    const y = v => arriba + alto - alto * v / tope, cw = (W - izq - der) / ds.length, bw = Math.min(11, cw * 0.34);
+    let g = '';
+    for (let v = 0; v <= tope; v += paso)
+      g += `<line class="grid" x1="${izq}" x2="${W - der}" y1="${y(v)}" y2="${y(v)}"/><text class="eje" x="${izq - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+    D.forEach((x, i) => {
+      const cx = izq + cw * i + cw / 2, dom = x.d.getDay() === 0;
+      if (x.a) g += `<rect x="${cx - bw - 1}" y="${y(x.a)}" width="${bw}" height="${y(0) - y(x.a)}" rx="2" fill="rgba(154,160,172,.38)" stroke="#9AA0AC" stroke-width="1"/>`;
+      if (x.b) g += `<rect x="${cx + 1}" y="${y(x.b)}" width="${bw}" height="${y(0) - y(x.b)}" rx="2" fill="var(--pine)"/>`;
+      if (st.c24 && x.c) g += `<circle cx="${cx}" cy="${y(x.c)}" r="3.2" fill="var(--ochre)"/>`;
+      let cy = y(0) + 8;
+      Object.entries(x.cat).filter(([k]) => k !== 'Sin observación').forEach(([k, v]) => {
+        for (let j = 0; j < v && j < 4; j++) { g += `<rect x="${cx - 3.5}" y="${cy}" width="7" height="5" rx="1" fill="${COL[k] || '#888'}"/>`; cy += 6.5; }
+      });
+      const mk = marcas(x.d);
+      g += `<text class="eje" x="${cx}" y="${arriba + alto + 44}" text-anchor="middle" style="fill:${mk.some(t => t[0] === 'ev') ? 'var(--bad)' : dom || mk.some(t => t[0] === 'fes') ? '#5B6068' : 'var(--ink-soft)'}">${x.d.getDate()}</text>`;
+      g += `<text class="eje" x="${cx}" y="${arriba + alto + 56}" text-anchor="middle" style="font-size:9px">${DIA[x.d.getDay()][0].toUpperCase()}</text>`;
+      g += `<rect class="hit" data-i="${i}" x="${cx - cw / 2}" y="${arriba}" width="${cw}" height="${alto + abajo - 4}"/>`;
+    });
+    const H = arriba + alto + abajo;
+    const box = $('td-dia');
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Matrículas por día">${g}</svg><div class="cp-tip" hidden></div>`;
+    tipEn(box, '.hit', el => {
+      const x = D[+el.dataset.i], mk = marcas(x.d).map(t => t[1]).join(', ');
+      return `<b>${fmt(x.d)} de 2026${mk ? ' · ' + mk : ''}</b>` +
+        `<span>2026: ${x.b === null ? 'aún no llega' : n(x.b)}</span>` +
+        `<span>2025 (${fmt(x.r25)}): ${n(x.a)}</span>` + (st.c24 ? `<span>2024 (${fmt(x.r24)}): ${n(x.c)}</span>` : '') +
+        (catTxt(x.cat) ? `<span>${e(catTxt(x.cat))}</span>` : '');
+    });
+    const usadas = new Set(); D.forEach(x => Object.keys(x.cat).forEach(k => k !== 'Sin observación' && usadas.add(k)));
+    $('td-ley-dia').innerHTML = `<span><i style="background:rgba(154,160,172,.38);box-shadow:inset 0 0 0 1px #9AA0AC"></i>2025</span><span><i style="background:var(--pine)"></i>2026</span>` +
+      (st.c24 ? `<span><i style="background:var(--ochre);border-radius:50%"></i>2024</span>` : '') +
+      [...usadas].map(k => `<span><i style="background:${COL[k]}"></i>${e(k)}</span>`).join('') +
+      `<span style="color:var(--bad)">número rojo = Black Friday</span>`;
+  }
+
+  /* ── 03 · acumulado ── */
+  function grafAcum() {
+    const m = st.mes, P = plan(m);
+    let a25 = 0, a24 = 0;
+    const D = P.map(x => { a25 += cnt(iso(ref(x.d, 1))); a24 += cnt(iso(ref(x.d, 2))); return Object.assign({ a25, a24 }, x); });
+    const W = 860, izq = 40, der = 74, arriba = 12, alto = 230, abajo = 30;
+    const max = Math.max(TD.meta[m], ...D.map(x => Math.max(x.a25, st.c24 ? x.a24 : 0, x.real || 0)));
+    const paso = max > 100 ? 20 : 10, tope = Math.ceil(max / paso) * paso;
+    const cw = (W - izq - der) / (D.length - 1), X = i => izq + cw * i, Y = v => arriba + alto - alto * v / tope;
+    let g = '';
+    for (let v = 0; v <= tope; v += paso)
+      g += `<line class="grid" x1="${izq}" x2="${W - der}" y1="${Y(v)}" y2="${Y(v)}"/><text class="eje" x="${izq - 8}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`;
+    D.forEach((x, i) => { if (x.d.getDate() % 5 === 0 || i === 0) g += `<text class="eje" x="${X(i)}" y="${arriba + alto + 18}" text-anchor="middle">${x.d.getDate()}</text>`; });
+    const ln = (pts, est) => `<polyline fill="none" ${est} points="${pts.map(([i, v]) => X(i) + ',' + Y(v)).join(' ')}"/>`;
+    const fin = (i, v, txt, col) => `<text class="val" x="${X(i) + 8}" y="${Y(v) + 4}" style="fill:${col}">${txt}</text>`;
+    const L = D.length - 1;
+    if (st.c24) { g += ln(D.map((x, i) => [i, x.a24]), 'stroke="var(--ochre)" stroke-width="1.6" stroke-opacity=".7"'); g += fin(L, D[L].a24, '2024 ' + n(D[L].a24), 'var(--ochre)'); }
+    g += ln(D.map((x, i) => [i, x.a25]), 'stroke="#9AA0AC" stroke-width="2"'); g += fin(L, D[L].a25, '2025 ' + n(D[L].a25), '#9AA0AC');
+    g += ln(D.map((x, i) => [i, x.acc]), 'stroke="var(--good)" stroke-width="2" stroke-dasharray="6 5"'); g += fin(L, D[L].acc, 'meta ' + n(TD.meta[m]), 'var(--good)');
+    const R = D.map((x, i) => [i, x.real]).filter(p => p[1] !== null);
+    if (R.length) {
+      g += ln(R, 'stroke="var(--pine)" stroke-width="2.6"');
+      const [li, lv] = R[R.length - 1]; g += `<circle cx="${X(li)}" cy="${Y(lv)}" r="4" fill="var(--pine)"/>` + fin(li, lv, '2026 ' + n(lv), 'var(--pine)');
+    }
+    D.forEach((x, i) => g += `<rect class="hit" data-i="${i}" x="${X(i) - cw / 2}" y="${arriba}" width="${cw}" height="${alto}"/>`);
+    const H = arriba + alto + abajo, box = $('td-acum');
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Acumulado del mes">${g}<line id="td-guia" x1="0" x2="0" y1="${arriba}" y2="${arriba + alto}" stroke="var(--line)" stroke-width="1" visibility="hidden"/></svg><div class="cp-tip" hidden></div>`;
+    const guia = box.querySelector('#td-guia');
+    box.querySelectorAll('.hit').forEach(el => {
+      el.addEventListener('mouseenter', () => { const xx = X(+el.dataset.i); guia.setAttribute('x1', xx); guia.setAttribute('x2', xx); guia.setAttribute('visibility', 'visible'); });
+      el.addEventListener('mouseleave', () => guia.setAttribute('visibility', 'hidden'));
+    });
+    tipEn(box, '.hit', el => {
+      const x = D[+el.dataset.i];
+      return `<b>Al ${fmt(x.d)}</b><span>meta acumulada 2026: ${n(Math.round(x.acc))}</span>` +
+        `<span>2026: ${x.real === null ? 'aún no llega' : n(x.real) + ' (' + (x.real - Math.round(x.acc) >= 0 ? '+' : '−') + n(Math.abs(x.real - Math.round(x.acc))) + ' vs. meta)'}</span>` +
+        `<span>2025 a la misma altura: ${n(x.a25)}</span>` + (st.c24 ? `<span>2024: ${n(x.a24)}</span>` : '');
+    });
+    $('td-ley-acum').innerHTML = `<span><i class="ln" style="background:var(--pine)"></i>2026 real</span><span><i class="ln" style="background:var(--good)"></i>Meta 2026 (forma de 2025)</span><span><i class="ln" style="background:#9AA0AC"></i>2025</span>` +
+      (st.c24 ? `<span><i class="ln" style="background:var(--ochre)"></i>2024</span>` : '');
+  }
+
+  /* ── 04 · día de la semana (2025) ── */
+  (function semana() {
+    const orden = [1, 2, 3, 4, 5, 6, 0];
+    const tabla = {};
+    [11, 12].forEach(m => {
+      const ds = diasMes(2025, m);
+      tabla[m] = orden.map(w => { const x = ds.filter(d => d.getDay() === w); const t = x.reduce((a, d) => a + cnt(iso(d)), 0); return { w, t, veces: x.length, prom: t / x.length }; });
+    });
+    const W = 860, izq = 34, der = 10, arriba = 10, alto = 190, abajo = 28;
+    const max = Math.max(...[11, 12].flatMap(m => tabla[m].map(x => x.t)));
+    const paso = 5, tope = Math.ceil((max + 3) / paso) * paso, Y = v => arriba + alto - alto * v / tope;
+    const cw = (W - izq - der) / 7, bw = Math.min(34, cw * 0.3);
+    let g = '';
+    for (let v = 0; v <= tope; v += paso) g += `<line class="grid" x1="${izq}" x2="${W - der}" y1="${Y(v)}" y2="${Y(v)}"/><text class="eje" x="${izq - 8}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`;
+    orden.forEach((w, i) => {
+      const cx = izq + cw * i + cw / 2;
+      [[11, -bw - 2, 'var(--ochre)'], [12, 2, 'var(--pine)']].forEach(([m, dx, col]) => {
+        const v = tabla[m][i].t;
+        if (v) g += `<rect x="${cx + dx}" y="${Y(v)}" width="${bw}" height="${Y(0) - Y(v)}" rx="3" fill="${col}"/><text class="val" x="${cx + dx + bw / 2}" y="${Y(v) - 5}" text-anchor="middle">${v}</text>`;
+      });
+      g += `<text class="cat" x="${cx}" y="${arriba + alto + 20}" text-anchor="middle">${DIA[w]}</text>`;
+      g += `<rect class="hit" data-i="${i}" x="${cx - cw / 2}" y="${arriba}" width="${cw}" height="${alto + 10}"/>`;
+    });
+    const box = $('td-sem');
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${arriba + alto + abajo}" role="img" aria-label="Matrículas por día de la semana">${g}</svg><div class="cp-tip" hidden></div>`;
+    tipEn(box, '.hit', el => { const i = +el.dataset.i, a = tabla[11][i], b = tabla[12][i];
+      return `<b>${DIA[a.w]}</b><span>nov 2025: ${a.t} (${p1(a.prom)} por ${DIA[a.w]})</span><span>dic 2025: ${b.t} (${p1(b.prom)} por ${DIA[b.w]})</span>`; });
+    $('td-ley-sem').innerHTML = `<span><i style="background:var(--ochre)"></i>Noviembre 2025</span><span><i style="background:var(--pine)"></i>Diciembre 2025</span>`;
+    let h = '<thead><tr><th class="l">Día</th><th>Nov 2025</th><th>% del mes</th><th>Promedio por día</th><th>Dic 2025</th><th>% del mes</th><th>Promedio por día</th></tr></thead><tbody>';
+    const T = m => tabla[m].reduce((a, x) => a + x.t, 0);
+    orden.forEach((w, i) => { const a = tabla[11][i], b = tabla[12][i];
+      h += `<tr><td class="l">${DIA[w]}</td><td>${a.t}</td><td>${p1(a.t / T(11) * 100)}%</td><td>${p1(a.prom)}</td><td>${b.t}</td><td>${p1(b.t / T(12) * 100)}%</td><td>${p1(b.prom)}</td></tr>`; });
+    $('td-sem-t').innerHTML = h + `<tr class="total-row"><td class="l">Total</td><td>${T(11)}</td><td>100%</td><td>${p1(T(11) / 30)}</td><td>${T(12)}</td><td>100%</td><td>${p1(T(12) / 31)}</td></tr></tbody>`;
+  })();
+
+  /* ── 05 · descuentos ── */
+  (function descuentos() {
+    const C = {};
+    TD.rows.forEach(r => { const k = r[6], mm = r[0].slice(0, 7); C[k] = C[k] || { '2025-11': 0, '2025-12': 0, '2026-11': 0, f: [] }; C[k][mm] = (C[k][mm] || 0) + 1; if (r[0] < '2026') C[k].f.push(r[0]); });
+    const tot25 = TD.rows.filter(r => r[0] < '2026').length;
+    const ks = Object.keys(C).sort((a, b) => (a === 'Sin observación') - (b === 'Sin observación') || (C[b]['2025-11'] + C[b]['2025-12']) - (C[a]['2025-11'] + C[a]['2025-12']) || C[b]['2026-11'] - C[a]['2026-11']);
+    const fd = s => { const d = pd(s); return `${d.getDate()} ${MESC[d.getMonth()]}`; };
+    let h = '<thead><tr><th class="l">Descuento o forma de pago</th><th>Nov 2025</th><th>Dic 2025</th><th>% de nov–dic 2025</th><th class="l">Fechas en 2025</th><th>Nov 2026</th></tr></thead><tbody>';
+    ks.forEach(k => { const c = C[k], t = c['2025-11'] + c['2025-12'], f = c.f.sort();
+      h += `<tr class="clic" data-cat="${e(k)}" tabindex="0"><td class="l"><span class="td-dot" style="background:${COL[k] || '#888'}"></span>${e(k)}</td><td>${c['2025-11'] || '—'}</td><td>${c['2025-12'] || '—'}</td><td>${t ? p1(t / tot25 * 100) + '%' : '—'}</td><td class="l">${f.length ? (f.length > 1 ? fd(f[0]) + ' – ' + fd(f[f.length - 1]) : fd(f[0])) : '—'}</td><td>${c['2026-11'] || '—'}</td></tr>`; });
+    $('td-desc').innerHTML = h + '</tbody>';
+    $('td-desc').querySelectorAll('tr.clic').forEach(tr => {
+      const go = () => { st.fCat = tr.dataset.cat; st.fMes = 'todo'; $('td-f-cat').value = st.fCat; $('td-f-mes').value = 'todo'; detalle();
+        $('td-desc').querySelectorAll('tr').forEach(x => x.classList.toggle('sel', x === tr)); $('td-det').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+      tr.addEventListener('click', go); tr.addEventListener('keydown', ev => { if (ev.key === 'Enter') go(); });
+    });
+  })();
+
+  /* ── 06 · observaciones ── */
+  (function obs() {
+    const P = plan(11), hoy = P.filter(x => x.v !== null), lleva = hoy.length ? hoy[hoy.length - 1].real : 0;
+    const planHoy = hoy.length ? Math.round(hoy[hoy.length - 1].acc) : 0;
+    const falta = Math.max(0, TD.meta[11] - lleva), hab = habiles(mas(corte, 1), new Date(2026, 10, 30));
+    const li = (t, b) => `<li><strong style="color:var(--ink)">${t}</strong> ${b}</li>`;
+    $('td-obs').innerHTML =
+      li('Diciembre pesa casi el doble que noviembre.', 'En 2025 fueron 53 en noviembre y 93 en diciembre (64% del bimestre); en 2024, 46 y 116. Son las matrículas para el periodo 2026-1, así que el esfuerzo grande debe guardarse para diciembre: la meta es 121.') +
+      li('Noviembre de 2025 se movió por los sábados.', 'Los cinco sábados sumaron 19 de 53 (36%). Los picos fueron el sábado 1 (6, al arrancar el descuento del 30%), el sábado 15 (7) y el martes 18 (5). Los domingos y festivos no hubo matrículas.') +
+      li('Diciembre de 2025 se concentró en la quincena y la prima.', 'Entre el 9 y el 18 de diciembre entraron 44 de 93 (47%), y el 30 de diciembre fue el mejor día del bimestre, con 10. Martes y miércoles rindieron más que el sábado en diciembre.') +
+      li('Los descuentos explican una parte pequeña.', 'Más de la mitad de las matrículas no tiene observación (82 de 146, 56%). El descuento del 30% trajo 8 en noviembre (del 1 al 20), el Black Friday del 10% apenas 3 (26 al 28 de noviembre) y el 20% de diciembre 2. Lo que creció en diciembre fue el pago virtual: 26 matrículas (28% del mes).') +
+      li('La financiación aparece en diciembre.', 'Cajacopi, Comfamiliar, Sistecrédito y cesantías suman 8 matrículas en diciembre y 3 en noviembre. Tenerlas listas a mitad de mes, cuando llega la prima, ayuda a cerrar a quien no paga de contado.') +
+      li('Los eventos de un solo día sí mueven la aguja.', 'En octubre de 2026, la matriculatón del 16 dejó 13 matrículas y la del 30 de octubre 20 en un solo día: entre las dos, 28% del mes. Un Black Friday con descuento flojo como el de 2025 no alcanza; conviene llevarlo al formato de matriculatón (costos educativos gratis por un día).') +
+      li(`Noviembre de 2026 va atrasado.`, `Al ${corte.getDate()} de noviembre van ${lleva} matrículas y el plan pedía ${planHoy}. Faltan ${falta} en ${hab} días hábiles: ${p1(hab ? falta / hab : 0)} por día, frente a 2,3 por día hábil que hizo noviembre de 2025.`) +
+      li('Cómo atacar noviembre.', 'Usar los sábados 14, 21 y 28 como días fuertes; hacer una matriculatón el viernes 27 (Black Friday, mismo día de la semana que el de 2025) y otra antes de la quincena (viernes 13 o sábado 14). El lunes 16 es festivo: no programar nada ese día.') +
+      li('Cómo atacar diciembre.', 'Arrancar el 1 al 5 con un descuento de lanzamiento (en 2025 el 20% fue del 1 al 10), concentrar asesores y pauta del 9 al 18 (quincena y prima), dejar lista la financiación con cajas de compensación y cesantías, y hacer un cierre fuerte del 26 al 31, que en 2025 dejó 23 matrículas.');
+  })();
+
+  /* ── 07 · plan día a día ── */
+  function tablaPlan() {
+    const m = st.mes, P = plan(m);
+    let h = '<thead><tr><th class="l">Fecha</th><th class="l">Marcas</th><th class="l">Día equivalente 2025</th><th>2025</th><th>Meta del día</th><th>Meta acumulada</th><th>Real 2026</th><th>Acumulado 2026</th><th>Diferencia</th></tr></thead><tbody>';
+    P.forEach(x => {
+      const mk = marcas(x.d).map(t => `<span class="td-tag ${t[0]}">${t[1]}</span>`).join(''), ct = catTxt(cats(iso(x.ref)));
+      const dif = x.real === null ? null : x.real - Math.round(x.acc);
+      const cls = [iso(x.d) === TD.corte ? 'hoy' : '', x.d > corte ? 'fut' : '', x.d.getDay() === 0 ? 'dom' : ''].join(' ').trim();
+      h += `<tr${cls ? ` class="${cls}"` : ''}><td class="l">${fmt(x.d)}</td><td class="l">${mk || ''}</td><td class="l">${fmt(x.ref)}${ct ? `<br><span class="td-cont">${e(ct)}</span>` : ''}</td><td>${x.r}</td>` +
+           `<td>${p1(x.p)}</td><td>${n(Math.round(x.acc))}</td><td>${x.v === null ? '—' : x.v}</td><td>${x.real === null ? '—' : x.real}</td>` +
+           `<td class="delta ${dif === null ? '' : dif < 0 ? 'neg' : dif > 0 ? 'pos' : ''}">${dif === null ? '—' : (dif > 0 ? '+' : dif < 0 ? '−' : '') + Math.abs(dif)}</td></tr>`;
+    });
+    $('td-plan').innerHTML = h + '</tbody>';
+    const hoy = P.filter(x => x.v !== null), lleva = hoy.length ? hoy[hoy.length - 1].real : 0;
+    $('td-plan-res').textContent = `META ${MESL[m].toUpperCase()} ${TD.meta[m]} · LLEVA ${lleva} · FALTAN ${Math.max(0, TD.meta[m] - lleva)}`;
+  }
+
+  /* ── 08 · detalle ── */
+  const MESES = [['todo', 'Nov–dic 2025 y nov 2026'], ['2025-11', 'Noviembre 2025'], ['2025-12', 'Diciembre 2025'], ['2026-11', 'Noviembre 2026']];
+  $('td-f-mes').innerHTML = MESES.map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+  $('td-f-cat').innerHTML = '<option value="todas">Todos los descuentos y pagos</option>' + [...new Set(TD.rows.map(r => r[6]))].sort().map(c => `<option>${e(c)}</option>`).join('');
+  $('td-f-ase').innerHTML = '<option value="todos">Todos los asesores</option>' + [...new Set(TD.rows.map(r => r[3]))].sort().map(c => `<option>${e(c)}</option>`).join('');
+  const COLS = [['Fecha', 0], ['Programa', 1], ['Horario', 2], ['Asesor', 3], ['Costos educ.', 4], ['Primera cuota', 5], ['Descuento / pago', 6], ['Observación', 7], ['Medio', 8]];
+  const din = v => v === null || v === undefined ? '—' : '$' + n(v);
+  function detalle() {
+    const q = st.q.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    let R = TD.rows.filter(r => (st.fMes === 'todo' || r[0].startsWith(st.fMes)) && (st.fCat === 'todas' || r[6] === st.fCat) &&
+      (st.fAse === 'todos' || r[3] === st.fAse) && (!q || (r[1] + ' ' + r[7] + ' ' + r[2]).toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(q)));
+    const [ci, dir] = st.ord;
+    R = R.slice().sort((a, b) => { const x = a[ci] ?? -1, y = b[ci] ?? -1; return (x > y ? 1 : x < y ? -1 : 0) * dir || (a[0] > b[0] ? 1 : -1); });
+    let h = '<thead><tr>' + COLS.map(([t, i]) => `<th class="ord${i <= 3 || i >= 6 ? ' l' : ''}" data-i="${i}">${t}</th>`).join('') + '</tr></thead><tbody>';
+    R.forEach(r => { const d = pd(r[0]);
+      h += `<tr><td class="l">${fmt(d)} ${d.getFullYear()}</td><td class="l">${e(r[1])}</td><td class="l">${e(r[2])}</td><td class="l">${e(r[3])}</td><td>${din(r[4])}</td><td>${din(r[5])}</td>` +
+           `<td class="l"><span class="td-dot" style="background:${COL[r[6]] || '#888'}"></span>${e(r[6])}</td><td class="l">${e(r[7]) || '—'}</td><td class="l">${e(r[8])}</td></tr>`; });
+    $('td-det').innerHTML = h + '</tbody>';
+    $('td-f-n').textContent = `${R.length} MATRÍCULAS`;
+    $('td-det').querySelectorAll('th.ord').forEach(th => th.addEventListener('click', () => {
+      const i = +th.dataset.i; st.ord = [i, st.ord[0] === i ? -st.ord[1] : 1]; detalle(); }));
+  }
+  $('td-f-mes').addEventListener('change', ev => { st.fMes = ev.target.value; detalle(); });
+  $('td-f-cat').addEventListener('change', ev => { st.fCat = ev.target.value; detalle(); $('td-desc').querySelectorAll('tr').forEach(x => x.classList.toggle('sel', x.dataset.cat === st.fCat)); });
+  $('td-f-ase').addEventListener('change', ev => { st.fAse = ev.target.value; detalle(); });
+  $('td-f-q').addEventListener('input', ev => { st.q = ev.target.value.trim(); detalle(); });
+
+  /* ── controles ── */
+  function todo() { grafDia(); grafAcum(); tablaPlan(); }
+  document.querySelectorAll('#acc-tendencia .td-seg').forEach(seg => seg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    const k = seg.dataset.k, v = k === 'mes' ? +b.dataset.v : b.dataset.v; st[k] = v;
+    document.querySelectorAll(`#acc-tendencia .td-seg[data-k="${k}"] button`).forEach(x => x.classList.toggle('on', x.dataset.v === String(v)));
+    todo();
+  })));
+  $('td-c24').addEventListener('change', ev => { st.c24 = ev.target.checked; grafDia(); grafAcum(); });
+  todo(); detalle();
+})();
+</script>
