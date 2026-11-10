@@ -3120,7 +3120,7 @@
     <div class="doc-header">
       <div class="eyebrow">Comercial · las tres sedes</div>
       <h1>Programas más y menos vendidos</h1>
-      <div class="doc-sub">Mapa de calor de las matrículas de 2026 por programa en Barranquilla, Riohacha y Maicao, con el top 5 y los 5 menos vendidos de cada sede, la comparación con 2025 y una revisión de que los números cuadren.</div>
+      <div class="doc-sub">Mapa de calor de 2026 en Barranquilla, Riohacha y Maicao, separado en técnicos, cursos cortos y bachillerato: el top 5 y los 5 menos vendidos de técnicos, el ranking de cursos cortos y el de bachillerato por ciclo, con la comparación con 2025 y una revisión de que los números cuadren.</div>
       <div class="status-row" id="hm-pills"></div>
     </div>
 
@@ -3128,19 +3128,20 @@
       <div class="block-head"><span class="block-title">Resumen enero a octubre de 2026</span><span class="block-num">01</span></div>
       <div class="card full">
         <div class="stat-row" id="hm-kpis" style="margin-bottom:6px;"></div>
-        <div class="note">Se comparan enero a octubre, los meses que ya cerraron en las tres sedes. Noviembre va parcial y solo aparece en el mapa por mes. Matrícula sin educación continuada, con los ciclos de bachillerato sumados en «Bachillerato».</div>
+        <div class="note">Se comparan enero a octubre, los meses que ya cerraron en las tres sedes; noviembre va parcial y solo aparece en el mapa por mes. <strong style="color:var(--ink)">Técnicos</strong> son los programas de formación laboral (panadería, refrigeración y caja registradora cuentan aquí, como en el resto del informe). <strong style="color:var(--ink)">Cursos cortos</strong> son la educación continuada (inyectología, Excel, facturación…), que no suma a la matrícula del mes. <strong style="color:var(--ink)">Bachillerato</strong> va aparte y por ciclo.</div>
       </div>
     </section>
 
     <section class="block">
-      <div class="block-head"><span class="block-title">Mapa de calor por programa y sede</span><span class="block-num">02</span></div>
+      <div class="block-head"><span class="block-title">Mapa de calor por sede</span><span class="block-num">02</span></div>
       <div class="card full">
         <div class="td-ctrl">
+          <div class="td-seg hm-cat"><button data-v="tec" class="on">Técnicos</button><button data-v="ec">Cursos cortos</button><button data-v="bach">Bachillerato por ciclo</button></div>
           <div class="td-seg" id="hm-modo"><button data-v="pct" class="on">% de la sede</button><button data-v="n">Cantidad</button><button data-v="var">Cambio vs. 2025</button></div>
         </div>
         <div class="hm-wrap cp-chart" id="hm-sedes"></div>
         <div class="hm-esc" id="hm-esc"></div>
-        <p class="sub-note">«% de la sede» colorea cada celda por cuánto pesa el programa dentro de su sede, así una sede pequeña se puede comparar con una grande. El número pequeño de cada celda es el puesto del programa en esa sede. «—» = sin matrículas en 2026. Pasa el cursor sobre una celda para ver el detalle.</p>
+        <p class="sub-note">«% de la sede» colorea cada celda por cuánto pesa la fila dentro de su sede y de su grupo (técnicos, cursos cortos o bachillerato), así una sede pequeña se puede comparar con una grande. El número pequeño es el puesto en esa sede. «—» = sin matrículas en 2026. Pasa el cursor sobre una celda para ver el detalle.</p>
       </div>
     </section>
 
@@ -3148,6 +3149,7 @@
       <div class="block-head"><span class="block-title">Mapa de calor por mes</span><span class="block-num">03</span></div>
       <div class="card full">
         <div class="td-ctrl">
+          <div class="td-seg hm-cat"><button data-v="tec" class="on">Técnicos</button><button data-v="ec">Cursos cortos</button><button data-v="bach">Bachillerato por ciclo</button></div>
           <div class="td-seg" id="hm-sede"><button data-v="todas" class="on">Tres sedes</button><button data-v="Barranquilla">Barranquilla</button><button data-v="Riohacha">Riohacha</button><button data-v="Maicao">Maicao</button></div>
         </div>
         <div class="hm-wrap cp-chart" id="hm-mes"></div>
@@ -3156,18 +3158,30 @@
     </section>
 
     <section class="block">
-      <div class="block-head"><span class="block-title">Top 5 y los 5 menos vendidos</span><span class="block-num">04</span></div>
-      <div class="hm-top" id="hm-top"></div>
-      <p class="sub-note" style="margin-top:12px">Los «menos vendidos» se toman entre los programas con al menos 3 matrículas en el año, para no contar como programa un caso suelto. La flecha compara con enero a octubre de 2025.</p>
+      <div class="block-head"><span class="block-title">Técnicos · top 5 y los 5 menos vendidos</span><span class="block-num">04</span></div>
+      <div class="hm-top" id="hm-top-tec"></div>
+      <p class="sub-note" style="margin-top:12px">Los «menos vendidos» se toman entre los técnicos con al menos 3 matrículas en el año, para no contar como programa un caso suelto. La flecha compara con enero a octubre de 2025.</p>
     </section>
 
     <section class="block">
-      <div class="block-head"><span class="block-title">Lo que leo en los datos</span><span class="block-num">05</span></div>
+      <div class="block-head"><span class="block-title">Cursos cortos · ranking</span><span class="block-num">05</span></div>
+      <div class="hm-top" id="hm-top-ec"></div>
+      <p class="sub-note" style="margin-top:12px">Son pocos cursos, así que se muestra el ranking completo. No suman a la matrícula del mes ni a las metas.</p>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><span class="block-title">Bachillerato · ranking por ciclo</span><span class="block-num">06</span></div>
+      <div class="hm-top" id="hm-top-bach"></div>
+      <p class="sub-note" style="margin-top:12px">Los ciclos se unificaron entre sedes: Barranquilla registra el grado (6° a 11°) y Riohacha y Maicao el ciclo, así que 6° y 7° = ciclo III, 8° y 9° = ciclo IV, 10° = ciclo V y 11° = ciclo VI.</p>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><span class="block-title">Lo que leo en los datos</span><span class="block-num">07</span></div>
       <div class="card full"><ul class="hm-obs" id="hm-obs"></ul></div>
     </section>
 
     <section class="block">
-      <div class="block-head"><span class="block-title">¿Es coherente? Revisión de los números</span><span class="block-num">06</span></div>
+      <div class="block-head"><span class="block-title">¿Es coherente? Revisión de los números</span><span class="block-num">08</span></div>
       <div class="card full"><ul class="hm-chk" id="hm-chk"></ul></div>
     </section>
   </div>
@@ -5175,9 +5189,10 @@ const TD = {"days":{"2024-11-02":{"n":1,"c":{"Sin observación":1}},"2024-11-06"
 </script>
 <script>
 /* ═══ PROGRAMAS · MAPA DE CALOR DE LAS TRES SEDES ═══
- * Datos fijos: Barranquilla desde el registro cargado, Riohacha y Maicao desde
- * sus listados. No usa ni toca el Apps Script. */
-const HM = {"sedes":["Barranquilla","Riohacha","Maicao"],"m":{"Barranquilla":{"Bachillerato":[94,41,18,3,1,16,26,12,2,1,1,0],"Auxiliar en Enfermería":[22,31,8,10,5,16,8,4,3,1,0,0],"Cosmetología y Estética Integral":[50,42,29,16,14,14,9,12,9,7,0,0],"Patronaje, Cortador y Confección de Moda":[22,13,16,1,5,11,6,12,6,7,0,0],"Auxiliar en Salud Oral":[7,11,4,1,1,1,1,1,1,1,0,0],"Inglés Conversacional":[51,37,17,7,9,22,22,17,15,13,1,0],"Asistente de Primera Infancia":[9,9,2,0,2,4,4,3,1,1,0,0],"Seguridad Ocupacional y Laboral":[7,7,9,0,1,2,6,10,1,3,0,0],"Refrigeración y Aires Acondicionados":[21,17,13,1,8,9,16,9,17,10,0,0],"Auxiliar Administrativo en Salud":[20,18,17,6,2,5,9,10,4,1,0,0],"Marketing Digital":[15,13,14,3,7,10,13,8,9,1,0,0],"Auxiliar Contable y Financiero":[10,16,4,6,2,3,2,4,1,6,0,0],"Auxiliar Administrativo":[19,13,5,1,4,3,4,1,2,6,0,0],"Panadería y Repostería":[21,7,13,0,3,10,25,11,24,17,0,0],"Auxiliar en Servicios Farmacéuticos":[14,6,12,2,4,10,4,9,4,1,0,0],"Auxiliar en Clínica Veterinaria":[20,8,7,3,4,3,5,9,6,5,1,0],"Estilista Integral en Peluquería":[8,4,3,1,2,0,4,2,2,3,2,0],"Cocinero Principal":[16,9,7,3,7,6,9,5,0,7,0,0],"Mecánico de Vehículos Automotores":[13,23,13,5,3,6,15,8,8,11,1,0],"Auxiliar en Suministros y Almacén":[5,9,7,4,2,4,10,11,1,1,0,0],"Investigador Criminalístico y Judicial":[8,6,5,2,2,2,2,4,2,2,0,0],"Peluquería y Estética Canina":[5,5,0,0,3,7,6,0,9,13,0,0],"Inglés Kids Conversacional":[0,0,0,0,0,0,0,0,1,0,0,0]},"Riohacha":{"Auxiliar Administrativo en Salud":[11,9,10,3,4,8,7,7,5,3,0,0],"Investigador Criminalístico y Judicial":[9,22,11,4,5,3,11,6,8,3,0,0],"Bachillerato":[30,39,18,2,7,5,14,8,5,2,0,0],"Auxiliar en Clínica Veterinaria":[9,6,4,1,3,2,2,3,0,0,0,0],"Auxiliar en Servicios Farmacéuticos":[16,17,7,5,7,10,13,12,4,5,0,0],"Cosmetología y Estética Integral":[33,39,15,8,11,12,19,14,9,7,1,0],"Auxiliar en Enfermería":[36,28,22,9,10,15,22,18,9,6,0,0],"Asistente de Primera Infancia":[12,14,9,4,5,5,7,2,2,2,0,0],"Panadería y Repostería":[7,5,7,2,4,8,5,3,2,4,0,0],"Auxiliar Administrativo":[8,16,8,1,4,11,11,6,1,4,0,0],"Auxiliar en Salud Oral":[5,5,2,0,1,1,7,2,2,0,0,0],"Cocinero Principal":[3,9,0,0,3,4,4,5,4,2,0,0],"Diseño Gráfico":[4,11,4,0,3,0,6,0,1,0,0,0],"Mecánico de Vehículos Automotores":[3,13,13,3,2,3,6,2,0,3,0,0],"Seguridad Ocupacional y Laboral":[5,7,12,1,3,0,4,6,1,1,0,0],"Sistemas Informáticos":[9,11,8,3,4,4,5,4,4,1,0,0],"Estilista Integral en Peluquería":[6,10,4,1,4,3,5,3,3,1,0,0],"Patronaje, Cortador y Confección de Moda":[7,9,9,4,4,3,4,6,4,2,0,0],"Caja Registradora":[5,16,5,2,7,2,10,3,4,4,0,0],"Auxiliar Contable y Financiero":[6,11,6,0,3,3,5,5,3,2,0,0],"Inglés Conversacional":[7,9,9,1,3,2,6,2,4,3,0,0],"Marketing Digital":[0,0,0,0,0,0,0,0,0,1,0,0]},"Maicao":{"Caja Registradora":[1,7,7,4,3,1,0,0,0,0,0,0],"Patronaje, Cortador y Confección de Moda":[7,4,7,11,6,2,4,5,0,1,0,0],"Auxiliar en Enfermería":[17,19,9,8,5,6,5,8,7,0,0,0],"Inglés Kids Conversacional":[7,6,2,3,0,0,0,0,1,1,0,0],"Auxiliar en Clínica Veterinaria":[6,4,2,4,1,1,2,0,0,1,0,0],"Auxiliar Administrativo en Salud":[3,3,6,1,3,1,1,3,1,3,0,0],"Panadería y Repostería":[9,9,8,2,5,1,3,7,12,8,0,0],"Seguridad Ocupacional y Laboral":[5,1,4,1,1,1,0,0,0,0,0,0],"Cosmetología y Estética Integral":[39,29,14,6,7,9,9,8,7,4,0,0],"Auxiliar en Servicios Farmacéuticos":[6,6,5,1,4,3,3,1,1,2,0,0],"Asistente de Primera Infancia":[3,0,6,3,1,2,1,2,0,0,0,0],"Cocinero Principal":[4,3,2,1,2,1,1,6,1,0,0,0],"Mecánico de Vehículos Automotores":[4,6,3,2,1,0,1,0,0,0,0,0],"Inglés Conversacional":[7,7,3,1,1,3,0,1,0,4,0,0],"Sistemas Informáticos":[3,4,1,3,1,3,1,1,1,1,0,0],"Auxiliar Administrativo":[8,12,10,2,1,2,5,2,1,2,0,0],"Bachillerato":[10,4,6,1,1,1,0,0,0,1,0,0],"Diseño Gráfico":[5,6,3,2,0,1,3,4,3,0,0,0],"Investigador Criminalístico y Judicial":[0,5,0,2,0,3,2,0,0,0,0,0],"Auxiliar Contable y Financiero":[7,8,3,0,0,1,1,0,2,0,0,0]}},"y25":{"Barranquilla":{"Bachillerato":205,"Mecánico de Vehículos Automotores":72,"Cocinero Principal":67,"Auxiliar en Servicios Farmacéuticos":78,"Auxiliar Administrativo":86,"Cosmetología y Estética Integral":280,"Auxiliar en Clínica Veterinaria":92,"Auxiliar Contable y Financiero":48,"Refrigeración y Aires Acondicionados":83,"Inglés Conversacional":263,"Seguridad Ocupacional y Laboral":49,"Auxiliar en Enfermería":117,"Marketing Digital":72,"Mantenimiento y Reparación de Celulares":11,"Auxiliar Administrativo en Salud":118,"Estilista Integral en Peluquería":42,"Auxiliar en Salud Oral":29,"Asistente de Primera Infancia":40,"Peluquería y Estética Canina":40,"Patronaje, Cortador y Confección de Moda":116,"Auxiliar en Suministros y Almacén":39,"Investigador Criminalístico y Judicial":25,"Panadería y Repostería":103,"Cejas y Pestañas":4},"Riohacha":{"Auxiliar en Enfermería":280,"Cosmetología y Estética Integral":203,"Bachillerato":130,"Auxiliar en Servicios Farmacéuticos":145,"Asistente de Primera Infancia":118,"Auxiliar Administrativo":143,"Investigador Criminalístico y Judicial":96,"Estilista Integral en Peluquería":50,"Auxiliar en Clínica Veterinaria":38,"Sistemas Informáticos":53,"Inglés Conversacional":56,"Auxiliar de Cocina":21,"Seguridad Ocupacional y Laboral":54,"Auxiliar Contable y Financiero":65,"Panadería y Repostería":23,"Patronaje, Cortador y Confección de Moda":6,"Auxiliar en Salud Oral":30,"Diseño Gráfico":33,"Sastrería y Confección a la Medida":9,"Mecánica Diesel":27,"Mecánico de Vehículos Automotores":34,"Caja Registradora":28,"Auxiliar Administrativo en Salud":44,"Confección y Alta Costura":42,"Cocinero Principal":10},"Maicao":{"Cosmetología y Estética Integral":150,"Inglés Conversacional":62,"Auxiliar en Clínica Veterinaria":26,"Cocinero Principal":34,"Sistemas Informáticos":44,"Estilista Integral en Peluquería":5,"Auxiliar en Enfermería":122,"Sastrería y Confección a la Medida":61,"Panadería y Repostería":59,"Auxiliar Administrativo":79,"Mecánico de Vehículos Automotores":34,"Auxiliar Administrativo en Salud":40,"Asistente de Primera Infancia":47,"Auxiliar Contable y Financiero":46,"Diseño Gráfico":34,"Bachillerato":64,"Caja Registradora":21,"Auxiliar en Servicios Farmacéuticos":44,"Investigador Criminalístico y Judicial":24,"Seguridad Ocupacional y Laboral":16,"Auxiliar en Salud Oral":8,"Patronaje, Cortador y Confección de Moda":44,"Inglés Kids Conversacional":19}},"exc":{"Barranquilla":{},"Riohacha":{"D":1,"Sin programa":3},"Maicao":{"Sin programa":3}},"tot":{"Barranquilla":{"todo":1975,"eneoct":1969,"y25":2079},"Riohacha":{"todo":1401,"eneoct":1400,"y25":1739},"Maicao":{"todo":696,"eneoct":696,"y25":1083}},"corte":{"Barranquilla":"2026-11-09","Riohacha":"2026-11-05","Maicao":"2026-10-30"},"obs":[["Cosmetología es el programa estrella, pero se está enfriando.","Es el más vendido de las tres sedes juntas (501, 12,3%): primero en Maicao, segundo en Riohacha y tercero en Barranquilla. Aun así cayó en las tres frente a 2025: Barranquilla −28% (de 280 a 202), Riohacha −18% y Maicao −12%."],["Enfermería es la caída más grande del grupo.","Pasó de 519 a 367 matrículas (−29%). Sigue siendo el primero de Riohacha aunque bajó 38% (de 280 a 175); en Maicao bajó 31% y en Barranquilla 8%."],["Lo que crece está en oficios.","Panadería sube en las tres sedes (+31% en total, de 185 a 242). En Barranquilla crecen Refrigeración (+46%), Mecánico de vehículos (+46%) y Marketing Digital (+29%); en Riohacha, Caja registradora se duplicó (de 28 a 58). Refrigeración, Suministros y almacén y Peluquería canina solo se venden en Barranquilla: son candidatos para llevar a Riohacha o Maicao si hay docente y espacio."],["Bachillerato depende de la sede.","Es el primero de Barranquilla (214, +4%), en Riohacha se mantiene igual (130) y en Maicao se desplomó (de 64 a 24, −63%)."],["Maicao depende de muy pocos programas.","Sus cinco primeros suman 53,7% de la sede y Cosmetología sola es el 19%. En Barranquilla el top 5 pesa 44,6% y en Riohacha 46,6%: si Cosmetología o Enfermería siguen cayendo, Maicao es la sede que más lo siente."],["Los menos vendidos se repiten entre sedes.","Salud Oral está abajo en Barranquilla (29) y Riohacha (25), y Maicao dejó de venderlo. Primera Infancia cae en las tres (−12%, −47% y −62%) y Estilista bajó 31% en Barranquilla y no tiene matrículas en Maicao. En Maicao también caen a la mitad Investigador criminalístico, Mecánico y Sistemas."],["Qué haría yo.","Primero, defender el top: revisar con los asesores por qué bajan Cosmetología y Enfermería (precio, horarios o competencia) antes de que arrastren el año. Segundo, empujar lo que crece con pauta propia (Panadería, Refrigeración, Mecánico, Marketing). Tercero, con los menos vendidos decidir programa por programa: o una campaña puntual por horario, o abrir menos grupos para no sostener cohortes pequeñas."],["El año, en general.","De enero a octubre van 4.058 matrículas contra 4.900 de 2025 (−17%): Barranquilla −5%, Riohacha −20% y Maicao −36%. La caída de Maicao no es de un solo programa: baja en casi todos."]],"checks":[["ok","<strong>Riohacha y Maicao cuadran con sus pestañas:</strong> 1.400 de enero a octubre en Riohacha (1.401 contando noviembre) y 696 en Maicao."],["ojo","<strong>Barranquilla sale del registro que subiste</strong> (corte al 9 de noviembre): 1.969 de enero a octubre. La pestaña de Barranquilla lee la hoja en vivo; si la hoja cambió después, puede diferir un poco y esa es la cifra oficial."],["ok","<strong>Mismas reglas en las tres sedes:</strong> sin educación continuada, sin filas con MATRICULADO = NO, sin duplicados (mismo documento, fecha y programa) y con todos los ciclos de bachillerato en una sola fila. Caja registradora no aparece en Barranquilla porque esa sede ya no la oferta."],["ojo","<strong>Maicao tiene dos nombres para el mismo programa:</strong> «Auxiliar Administración en Salud» (12) y «Auxiliar Administrativo en Salud» (13). Aquí se sumaron (25), y «Seguridad y Salud Ocupacional» (2) se sumó a Seguridad Ocupacional y Laboral. Conviene unificar los nombres en el Excel."],["ojo","<strong>Hay programas que reemplazaron a otros, y eso infla algunos «crecimientos».</strong> En Riohacha, Cocinero Principal sube 240% porque absorbió a Auxiliar de Cocina (21 en 2025): la familia cocina pasa de 31 a 34. Patronaje sube de 6 a 52 porque reemplazó a Confección y Alta Costura (42) y Sastrería (9): la familia confección baja de 57 a 52. En Maicao, Sastrería (61) más Patronaje (44) eran 105 y hoy Patronaje tiene 47, una caída real."],["ojo","<strong>Riohacha, octubre de 2025:</strong> el mes dice 49 pero el detalle por programa suma 48, y hay 1 matrícula de 2025 «Sin programa». Por eso el 2025 de Riohacha por programa da 1.738 y no 1.740. La diferencia no cambia ningún puesto."],["ok","<strong>Se compara lo mismo contra lo mismo:</strong> enero a octubre de 2026 contra enero a octubre de 2025. Noviembre va parcial y no entra a los rankings."],["ok","<strong>Inglés Kids va aparte de Inglés Conversacional</strong>: son programas distintos (Maicao vende 20 de Kids)."]]};
+ * Técnicos, cursos cortos y bachillerato por separado. Datos fijos:
+ * Barranquilla desde el registro cargado, Riohacha y Maicao desde sus
+ * listados. No usa ni toca el Apps Script. */
+const HM = {"sedes":["Barranquilla","Riohacha","Maicao"],"cat":{"tec":{"Barranquilla":{"Auxiliar en Enfermería":[22,31,8,10,5,16,8,4,3,1,0,0],"Cosmetología y Estética Integral":[50,42,29,16,14,14,9,12,9,7,0,0],"Patronaje, Cortador y Confección de Moda":[22,13,16,1,5,11,6,12,6,7,0,0],"Auxiliar en Salud Oral":[7,11,4,1,1,1,1,1,1,1,0,0],"Inglés Conversacional":[51,37,17,7,9,22,22,17,15,13,1,0],"Asistente de Primera Infancia":[9,9,2,0,2,4,4,3,1,1,0,0],"Seguridad Ocupacional y Laboral":[7,7,9,0,1,2,6,10,1,3,0,0],"Refrigeración y Aires Acondicionados":[21,17,13,1,8,9,16,9,17,10,0,0],"Auxiliar Administrativo en Salud":[20,18,17,6,2,5,9,10,4,1,0,0],"Marketing Digital":[15,13,14,3,7,10,13,8,9,1,0,0],"Auxiliar Contable y Financiero":[10,16,4,6,2,3,2,4,1,6,0,0],"Auxiliar Administrativo":[19,13,5,1,4,3,4,1,2,6,0,0],"Panadería y Repostería":[21,7,13,0,3,10,25,11,24,17,0,0],"Auxiliar en Servicios Farmacéuticos":[14,6,12,2,4,10,4,9,4,1,0,0],"Auxiliar en Clínica Veterinaria":[20,8,7,3,4,3,5,9,6,5,1,0],"Estilista Integral en Peluquería":[8,4,3,1,2,0,4,2,2,3,2,0],"Cocinero Principal":[16,9,7,3,7,6,9,5,0,7,0,0],"Mecánico de Vehículos Automotores":[13,23,13,5,3,6,15,8,8,11,1,0],"Auxiliar en Suministros y Almacén":[5,9,7,4,2,4,10,11,1,1,0,0],"Investigador Criminalístico y Judicial":[8,6,5,2,2,2,2,4,2,2,0,0],"Peluquería y Estética Canina":[5,5,0,0,3,7,6,0,9,13,0,0],"Inglés Kids Conversacional":[0,0,0,0,0,0,0,0,1,0,0,0]},"Riohacha":{"Auxiliar Administrativo en Salud":[11,9,10,3,4,8,7,7,5,3,0,0],"Investigador Criminalístico y Judicial":[9,22,11,4,5,3,11,6,8,3,0,0],"Auxiliar en Clínica Veterinaria":[9,6,4,1,3,2,2,3,0,0,0,0],"Auxiliar en Servicios Farmacéuticos":[16,17,7,5,7,10,13,12,4,5,0,0],"Cosmetología y Estética Integral":[33,39,15,8,11,12,19,14,9,7,1,0],"Auxiliar en Enfermería":[36,28,22,9,10,15,22,18,9,6,0,0],"Asistente de Primera Infancia":[12,14,9,4,5,5,7,2,2,2,0,0],"Panadería y Repostería":[7,5,7,2,4,8,5,3,2,4,0,0],"Auxiliar Administrativo":[8,16,8,1,4,11,11,6,1,4,0,0],"Auxiliar en Salud Oral":[5,5,2,0,1,1,7,2,2,0,0,0],"Cocinero Principal":[3,9,0,0,3,4,4,5,4,2,0,0],"Diseño Gráfico":[4,11,4,0,3,0,6,0,1,0,0,0],"Mecánico de Vehículos Automotores":[3,13,13,3,2,3,6,2,0,3,0,0],"Seguridad Ocupacional y Laboral":[5,7,12,1,3,0,4,6,1,1,0,0],"Sistemas Informáticos":[9,11,8,3,4,4,5,4,4,1,0,0],"Estilista Integral en Peluquería":[6,10,4,1,4,3,5,3,3,1,0,0],"Patronaje, Cortador y Confección de Moda":[7,9,9,4,4,3,4,6,4,2,0,0],"Caja Registradora":[5,16,5,2,7,2,10,3,4,4,0,0],"Auxiliar Contable y Financiero":[6,11,6,0,3,3,5,5,3,2,0,0],"Inglés Conversacional":[7,9,9,1,3,2,6,2,4,3,0,0],"Marketing Digital":[0,0,0,0,0,0,0,0,0,1,0,0]},"Maicao":{"Caja Registradora":[1,7,7,4,3,1,0,0,0,0,0,0],"Patronaje, Cortador y Confección de Moda":[7,4,7,11,6,2,4,5,0,1,0,0],"Auxiliar en Enfermería":[17,19,9,8,5,6,5,8,7,0,0,0],"Inglés Kids Conversacional":[7,6,2,3,0,0,0,0,1,1,0,0],"Auxiliar en Clínica Veterinaria":[6,4,2,4,1,1,2,0,0,1,0,0],"Auxiliar Administrativo en Salud":[3,3,6,1,3,1,1,3,1,3,0,0],"Panadería y Repostería":[9,9,8,2,5,1,3,7,12,8,0,0],"Seguridad Ocupacional y Laboral":[5,1,4,1,1,1,0,0,0,0,0,0],"Cosmetología y Estética Integral":[39,29,14,6,7,9,9,8,7,4,0,0],"Auxiliar en Servicios Farmacéuticos":[6,6,5,1,4,3,3,1,1,2,0,0],"Asistente de Primera Infancia":[3,0,6,3,1,2,1,2,0,0,0,0],"Cocinero Principal":[4,3,2,1,2,1,1,6,1,0,0,0],"Mecánico de Vehículos Automotores":[4,6,3,2,1,0,1,0,0,0,0,0],"Inglés Conversacional":[7,7,3,1,1,3,0,1,0,4,0,0],"Sistemas Informáticos":[3,4,1,3,1,3,1,1,1,1,0,0],"Auxiliar Administrativo":[8,12,10,2,1,2,5,2,1,2,0,0],"Diseño Gráfico":[5,6,3,2,0,1,3,4,3,0,0,0],"Investigador Criminalístico y Judicial":[0,5,0,2,0,3,2,0,0,0,0,0],"Auxiliar Contable y Financiero":[7,8,3,0,0,1,1,0,2,0,0,0]}},"ec":{"Barranquilla":{"Excel":[0,0,0,0,0,0,0,0,0,25,1,0],"Inyectología":[0,0,0,0,0,0,0,0,0,2,2,0]},"Riohacha":{"Curso corto de Inglés Kids Conversacional":[1,0,0,0,0,0,0,0,0,0,0,0],"Inyectología":[0,0,0,0,0,0,0,0,30,20,1,0],"Excel":[0,0,0,0,0,0,0,0,5,1,0,0],"Facturación Hospitalaria":[0,0,0,0,0,0,0,0,2,1,0,0]},"Maicao":{"Excel":[0,0,0,0,0,0,0,2,3,2,0,0],"Inyectología":[0,0,0,0,0,0,0,0,2,3,0,0],"Facturación Hospitalaria":[0,0,0,0,0,0,0,0,3,3,0,0]}},"bach":{"Barranquilla":{"Ciclo IV (8° y 9°)":[31,12,5,2,1,7,11,5,2,0,1,0],"Ciclo VI (11°)":[12,10,1,0,0,4,4,0,0,0,0,0],"Ciclo V (10°)":[43,13,9,0,0,4,3,3,0,1,0,0],"Ciclo III (6° y 7°)":[8,6,3,1,0,1,2,3,0,0,0,0],"Sin ciclo especificado":[0,0,0,0,0,0,6,1,0,0,0,0]},"Riohacha":{"Ciclo IV (8° y 9°)":[12,11,5,1,4,0,6,3,1,2,0,0],"Bachillerato en 1 año":[2,0,0,0,0,0,0,0,0,0,0,0],"Ciclo V (10°)":[9,14,7,1,0,1,5,0,0,0,0,0],"Ciclo III (6° y 7°)":[6,13,4,0,1,4,2,2,3,0,0,0],"Ciclo VI (11°)":[1,1,2,0,2,0,1,2,1,0,0,0],"Sin ciclo especificado":[0,0,0,0,0,0,0,1,0,0,0,0]},"Maicao":{"Sin ciclo especificado":[0,0,0,0,1,1,0,0,0,1,0,0],"Bachillerato en 1 año":[5,1,0,0,0,0,0,0,0,0,0,0],"Ciclo V (10°)":[1,0,1,1,0,0,0,0,0,0,0,0],"Ciclo VI (11°)":[2,0,0,0,0,0,0,0,0,0,0,0],"Ciclo IV (8° y 9°)":[2,3,1,0,0,0,0,0,0,0,0,0],"Ciclo III (6° y 7°)":[0,0,4,0,0,0,0,0,0,0,0,0]}}},"y25":{"tec":{"Barranquilla":{"Mecánico de Vehículos Automotores":72,"Cocinero Principal":67,"Auxiliar en Servicios Farmacéuticos":78,"Auxiliar Administrativo":86,"Cosmetología y Estética Integral":280,"Auxiliar en Clínica Veterinaria":92,"Auxiliar Contable y Financiero":48,"Refrigeración y Aires Acondicionados":83,"Inglés Conversacional":263,"Seguridad Ocupacional y Laboral":49,"Auxiliar en Enfermería":117,"Marketing Digital":72,"Mantenimiento y Reparación de Celulares":11,"Auxiliar Administrativo en Salud":118,"Estilista Integral en Peluquería":42,"Auxiliar en Salud Oral":29,"Asistente de Primera Infancia":40,"Peluquería y Estética Canina":40,"Patronaje, Cortador y Confección de Moda":116,"Auxiliar en Suministros y Almacén":39,"Investigador Criminalístico y Judicial":25,"Panadería y Repostería":103,"Cejas y Pestañas":4},"Riohacha":{"Auxiliar en Enfermería":280,"Cosmetología y Estética Integral":203,"Auxiliar en Servicios Farmacéuticos":145,"Asistente de Primera Infancia":118,"Auxiliar Administrativo":143,"Investigador Criminalístico y Judicial":96,"Estilista Integral en Peluquería":50,"Auxiliar en Clínica Veterinaria":38,"Sistemas Informáticos":53,"Inglés Conversacional":56,"Auxiliar de Cocina":21,"Seguridad Ocupacional y Laboral":54,"Auxiliar Contable y Financiero":65,"Panadería y Repostería":23,"Patronaje, Cortador y Confección de Moda":6,"Auxiliar en Salud Oral":30,"Diseño Gráfico":33,"Sastrería y Confección a la Medida":9,"Mecánica Diesel":27,"Mecánico de Vehículos Automotores":34,"Caja Registradora":28,"Auxiliar Administrativo en Salud":44,"Confección y Alta Costura":42,"Cocinero Principal":10},"Maicao":{"Cosmetología y Estética Integral":150,"Inglés Conversacional":62,"Auxiliar en Clínica Veterinaria":26,"Cocinero Principal":34,"Sistemas Informáticos":44,"Estilista Integral en Peluquería":5,"Auxiliar en Enfermería":122,"Sastrería y Confección a la Medida":61,"Panadería y Repostería":59,"Auxiliar Administrativo":79,"Mecánico de Vehículos Automotores":34,"Auxiliar Administrativo en Salud":40,"Asistente de Primera Infancia":47,"Auxiliar Contable y Financiero":46,"Diseño Gráfico":34,"Caja Registradora":21,"Auxiliar en Servicios Farmacéuticos":44,"Investigador Criminalístico y Judicial":24,"Seguridad Ocupacional y Laboral":16,"Auxiliar en Salud Oral":8,"Patronaje, Cortador y Confección de Moda":44,"Inglés Kids Conversacional":19}},"ec":{"Barranquilla":{},"Riohacha":{"Curso corto de Inglés Conversacional":8,"Curso corto de Estilista Integral en Peluquería":6,"Curso corto de Seguridad Ocupacional y Laboral":6,"Curso corto de Mecánica Diesel":3,"Curso corto de Mecánico de Vehículos Automotores":2},"Maicao":{}},"bach":{"Barranquilla":{"Validación":7,"Ciclo VI (11°)":37,"Ciclo IV (8° y 9°)":54,"Ciclo V (10°)":82,"Ciclo III (6° y 7°)":25},"Riohacha":{"Ciclo IV (8° y 9°)":36,"Ciclo V (10°)":31,"Ciclo III (6° y 7°)":16,"Bachillerato en 1 año":37,"Ciclo VI (11°)":7,"Sin ciclo especificado":3},"Maicao":{"Ciclo VI (11°)":16,"Ciclo IV (8° y 9°)":3,"Bachillerato en 1 año":41,"Ciclo III (6° y 7°)":3,"Ciclo V (10°)":1}}},"exc":{"Barranquilla":{},"Riohacha":{"D":1,"Sin programa":3},"Maicao":{"Sin programa":3}},"corte":{"Barranquilla":"2026-11-09","Riohacha":"2026-11-05","Maicao":"2026-10-30"},"tot":{"Barranquilla":{"eneoct":1969,"ec":27},"Riohacha":{"eneoct":1400,"ec":60},"Maicao":{"eneoct":696,"ec":18}},"obs":[["Técnicos: el año va 18% abajo.","De enero a octubre van 3.690 técnicos contra 4.501 de 2025: Barranquilla −6%, Riohacha −21% y Maicao −34%. La caída de Maicao no es de un solo programa: baja en casi todos."],["Cosmetología es el técnico estrella, pero se está enfriando.","Es el más vendido de las tres sedes juntas (501, 13,6% de los técnicos): primero en Maicao y segundo en Barranquilla (detrás de Inglés, 210) y en Riohacha (detrás de Enfermería). Aun así cayó en las tres: Barranquilla −28% (de 280 a 202), Riohacha −18% y Maicao −12%."],["Enfermería es la caída más grande.","Pasó de 519 a 367 (−29%). Sigue siendo el primero de Riohacha aunque bajó 38% (de 280 a 175); en Maicao bajó 31% y en Barranquilla 8%."],["Lo que crece está en oficios.","Panadería sube en las tres sedes (+31% en total, de 185 a 242). En Barranquilla crecen Refrigeración (+46%), Mecánico de vehículos (+46%) y Marketing Digital (+29%); en Riohacha, Caja registradora se duplicó (de 28 a 58). Refrigeración, Suministros y almacén y Peluquería canina solo se venden en Barranquilla: son candidatos para llevar a Riohacha o Maicao si hay docente y espacio."],["Maicao depende de muy pocos técnicos.","Sus cinco primeros suman 55,6% de los técnicos de la sede y Cosmetología sola es casi el 20%. En Barranquilla el top 5 pesa 44,0% y en Riohacha 46,6%."],["Los técnicos menos vendidos se repiten entre sedes.","Salud Oral está abajo en Barranquilla (29) y Riohacha (25), y Maicao dejó de venderlo. Primera Infancia cae en las tres (−12%, −47% y −62%) y Estilista bajó 31% en Barranquilla y no tiene matrículas en Maicao. En Maicao también caen a la mitad Investigador criminalístico, Mecánico y Sistemas."],["Cursos cortos: cada sede vende uno distinto.","Van 105 de enero a octubre. Riohacha vende sobre todo inyectología (50 de 60), Barranquilla casi solo Excel (25 de 27) y Maicao reparte entre Excel (7), facturación (6) e inyectología (5). Si inyectología funciona así en Riohacha, vale la pena probarla en Barranquilla, donde apenas tiene 2. En 2025 solo Riohacha registró cursos cortos (25, y eran otros cursos), así que la comparación con 2025 casi no aplica."],["Bachillerato: estable en Barranquilla y Riohacha, se cae en Maicao.","Van 368 contra 399 (−8%). Barranquilla sube 4% (214) gracias al ciclo IV (de 54 a 76). Riohacha queda igual (130), pero cambió la mezcla: «Bachillerato en 1 año» pasó de 37 a 2 y crecieron los ciclos III y IV. En Maicao (de 64 a 24) la caída es casi toda de «Bachillerato en 1 año» (de 41 a 6) y del ciclo VI (de 16 a 2)."],["Qué haría yo.","Primero, defender el top de técnicos: revisar con los asesores por qué bajan Cosmetología y Enfermería (precio, horarios o competencia). Segundo, empujar con pauta propia lo que crece (Panadería, Refrigeración, Mecánico, Marketing). Tercero, revisar qué pasó con «Bachillerato en 1 año» en Riohacha y Maicao: si se dejó de ofertar, ahí está casi toda la caída de bachillerato. Cuarto, con los técnicos menos vendidos decidir uno por uno: o una campaña puntual por horario, o abrir menos grupos para no sostener cohortes pequeñas."]],"checks":[["ok","<strong>Riohacha y Maicao cuadran con sus pestañas:</strong> 1.400 de enero a octubre en Riohacha (1.401 contando noviembre) y 696 en Maicao."],["ojo","<strong>Barranquilla sale del registro que subiste</strong> (corte al 9 de noviembre): 1.969 de enero a octubre. La pestaña de Barranquilla lee la hoja en vivo; si la hoja cambió después, puede diferir un poco y esa es la cifra oficial."],["ok","<strong>Cada grupo va por separado:</strong> el top de técnicos ya no incluye bachillerato ni cursos cortos. Mismas reglas en las tres sedes: sin filas con MATRICULADO = NO y sin duplicados (mismo documento, fecha y programa). Caja registradora no aparece en Barranquilla porque esa sede ya no la oferta, y en Riohacha y Maicao cuenta como técnico, igual que Panadería y Refrigeración."],["ojo","<strong>Maicao tiene dos nombres para el mismo programa:</strong> «Auxiliar Administración en Salud» (12) y «Auxiliar Administrativo en Salud» (13). Aquí se sumaron (25), y «Seguridad y Salud Ocupacional» (2) se sumó a Seguridad Ocupacional y Laboral. Conviene unificar los nombres en el Excel."],["ojo","<strong>Hay programas que reemplazaron a otros, y eso infla algunos «crecimientos».</strong> En Riohacha, Cocinero Principal sube 240% porque absorbió a Auxiliar de Cocina (21 en 2025): la familia cocina pasa de 31 a 34. Patronaje sube de 6 a 52 porque reemplazó a Confección y Alta Costura (42) y Sastrería (9): la familia confección baja de 57 a 52. En Maicao, Sastrería (61) más Patronaje (44) eran 105 y hoy Patronaje tiene 47, una caída real."],["ojo","<strong>Riohacha, octubre de 2025:</strong> el mes dice 49 pero el detalle por programa suma 48, y hay 1 matrícula de 2025 «Sin programa». Por eso el 2025 de Riohacha por programa da 1.738 y no 1.740. La diferencia no cambia ningún puesto."],["ok","<strong>Se compara lo mismo contra lo mismo:</strong> enero a octubre de 2026 contra enero a octubre de 2025. Noviembre va parcial y no entra a los rankings."],["ok","<strong>Ciclos unificados entre sedes:</strong> Barranquilla anota el grado y las otras dos el ciclo; se convirtió el grado a ciclo (6°–7° = III, 8°–9° = IV, 10° = V, 11° = VI). En Barranquilla 7 registros dicen solo «Bachillerato por ciclos», sin grado, y en 2025 hubo 7 de «Validación»: se muestran aparte."],["ojo","<strong>Cursos cortos de 2025:</strong> el archivo de Barranquilla no trae cursos cortos en 2025 y Maicao tampoco, por eso aparecen como «nuevo». En Riohacha los 25 de 2025 eran cursos cortos de otros programas (inglés, estilista, seguridad…), distintos a los de 2026."],["ok","<strong>Inglés Kids va aparte de Inglés Conversacional</strong>: son programas distintos (Maicao vende 20 de Kids)."]]};
 (function () {
   const $ = id => document.getElementById(id);
   if (!$('acc-programas')) return;
@@ -5186,38 +5201,38 @@ const HM = {"sedes":["Barranquilla","Riohacha","Maicao"],"m":{"Barranquilla":{"B
   const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const S = HM.sedes, MES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const MESL = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const NOM = { tec: 'técnicos', ec: 'cursos cortos', bach: 'bachillerato' }, FILA = { tec: 'Programa', ec: 'Curso', bach: 'Ciclo' };
   const fd = s => { const [y, m, d] = s.split('-').map(Number); return `${d} de ${MESL[m - 1]}`; };
-  const sg = v => (v > 0 ? '+' : v < 0 ? '−' : '') + n(Math.abs(v));
   const pct = (a, b) => b ? (a - b) / b * 100 : null;
   const pctTxt = v => v === null ? 'nuevo' : (v > 0 ? '+' : v < 0 ? '−' : '') + p1(Math.abs(v)) + '%';
-  /* conteos enero–octubre */
-  const V = {}, Y = {}, T = {}, T25 = {};
-  S.forEach(s => { V[s] = {}; Y[s] = HM.y25[s];
-    Object.entries(HM.m[s]).forEach(([p, a]) => { V[s][p] = a.slice(0, 10).reduce((x, y) => x + y, 0); });
-    T[s] = Object.values(V[s]).reduce((a, b) => a + b, 0); T25[s] = Object.values(Y[s]).reduce((a, b) => a + b, 0); });
-  const progs = [...new Set(S.flatMap(s => Object.keys(V[s]).filter(p => V[s][p] > 0)))];
-  const tot = p => S.reduce((a, s) => a + (V[s][p] || 0), 0), tot25 = p => S.reduce((a, s) => a + (Y[s][p] || 0), 0);
-  progs.sort((a, b) => tot(b) - tot(a) || a.localeCompare(b));
-  const TT = S.reduce((a, s) => a + T[s], 0), TT25 = S.reduce((a, s) => a + T25[s], 0);
-  const rank = {}; S.forEach(s => { rank[s] = {}; Object.keys(V[s]).filter(p => V[s][p] > 0).sort((a, b) => V[s][b] - V[s][a] || a.localeCompare(b)).forEach((p, i) => rank[s][p] = i + 1); });
-  const top5 = s => Object.keys(rank[s]).sort((a, b) => rank[s][a] - rank[s][b]).slice(0, 5);
 
-  $('hm-pills').innerHTML = S.map(s => `<span class="pill src">${s}: corte al ${fd(HM.corte[s])}</span>`).join('') + '<span class="pill stamp">Sin educación continuada</span>';
+  /* conteos enero–octubre por grupo */
+  const G = {};
+  ['tec', 'ec', 'bach'].forEach(c => {
+    const V = {}, Y = {}, T = {}, T25 = {}, rank = {};
+    S.forEach(s => { V[s] = {}; Y[s] = HM.y25[c][s] || {};
+      Object.entries(HM.cat[c][s] || {}).forEach(([p, a]) => { V[s][p] = a.slice(0, 10).reduce((x, y) => x + y, 0); });
+      T[s] = Object.values(V[s]).reduce((a, b) => a + b, 0); T25[s] = Object.values(Y[s]).reduce((a, b) => a + b, 0);
+      rank[s] = {}; Object.keys(V[s]).filter(p => V[s][p] > 0).sort((a, b) => V[s][b] - V[s][a] || a.localeCompare(b)).forEach((p, i) => rank[s][p] = i + 1); });
+    const tot = p => S.reduce((a, s) => a + (V[s][p] || 0), 0), tot25 = p => S.reduce((a, s) => a + (Y[s][p] || 0), 0);
+    const filas = [...new Set(S.flatMap(s => Object.keys(V[s]).filter(p => V[s][p] > 0)))].sort((a, b) => tot(b) - tot(a) || a.localeCompare(b));
+    G[c] = { V, Y, T, T25, rank, tot, tot25, filas, TT: S.reduce((a, s) => a + T[s], 0), TT25: S.reduce((a, s) => a + T25[s], 0) };
+  });
+
+  $('hm-pills').innerHTML = S.map(s => `<span class="pill src">${s}: corte al ${fd(HM.corte[s])}</span>`).join('');
   $('hm-cortes').textContent = S.map(s => `${fd(HM.corte[s])} en ${s}`).join(', ');
 
   /* 01 · KPIs */
   (function () {
-    const best = progs[0];
     const k = (num, lab, mix, col) => `<div class="stat"><div class="num"${col ? ` style="color:var(--${col})"` : ''}>${num}</div><div class="label">${lab}</div>${mix ? `<div class="mix">${mix}</div>` : ''}</div>`;
+    const t = G.tec, b = G.bach, c = G.ec, best = t.filas[0];
     $('hm-kpis').innerHTML =
-      k(n(TT), 'matrículas ene–oct 2026 en las tres sedes', `2025 mismo periodo: <b>${n(TT25)}</b> (${pctTxt(pct(TT, TT25))})`, TT < TT25 ? 'bad' : 'good') +
-      k(n(progs.length), 'programas con matrícula en 2026', `${progs.filter(p => S.every(s => V[s][p])).length} se venden en las tres sedes`) +
-      k(n(tot(best)), e(best), `${p1(tot(best) / TT * 100)}% de todo lo matriculado`, 'pine') +
-      (() => { const w = s => p1(top5(s).reduce((a, p) => a + V[s][p], 0) / T[s] * 100) + '%';
-        return k(w('Maicao'), 'de Maicao sale de sus 5 primeros programas', `Barranquilla <b>${w('Barranquilla')}</b> · Riohacha <b>${w('Riohacha')}</b>`, 'warn'); })();
+      k(n(t.TT), 'técnicos ene–oct 2026', `2025: <b>${n(t.TT25)}</b> (${pctTxt(pct(t.TT, t.TT25))})`, t.TT < t.TT25 ? 'bad' : 'good') +
+      k(n(b.TT), 'bachillerato ene–oct 2026', `2025: <b>${n(b.TT25)}</b> (${pctTxt(pct(b.TT, b.TT25))})`, b.TT < b.TT25 ? 'bad' : 'good') +
+      k(n(c.TT), 'cursos cortos ene–oct 2026', `2025: <b>${n(c.TT25)}</b> · no suman a la matrícula`, 'pine') +
+      k(n(t.tot(best)), e(best), `técnico más vendido: ${p1(t.tot(best) / t.TT * 100)}% de los técnicos`, 'pine');
   })();
 
-  /* tooltip */
   function tips(box, sel, html) {
     let tip = box.querySelector('.cp-tip'); if (!tip) { tip = document.createElement('div'); tip.className = 'cp-tip'; tip.hidden = true; box.appendChild(tip); }
     box.querySelectorAll(sel).forEach(el => {
@@ -5226,94 +5241,104 @@ const HM = {"sedes":["Barranquilla","Riohacha","Maicao"],"m":{"Barranquilla":{"B
       el.addEventListener('mouseleave', () => tip.hidden = true);
     });
   }
-  const azul = a => `rgba(79,195,247,${(0.07 + 0.78 * a).toFixed(3)})`;
+  const azul = a => `rgba(79,195,247,${(0.07 + 0.78 * Math.max(0, Math.min(1, a))).toFixed(3)})`;
   const diverge = v => v === null ? 'rgba(180,144,245,.30)' : v >= 0 ? `rgba(111,207,151,${(0.10 + 0.6 * Math.min(1, v / 60)).toFixed(3)})` : `rgba(239,100,97,${(0.10 + 0.6 * Math.min(1, -v / 60)).toFixed(3)})`;
 
-  /* 02 · mapa programa × sede */
-  let modo = 'pct';
+  /* 02 · mapa por sede */
+  const st = { c2: 'tec', c3: 'tec', modo: 'pct', sede: 'todas' };
   function mapaSedes() {
-    const maxP = Math.max(...S.flatMap(s => progs.map(p => (V[s][p] || 0) / T[s]))), maxN = Math.max(...S.flatMap(s => progs.map(p => V[s][p] || 0)));
-    const maxT = Math.max(...progs.map(tot));
-    let h = '<table class="hm"><thead><tr><th class="l">Programa</th>' + S.map(s => `<th>${s}</th>`).join('') + '<th>Tres sedes</th></tr></thead><tbody>';
-    progs.forEach(p => {
+    const g = G[st.c2], modo = st.modo, { V, Y, T, T25, rank, tot, tot25, filas, TT, TT25 } = g;
+    const maxP = Math.max(...S.flatMap(s => filas.map(p => T[s] ? (V[s][p] || 0) / T[s] : 0))), maxN = Math.max(1, ...S.flatMap(s => filas.map(p => V[s][p] || 0))), maxT = Math.max(1, ...filas.map(tot));
+    let h = `<table class="hm"><thead><tr><th class="l">${FILA[st.c2]}</th>` + S.map(s => `<th>${s}</th>`).join('') + '<th>Tres sedes</th></tr></thead><tbody>';
+    filas.forEach(p => {
       h += `<tr><td class="l">${e(p)}</td>`;
       S.forEach(s => {
         const v = V[s][p] || 0, a = Y[s][p] || 0;
         if (!v) { h += `<td class="cell na" data-p="${e(p)}" data-s="${s}">${a ? '— <small>tenía ' + a + '</small>' : '—'}</td>`; return; }
         const c = pct(v, a), bg = modo === 'pct' ? azul(v / T[s] / maxP) : modo === 'n' ? azul(v / maxN) : diverge(c);
-        const txt = modo === 'pct' ? p1(v / T[s] * 100) + '%' : modo === 'n' ? n(v) : pctTxt(c);
-        h += `<td class="cell" style="background:${bg}" data-p="${e(p)}" data-s="${s}">${txt}<small>#${rank[s][p]}</small></td>`;
+        h += `<td class="cell" style="background:${bg}" data-p="${e(p)}" data-s="${s}">${modo === 'pct' ? p1(v / T[s] * 100) + '%' : modo === 'n' ? n(v) : pctTxt(c)}<small>#${rank[s][p]}</small></td>`;
       });
-      const t = tot(p), c = pct(t, tot25(p));
-      const bg = modo === 'var' ? diverge(c) : azul(modo === 'pct' ? t / TT / (maxT / TT) : t / maxT);
+      const t = tot(p), c = pct(t, tot25(p)), bg = modo === 'var' ? diverge(c) : azul(t / maxT);
       h += `<td class="cell tot" style="background:${bg}" data-p="${e(p)}" data-s="todas">${modo === 'pct' ? p1(t / TT * 100) + '%' : modo === 'n' ? n(t) : pctTxt(c)}<small>${n(t)}</small></td></tr>`;
     });
-    h += '<tr><td class="l"><strong>Total</strong></td>' + S.map(s => `<td class="tot">${n(T[s])}<small>${pctTxt(pct(T[s], T25[s]))} vs. 2025</small></td>`).join('') + `<td class="tot">${n(TT)}<small>${pctTxt(pct(TT, TT25))} vs. 2025</small></td></tr></tbody></table>`;
+    h += '<tr><td class="l"><strong>Total</strong></td>' + S.map(s => `<td class="tot">${n(T[s])}<small>${T25[s] ? pctTxt(pct(T[s], T25[s])) + ' vs. 2025' : 'sin 2025'}</small></td>`).join('') +
+         `<td class="tot">${n(TT)}<small>${pctTxt(pct(TT, TT25))} vs. 2025</small></td></tr></tbody></table>`;
     const box = $('hm-sedes'); box.innerHTML = h;
     tips(box, 'td.cell', el => {
       const p = el.dataset.p, s = el.dataset.s;
-      if (s === 'todas') { const t = tot(p), a = tot25(p); return `<b>${e(p)} · tres sedes</b><span>2026: ${n(t)} (${p1(t / TT * 100)}% del total)</span><span>2025: ${n(a)} · ${pctTxt(pct(t, a))}</span><span>se vende en ${S.filter(x => V[x][p]).length} de 3 sedes</span>`; }
+      if (s === 'todas') { const t = tot(p), a = tot25(p); return `<b>${e(p)} · tres sedes</b><span>2026: ${n(t)} (${p1(t / TT * 100)}% de ${NOM[st.c2]})</span><span>2025: ${n(a)} · ${pctTxt(pct(t, a))}</span><span>se vende en ${S.filter(x => V[x][p]).length} de 3 sedes</span>`; }
       const v = V[s][p] || 0, a = Y[s][p] || 0;
-      return `<b>${e(p)} · ${s}</b><span>2026: ${n(v)}${v ? ` (${p1(v / T[s] * 100)}% de la sede, puesto ${rank[s][p]} de ${Object.keys(rank[s]).length})` : ''}</span><span>2025 ene–oct: ${n(a)} · ${pctTxt(v || a ? pct(v, a) : 0)}</span>`;
+      return `<b>${e(p)} · ${s}</b><span>2026: ${n(v)}${v ? ` (${p1(v / T[s] * 100)}% de ${NOM[st.c2]} de la sede, puesto ${rank[s][p]} de ${Object.keys(rank[s]).length})` : ''}</span><span>2025 ene–oct: ${n(a)} · ${pctTxt(v || a ? pct(v, a) : 0)}</span>`;
     });
     $('hm-esc').innerHTML = modo === 'var'
       ? `<span>−60% o menos</span><span class="bar" style="background:linear-gradient(90deg,rgba(239,100,97,.7),rgba(239,100,97,.1),rgba(111,207,151,.1),rgba(111,207,151,.7))"></span><span>+60% o más</span><span style="margin-left:14px"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(180,144,245,.3);margin-right:6px"></i>nuevo en 2026</span>`
       : `<span>menos</span><span class="bar" style="background:linear-gradient(90deg,${azul(0)},${azul(1)})"></span><span>más ${modo === 'pct' ? 'peso dentro de la sede' : 'matrículas'}</span>`;
   }
-  document.querySelectorAll('#hm-modo button').forEach(b => b.addEventListener('click', () => {
-    modo = b.dataset.v; document.querySelectorAll('#hm-modo button').forEach(x => x.classList.toggle('on', x === b)); mapaSedes(); }));
 
-  /* 03 · mapa programa × mes */
-  let sedeM = 'todas';
+  /* 03 · mapa por mes */
   function mapaMes() {
-    const ss = sedeM === 'todas' ? S : [sedeM];
-    const fila = p => Array.from({ length: 11 }, (_, i) => ss.reduce((a, s) => a + ((HM.m[s][p] || [])[i] || 0), 0));
-    const ps = progs.filter(p => ss.some(s => (HM.m[s][p] || []).some(x => x))).sort((a, b) => fila(b).reduce((x, y) => x + y, 0) - fila(a).reduce((x, y) => x + y, 0));
+    const c = st.c3, ss = st.sede === 'todas' ? S : [st.sede];
+    const fila = p => Array.from({ length: 11 }, (_, i) => ss.reduce((a, s) => a + (((HM.cat[c][s] || {})[p] || [])[i] || 0), 0));
+    const ps = G[c].filas.concat(Object.keys(HM.cat[c][S[0]] || {}).filter(x => !G[c].filas.includes(x)))
+      .filter(p => fila(p).some(x => x)).sort((a, b) => fila(b).slice(0, 10).reduce((x, y) => x + y, 0) - fila(a).slice(0, 10).reduce((x, y) => x + y, 0));
     const mx = Math.max(1, ...ps.flatMap(p => fila(p).slice(0, 10)));
-    let h = '<table class="hm mes"><thead><tr><th class="l">Programa</th>' + MES.slice(0, 11).map((m, i) => `<th class="${i === 10 ? 'parcial' : ''}">${m}${i === 10 ? '*' : ''}</th>`).join('') + '<th>Ene–oct</th></tr></thead><tbody>';
+    let h = `<table class="hm mes"><thead><tr><th class="l">${FILA[c]}</th>` + MES.slice(0, 11).map((m, i) => `<th class="${i === 10 ? 'parcial' : ''}">${m}${i === 10 ? '*' : ''}</th>`).join('') + '<th>Ene–oct</th></tr></thead><tbody>';
     const tm = Array(11).fill(0);
     ps.forEach(p => { const f = fila(p); f.forEach((v, i) => tm[i] += v);
-      h += `<tr><td class="l">${e(p)}</td>` + f.map((v, i) => `<td class="cell${v ? '' : ' na'}" style="${v ? `background:${azul(Math.min(1, v / mx))}` : ''}" data-p="${e(p)}" data-i="${i}">${v || '·'}</td>`).join('') +
+      h += `<tr><td class="l">${e(p)}</td>` + f.map((v, i) => `<td class="cell${v ? '' : ' na'}" style="${v ? `background:${azul(v / mx)}` : ''}" data-p="${e(p)}" data-i="${i}">${v || '·'}</td>`).join('') +
            `<td class="tot">${n(f.slice(0, 10).reduce((a, b) => a + b, 0))}</td></tr>`; });
     h += '<tr><td class="l"><strong>Total</strong></td>' + tm.map(v => `<td class="tot">${n(v)}</td>`).join('') + `<td class="tot">${n(tm.slice(0, 10).reduce((a, b) => a + b, 0))}</td></tr></tbody></table>`;
-    const box = $('hm-mes'); box.innerHTML = h;
+    const box = $('hm-mes'); box.innerHTML = ps.length ? h : '<p class="sub-note">Sin matrículas en esta vista.</p>';
     tips(box, 'td.cell', el => { const p = el.dataset.p, i = +el.dataset.i;
-      return `<b>${e(p)} · ${MESL[i]}${i === 10 ? ' (parcial)' : ''}</b>` + ss.map(s => `<span>${s}: ${n((HM.m[s][p] || [])[i] || 0)}</span>`).join(''); });
+      return `<b>${e(p)} · ${MESL[i]}${i === 10 ? ' (parcial)' : ''}</b>` + ss.map(s => `<span>${s}: ${n((((HM.cat[c][s] || {})[p]) || [])[i] || 0)}</span>`).join(''); });
   }
+
+  /* controles */
+  document.querySelectorAll('#acc-programas .hm-cat').forEach((seg, i) => seg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    seg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    if (i === 0) { st.c2 = b.dataset.v; mapaSedes(); } else { st.c3 = b.dataset.v; mapaMes(); }
+  })));
+  document.querySelectorAll('#hm-modo button').forEach(b => b.addEventListener('click', () => {
+    st.modo = b.dataset.v; document.querySelectorAll('#hm-modo button').forEach(x => x.classList.toggle('on', x === b)); mapaSedes(); }));
   document.querySelectorAll('#hm-sede button').forEach(b => b.addEventListener('click', () => {
-    sedeM = b.dataset.v; document.querySelectorAll('#hm-sede button').forEach(x => x.classList.toggle('on', x === b)); mapaMes(); }));
+    st.sede = b.dataset.v; document.querySelectorAll('#hm-sede button').forEach(x => x.classList.toggle('on', x === b)); mapaMes(); }));
 
-  /* 04 · top y bottom */
-  (function () {
-    const flecha = (v, a) => { const c = pct(v, a); return c === null ? '<span style="color:#B490F5">nuevo</span>' : c === 0 ? '<span style="color:var(--ink-soft)">= 0,0%</span>' : `<span style="color:var(--${c > 0 ? 'good' : 'bad'})">${c > 0 ? '▲' : '▼'} ${pctTxt(c)}</span>`; };
-    const tabla = (rows, tt, get, get25) => '<table class="matriculas-table"><thead><tr><th>#</th><th class="l" style="text-align:left">Programa</th><th>2026</th><th>%</th><th>vs. 2025</th></tr></thead><tbody>' +
-      rows.map(([p, r]) => `<tr><td>${r}</td><td style="text-align:left">${e(p)}</td><td>${n(get(p))}</td><td>${p1(get(p) / tt * 100)}%</td><td>${flecha(get(p), get25(p))}</td></tr>`).join('') + '</tbody></table>';
-    const bloque = (titulo, tt, list, get, get25, extra) => {
-      const orden = list.slice().sort((a, b) => get(b) - get(a) || a.localeCompare(b));
-      const R = orden.map((p, i) => [p, i + 1]), tp = R.slice(0, 5), bt = R.filter(([p]) => get(p) >= 3).slice(-5).reverse();
-      const sueltos = orden.filter(p => get(p) > 0 && get(p) < 3);
-      return `<div class="card"><h4>${titulo}</h4><div class="detail-title">Top 5 más vendidos</div>${tabla(tp, tt, get, get25)}` +
-             `<div class="detail-title alt" style="margin-top:14px">Los 5 menos vendidos</div>${tabla(bt, tt, get, get25)}` +
-             (sueltos.length ? `<p class="sub-note">Casos sueltos que no se cuentan como programa ofertado: ${sueltos.map(p => `${e(p)} (${get(p)})`).join(', ')}.</p>` : '') + (extra || '') + '</div>';
+  /* 04–06 · rankings */
+  const flecha = (v, a) => { const c = pct(v, a); return c === null ? '<span style="color:#B490F5">nuevo</span>' : c === 0 ? '<span style="color:var(--ink-soft)">= 0,0%</span>' : `<span style="color:var(--${c > 0 ? 'good' : 'bad'})">${c > 0 ? '▲' : '▼'} ${pctTxt(c)}</span>`; };
+  const tabla = (rows, tt, get, get25, col) => `<table class="matriculas-table"><thead><tr><th>#</th><th style="text-align:left">${col}</th><th>2026</th><th>%</th><th>vs. 2025</th></tr></thead><tbody>` +
+    rows.map(([p, r]) => `<tr><td>${r}</td><td style="text-align:left">${e(p)}</td><td>${n(get(p))}</td><td>${tt ? p1(get(p) / tt * 100) : '0,0'}%</td><td>${flecha(get(p), get25(p))}</td></tr>`).join('') + '</tbody></table>';
+  function tarjetas(c, el, modoTop) {
+    const g = G[c];
+    const una = (titulo, tt, list, get, get25, extra) => {
+      const orden = list.filter(p => get(p) > 0).sort((a, b) => get(b) - get(a) || a.localeCompare(b)), R = orden.map((p, i) => [p, i + 1]);
+      let cuerpo;
+      if (modoTop) {
+        const bt = R.filter(([p]) => get(p) >= 3).slice(-5).reverse(), sueltos = orden.filter(p => get(p) < 3);
+        cuerpo = `<div class="detail-title">Top 5 más vendidos</div>${tabla(R.slice(0, 5), tt, get, get25, FILA[c])}` +
+                 `<div class="detail-title alt" style="margin-top:14px">Los 5 menos vendidos</div>${tabla(bt, tt, get, get25, FILA[c])}` +
+                 (sueltos.length ? `<p class="sub-note">Casos sueltos que no se cuentan como programa ofertado: ${sueltos.map(p => `${e(p)} (${get(p)})`).join(', ')}.</p>` : '');
+      } else cuerpo = R.length ? tabla(R, tt, get, get25, FILA[c]) : '<p class="sub-note">Sin matrículas de enero a octubre.</p>';
+      return `<div class="card"><h4>${titulo} <span class="td-cont">${n(tt)} ${NOM[c]}</span></h4>${cuerpo}${extra || ''}</div>`;
     };
-    let h = bloque('Tres sedes juntas', TT, progs, tot, tot25, '<p class="sub-note">Ojo: en el consolidado, un programa que solo se vende en una sede queda abajo aunque allá le vaya bien.</p>');
+    let h = una('Tres sedes juntas', g.TT, g.filas, g.tot, g.tot25, c === 'tec' ? '<p class="sub-note">Ojo: en el consolidado, un programa que solo se vende en una sede queda abajo aunque allá le vaya bien.</p>' : '');
     S.forEach(s => {
-      const perd = Object.keys(Y[s]).filter(p => Y[s][p] && !V[s][p]).sort((a, b) => Y[s][b] - Y[s][a]);
-      h += bloque(s, T[s], Object.keys(V[s]).filter(p => V[s][p]), p => V[s][p] || 0, p => Y[s][p] || 0,
-        perd.length ? `<p class="sub-note">Se vendían en 2025 y en 2026 no tienen matrículas: ${perd.map(p => `${e(p)} (${Y[s][p]} en 2025)`).join(', ')}.</p>` : '');
+      const perd = Object.keys(g.Y[s]).filter(p => g.Y[s][p] && !g.V[s][p]).sort((a, b) => g.Y[s][b] - g.Y[s][a]);
+      h += una(s, g.T[s], Object.keys(g.V[s]), p => g.V[s][p] || 0, p => g.Y[s][p] || 0,
+        perd.length ? `<p class="sub-note">En 2025 había y en 2026 no: ${perd.map(p => `${e(p)} (${g.Y[s][p]})`).join(', ')}.</p>` : '');
     });
-    $('hm-top').innerHTML = h;
-  })();
+    $(el).innerHTML = h;
+  }
+  tarjetas('tec', 'hm-top-tec', true); tarjetas('ec', 'hm-top-ec', false); tarjetas('bach', 'hm-top-bach', false);
 
-  /* 05 · lectura */
+  /* 07 · lectura */
   $('hm-obs').innerHTML = HM.obs.map(([t, b]) => `<li><strong style="color:var(--ink)">${t}</strong> ${b}</li>`).join('');
 
-  /* 06 · coherencia: se recalcula en el navegador */
+  /* 08 · coherencia: se recalcula en el navegador */
   (function () {
     const L = [];
     S.forEach(s => {
-      const exc = Object.values(HM.exc[s]).reduce((a, b) => a + b, 0), eo = HM.tot[s].eneoct;
-      L.push([T[s] + exc === eo ? 'ok' : 'ojo', `<strong>${s}:</strong> los programas suman ${n(T[s])}${exc ? ` + ${exc} filas sin programa válido (${Object.entries(HM.exc[s]).map(([k, v]) => `«${k}» ${v}`).join(', ')}) que no entran al ranking` : ''} = ${n(eo)}, el total de enero a octubre del listado.`]);
+      const exc = Object.values(HM.exc[s] || {}).reduce((a, b) => a + b, 0), eo = HM.tot[s].eneoct, tb = G.tec.T[s] + G.bach.T[s];
+      L.push([tb + exc === eo ? 'ok' : 'ojo', `<strong>${s}:</strong> técnicos (${n(G.tec.T[s])}) + bachillerato (${n(G.bach.T[s])})${exc ? ` + ${exc} filas sin programa válido (${Object.entries(HM.exc[s]).map(([k, v]) => `«${k}» ${v}`).join(', ')}) que no entran al ranking` : ''} = ${n(tb + exc)}; el listado da ${n(eo)} de enero a octubre. Cursos cortos aparte: ${n(G.ec.T[s])} ${G.ec.T[s] === HM.tot[s].ec ? '(cuadra)' : '(no cuadra con ' + HM.tot[s].ec + ')'}.`]);
     });
     HM.checks.forEach(c => L.push(c));
     $('hm-chk').innerHTML = L.map(([c, t]) => `<li class="${c}">${t}</li>`).join('');
