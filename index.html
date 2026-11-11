@@ -5324,8 +5324,12 @@ const HM = {"sedes":["Barranquilla","Riohacha","Maicao"],"cat":{"tec":{"Barranqu
     rows.map(([p, r]) => `<tr><td>${r}</td><td style="text-align:left">${e(p)}</td><td>${n(get(p))}</td><td>${tt ? p1(get(p) / tt * 100) : '0,0'}%</td><td>${flecha(get(p), get25(p))}</td></tr>`).join('') + '</tbody></table>';
   function tarjetas(c, el, modoTop) {
     const g = G[c];
+    /* Barranquilla pidió dejar Panadería y Refrigeración fuera del top de técnicos (también del consolidado, que incluye a Barranquilla) */
+    const FUERA = c === 'tec' && modoTop ? ['Panadería y Repostería', 'Refrigeración y Aires Acondicionados'] : [];
     const una = (titulo, tt, list, get, get25, extra) => {
-      const orden = list.filter(p => get(p) > 0).sort((a, b) => get(b) - get(a) || a.localeCompare(b)), R = orden.map((p, i) => [p, i + 1]);
+      const quita = (titulo === 'Barranquilla' || titulo === 'Tres sedes juntas') ? FUERA.filter(p => get(p) > 0) : [];
+      if (quita.length) extra = `<p class="sub-note">Fuera del ranking por indicación de la sede: ${quita.map(p => `${e(p)} (${n(get(p))})`).join(' y ')}. Siguen contando en la matrícula y en los mapas de calor.</p>` + (extra || '');
+      const orden = list.filter(p => get(p) > 0 && !quita.includes(p)).sort((a, b) => get(b) - get(a) || a.localeCompare(b)), R = orden.map((p, i) => [p, i + 1]);
       let cuerpo;
       if (modoTop) {
         const bt = R.filter(([p]) => get(p) >= 3).slice(-5).reverse(), sueltos = orden.filter(p => get(p) < 3);
